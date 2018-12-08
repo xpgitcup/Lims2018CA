@@ -24,4 +24,12 @@ class SystemAttribute {
         return "${name}(${subAttribues?.size()})"
     }
 
+    String[] roles() {
+        def roleList = []
+        subAttribues.each { e->
+            roleList.add(e.name)
+        }
+        return roleList
+    }
+
 }

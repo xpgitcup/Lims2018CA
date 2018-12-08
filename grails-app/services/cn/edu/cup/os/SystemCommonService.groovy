@@ -67,7 +67,7 @@ class SystemCommonService {
             if (roles) {
                 systemMenuList = q.list(params) {
                     isNull('upMenuItem')
-                    'in'('roleAttribute', roles)
+                    'in'('menuContext', roles)      // 只要菜单的名字在其中就可以 20181208
                     order('menuOrder')
                 }
             }

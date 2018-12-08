@@ -18,7 +18,6 @@ class InitService {
     def dataSource
     def systemMenuService
     def commonService
-    def operation4DictionaryService
 
     /**
      * 初始化代码__开发环境下的初始化代码
@@ -27,15 +26,15 @@ class InitService {
         println "这是开发环境..."
         println(grailsApplication.metadata.getApplicationName())
         processConfigFile(servletContext)
-        // 初始化用户--
-        initSystemUsers()
         // 初始化底层管理--控制器列表
         def domains = grailsApplication.controllerClasses
         initSystemMenuItems(domains)
         //属性数据
-        fileSampleAttributes()
+        fillBasicSystemAttributes()
         //程序标题
         fillSampleTitle()
+        // 初始化用户--
+        initSystemUsers()
     }
 
     def fillSampleTitle() {
@@ -160,9 +159,10 @@ class InitService {
      **/
     def initSystemUsers() {
         if (SystemUser.count() < 1) {
-            newUser("李晓平", "3764", '底层管理 系统维护 公共服务')
-            newUser("宫敬", "2156", '底层管理 系统维护 公共服务')
-            newUser("吴海浩", "3181", '底层管理 系统维护 公共服务')
+            def attribute = SystemAttribute.findByName("系统操作权限")
+            newUser("李晓平", "3764", attribute)
+            newUser("宫敬", "2156", attribute)
+            newUser("吴海浩", "3181", attribute)
         }
     }
 
@@ -171,7 +171,7 @@ class InitService {
         u5.save(true)
     }
 
-    private void fileSampleAttributes() {
+    void fillBasicSystemAttributes() {
         if (SystemAttribute.count() < 1) {
             println("测试性的属性...")
             def attributeA = new SystemAttribute(name: "系统操作权限")

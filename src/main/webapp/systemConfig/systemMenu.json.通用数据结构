@@ -53,6 +53,36 @@
     ]
   },
   {
+    "menuContext": "基础数据",
+    "menuAction": "#",
+    "menuDescription": "维护数据字典+物理单位",
+    "roleAttribute": "系统维护",
+    "menuOrder": 0,
+    "menuItems": [
+      {
+        "menuContext": "单位维护",
+        "menuAction": "Operation4Physical/index",
+        "menuDescription": "物理单位维护",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      },
+      {
+        "menuContext": "数据字典A维护",
+        "menuAction": "operation4Data/index",
+        "menuDescription": "维护数据字典（新）",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      },
+      {
+        "menuContext": "用户类库维护",
+        "menuAction": "operation4UserDefinedFunction/index",
+        "menuDescription": "维护用户自定义功能",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      }
+    ]
+  },
+  {
     "menuContext": "教师服务",
     "menuAction": "#",
     "menuDescription": "便于教师检查进度",

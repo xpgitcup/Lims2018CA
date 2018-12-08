@@ -4,7 +4,7 @@ class SystemUser {
     
     String  userName
     String  password
-    String  roleAttribute = "公共服务"
+    SystemAttribute roleAttribute
     String  appendAttribute = ""
 
     static mapping = {
@@ -38,7 +38,7 @@ class SystemUser {
 
     //------------------------------------------------------------------------------------------------------------------
     def userRoles() {
-        return roleAttribute?.split()
+        return roleAttribute.roles()
     }
 
     def hasRole (roleName) {
