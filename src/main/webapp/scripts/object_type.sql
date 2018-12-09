@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-12-08 17:23:45
+Date: 2018-12-09 18:45:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `object_type` (
   `class` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_gs42fxor6ekxo4qt4pspavjb` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of object_type
@@ -49,3 +49,4 @@ INSERT INTO `object_type` VALUES ('16', '0', '国家科技重大专项', 'cn.edu
 INSERT INTO `object_type` VALUES ('17', '0', '国家自然基金', 'cn.edu.cup.lims.ProjectType');
 INSERT INTO `object_type` VALUES ('18', '0', '省自然基金', 'cn.edu.cup.lims.ProjectType');
 INSERT INTO `object_type` VALUES ('19', '0', '横向项目', 'cn.edu.cup.lims.ProjectType');
+INSERT INTO `object_type` VALUES ('20', '0', '硕士', 'cn.edu.cup.lims.StudentType');

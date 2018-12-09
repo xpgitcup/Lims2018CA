@@ -37,6 +37,36 @@
     ]
   },
   {
+    "menuContext": "基础数据",
+    "menuAction": "#",
+    "menuDescription": "维护基础数据",
+    "roleAttribute": "基础数据服务",
+    "menuOrder": 0,
+    "menuItems": [
+      {
+        "menuContext": "基础数据",
+        "menuAction": "Operation4BasicData/index",
+        "menuDescription": "维护教师、学生、项目数据",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      },
+      {
+        "menuContext": "学生数据",
+        "menuAction": "Operation4Student/index",
+        "menuDescription": "维护学生数据",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      },
+      {
+        "menuContext": "项目数据",
+        "menuAction": "Operation4Project/index",
+        "menuDescription": "维护项目数据",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      }
+    ]
+  },
+  {
     "menuContext": "公共服务",
     "menuAction": "#",
     "menuDescription": "对所有用户开放的功能",
