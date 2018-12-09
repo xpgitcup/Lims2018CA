@@ -33,6 +33,7 @@
     <ul>
         <li><a>当前</a></li>
         <li><a id="currentTitle"></a></li>
+        <li><a id="createItem" href="javascript: createItem()">创建</a></li>
         <li>
             <a id="currentTemplate" href="#">下载模板</a>
         </li>

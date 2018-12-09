@@ -11,6 +11,39 @@ $(function () {
 
 });
 
+function createItem() {
+    var title = $("#currentTitle").html()
+    console.info("创建..." + title)
+    switch (title) {
+        case "教师":
+            ajaxRun("operation4BasicData/create?key=teacher", 0, "list" + title + "Div");
+            break
+        case "学生":
+            ajaxRun("operation4BasicData/create?key=student", 0, "list" + title + "Div");
+            break
+        case  "项目":
+            ajaxRun("operation4BasicData/create?key=project", 0, "list" + title + "Div");
+            break
+        case "教师职称":
+            ajaxRun("operation4BasicData/create?key=teacherTitle", 0, "list" + title + "Div");
+            break
+        case "学生类别":
+            ajaxRun("operation4BasicData/create?key=studentType", 0, "list" + title + "Div");
+            break
+        case "项目类型":
+            ajaxRun("operation4BasicData/create?key=projectType", 0, "list" + title + "Div");
+            break
+    }
+}
+
+function getCurrentKey() {
+    var tab = operation4BasicDataDiv.tabs('getSelected');
+    var index = operation4BasicDataDiv.tabs('getTabIndex', tab);
+    var currentKey = tabList4BasicData[index]
+    return currentKey;
+}
+
+
 function showCurrent(title) {
     $("#currentTitle").html(title);
     switch (title) {

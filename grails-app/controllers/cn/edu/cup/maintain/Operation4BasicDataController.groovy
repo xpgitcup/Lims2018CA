@@ -6,6 +6,9 @@ import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.TeacherTitle
 import grails.converters.JSON
+import grails.validation.ValidationException
+
+import static org.springframework.http.HttpStatus.CREATED
 
 class Operation4BasicDataController {
 
@@ -14,6 +17,76 @@ class Operation4BasicDataController {
     def excelByJxlService
     def teacherService
     def studentService
+    def projectService
+
+    def saveProject(Project newInstance) {
+        if (newInstance == null) {
+            notFound()
+            return
+        }
+
+        try {
+            projectService.save(newInstance)
+        } catch (ValidationException e) {
+            flash.message = newInstance.errors
+        }
+
+        redirect(action: "index")
+    }
+
+    def saveTeacher(Teacher newInstance) {
+        if (newInstance == null) {
+            notFound()
+            return
+        }
+
+        try {
+            teacherService.save(newInstance)
+        } catch (ValidationException e) {
+            flash.message = newInstance.errors
+        }
+
+        redirect(action: "index")
+    }
+
+    def create() {
+        println("createDataItem ${params}")
+        // 缺省的情况
+        def newInstance
+        def view
+        switch (params.key) {
+            case "teacher":
+                newInstance = new Teacher(params)
+                view = "createTeacher"
+                break;
+            case "student":
+                newInstance = new Student(params)
+                view = "createStudent"
+                break;
+            case "project":
+                newInstance = new Project(params)
+                view = "createProject"
+                break;
+            case "teacherTitle":
+                newInstance = new TeacherTitle(params)
+                view = "createTeacherTitle"
+                break;
+            case "studentType":
+                newInstance = new cn.edu.cup.lims.StudentType(params)
+                view = "createStudentType"
+                break;
+            case "projectType":
+                newInstance = new cn.edu.cup.lims.ProjectType(params)
+                view = "createProjectType"
+                break;
+        }
+
+        if (request.xhr) {
+            render(template: view, model: [newInstance: newInstance])
+        } else {
+            respond dataItem
+        }
+    }
 
     def importFromFile() {
         println("导入...${params}")
@@ -45,6 +118,13 @@ class Operation4BasicDataController {
                                 r = s.importFromDataSheet(e)
                                 if (r.result.empty) {
                                     studentService.save(s)
+                                }
+                                break
+                            case "project":
+                                def p = new Project()
+                                r = p.importFromDataSheet(e)
+                                if (r.result.empty) {
+                                    projectService.save(p)
                                 }
                                 break
                         }

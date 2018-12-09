@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'teacherTitle.label', default: 'TeacherTitle')}" />
+        <g:set var="entityName" value="${message(code: 'project.label', default: 'Project')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -12,7 +12,20 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${objectList}" />
+            <table>
+                <thead>
+                <th>名称</th>
+                <th>类型</th>
+                </thead>
+                <tbody>
+                <g:each in="${objectList}" var="item" status="i">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                        <td>${item.name}</td>
+                        <td>${item.projectType}</td>
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>
