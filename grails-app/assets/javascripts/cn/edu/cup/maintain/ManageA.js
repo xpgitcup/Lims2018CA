@@ -1,13 +1,13 @@
 var operation4ManageADiv;
-var tabList4BasicData = ["项目列表", "参与团队", "所带学生"];
-var idList4BasicData = ["currentTeacher", "currentStudent", "currentProject"];
+var tabList4ManageA = ["项目列表", "参与团队", "所带学生"];
+var idList4ManageA = ["currentTeacher", "currentStudent", "currentProject"];
 
 $(function () {
     console.info("教师登录 项目、团队 信息维护...");
 
     operation4ManageADiv = $("#operation4ManageADiv");
 
-    tabPagesManagerA("operation4ManageADiv", tabList4BasicData, idList4BasicData, loadBasicData, countBasicData);
+    tabPagesManagerA("operation4ManageADiv", tabList4ManageA, idList4ManageA, loadManageA, countManageA);
 
 });
 
@@ -37,9 +37,9 @@ function createItem() {
 }
 
 function getCurrentKey() {
-    var tab = operation4BasicDataDiv.tabs('getSelected');
-    var index = operation4BasicDataDiv.tabs('getTabIndex', tab);
-    var currentKey = tabList4BasicData[index]
+    var tab = operation4ManageADiv.tabs('getSelected');
+    var index = operation4ManageADiv.tabs('getTabIndex', tab);
+    var currentKey = tabList4ManageA[index]
     return currentKey;
 }
 
@@ -74,7 +74,7 @@ function showCurrent(title) {
     }
 }
 
-function countBasicData(title) {
+function countManageA(title) {
     console.info("统计基础数据..." + title);
 
     showCurrent(title);
@@ -82,19 +82,19 @@ function countBasicData(title) {
     var total = 0;
     switch (title) {
         case "项目列表":
-            total = ajaxCalculate("operation4ManageB/count?key=project");
+            total = ajaxCalculate("operation4ManageA/count?key=project");
             break
         case "参与团队":
-            total = ajaxCalculate("operation4ManageB/count?key=team");
+            total = ajaxCalculate("operation4ManageA/count?key=team");
             break
         case "所带学生":
-            total = ajaxCalculate("operation4ManageB/count?key=student");
+            total = ajaxCalculate("operation4ManageA/count?key=student");
             break
     }
     return total;
 }
 
-function loadBasicData(title, page, pageSize) {
+function loadManageA(title, page, pageSize) {
     console.info("调入基础数据..." + title);
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
     console.info(params)

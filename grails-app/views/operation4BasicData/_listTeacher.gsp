@@ -24,7 +24,17 @@
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td>${item.name}</td>
+                <td>
+                    ${item.name}
+                    <g:if test="${cn.edu.cup.system.SystemUser.countByUserName(item.code)>0}">
+                        在职
+                        <a href="operation4BasicData/removeFromSystemUser/?key=teacher&id=${item.id}">退休</a>
+                    </g:if>
+                    <g:else>
+                        退休
+                        <a href="operation4BasicData/addToSystemUser/?key=teacher&id=${item.id}">入职</a>
+                    </g:else>
+                </td>
                 <td>${item.code}</td>
                 <td>${item.title}</td>
             </tr>

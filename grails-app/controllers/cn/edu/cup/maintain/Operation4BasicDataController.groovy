@@ -5,29 +5,25 @@ import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.TeacherTitle
-import cn.edu.cup.system.SystemAttribute
-import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
 import grails.validation.ValidationException
-
-import static org.springframework.http.HttpStatus.CREATED
 
 class Operation4BasicDataController {
 
     def commonService
     def commonDataService
+    def systemCommonService
     def excelByJxlService
     def teacherService
     def studentService
     def projectService
-    def systemUserService
 
     def removeFromSystemUserGrade() {
         def k = 0
         def grade = params.grade
         def students = Student.findAllByGradeName(grade)
         students.each { e ->
-            if (removeFromUser(e)) {
+            if (systemCommonService.removePersonFromUser(e)) {
                 k++
             }
         }
@@ -41,30 +37,29 @@ class Operation4BasicDataController {
                 def student = studentService.get(params.id)
                 if (!student) {
                     flash.message = "${params.id} -- 找不到学生。"
+                } else {
+                    systemCommonService.removePersonFromUser(student)
                 }
-                removeFromUser(student)
+                break
+            case "teacher":
+                def teacher = teacherService.get(params.id)
+                if (!teacher) {
+                    flash.message = "${params.id} -- 找不到。"
+                } else {
+                    systemCommonService.removePersonFromUser(teacher)
+                }
                 break
         }
         redirect(action: "index")
     }
 
-    private boolean removeFromUser(student) {
-        def u = SystemUser.findByUserName(student.code)
-        if (u) {
-            systemUserService.delete(u.id)
-            return true
-        } else {
-            flash.message = "${student} 不在."
-            return false
-        }
-    }
 
     def addToSystemUserGrade() {
         def k = 0
         def grade = params.grade
         def students = Student.findAllByGradeName(grade)
         students.each { e ->
-            if (addStudentToUser(e)) {
+            if (systemCommonService.addPersonToUser(e)) {
                 k++
             }
         }
@@ -79,27 +74,19 @@ class Operation4BasicDataController {
                 if (!student) {
                     flash.message = "${params.id} -- 找不到学生。"
                 }
-                addStudentToUser(student)
+                systemCommonService.addPersonToUser(student)
                 break
+            case "teacher":
+                def teacher = teacherService.get(params.id)
+                if (!teacher) {
+                    flash.message = "${params.id} -- 找不到。"
+                }
+                systemCommonService.addPersonToUser(teacher)
+                break;
         }
         redirect(action: "index")
     }
 
-    private boolean addStudentToUser(student) {
-        def role = SystemAttribute.findByName("系统操作权限")
-        if (SystemUser.countByUserName(student.code) < 1) {
-            def u = new SystemUser(
-                    userName: student.code,
-                    password: "12345678",
-                    roleAttribute: role,
-                    appendAttribute: "student=${student.id}"
-            )
-            systemUserService.save(u)
-            return true
-        } else {
-            return false
-        }
-    }
 
     def saveProject(Project newInstance) {
         if (newInstance == null) {

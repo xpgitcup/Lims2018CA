@@ -1,5 +1,7 @@
 package cn.edu.cup.os
 
+import cn.edu.cup.lims.Student
+import cn.edu.cup.system.SystemAttribute
 import cn.edu.cup.system.SystemLog
 import cn.edu.cup.system.SystemMenu
 import cn.edu.cup.system.SystemUser
@@ -7,6 +9,50 @@ import grails.gorm.transactions.Transactional
 
 @Transactional
 class SystemCommonService {
+
+    def systemUserService
+
+    def getRealName(SystemUser systemUser) {
+        def app = systemUser.appendAttribute
+        def key = app.split("=")
+        def user = null
+        switch (key[0].toLowerCase()) {
+            case "student":
+                user = Student.get(Integer.parseInt(key[1]))
+                break
+            case "teacher":
+                user = cn.edu.cup.lims.Teacher.get(Integer.parseInt(key[1]))
+                break
+        }
+        return user
+    }
+
+    boolean removePersonFromUser(person) {
+        def u = SystemUser.findByUserName(person.code)
+        if (u) {
+            systemUserService.delete(u.id)
+            return true
+        } else {
+            return false
+        }
+    }
+
+    boolean addPersonToUser(person) {
+        def role = SystemAttribute.findByName("系统操作权限")
+        if (SystemUser.countByUserName(person.code) < 1) {
+            def app = person.class.simpleName
+            def u = new SystemUser(
+                    userName: person.code,
+                    password: "12345678",
+                    roleAttribute: role,
+                    appendAttribute: "${app}=${person.id}"
+            )
+            systemUserService.save(u)
+            return true
+        } else {
+            return false
+        }
+    }
 
     @Transactional(readOnly = false)
     def deleteBefore(aDate) {
@@ -25,7 +71,7 @@ class SystemCommonService {
         log.userName = session.systemUser.userName;
         log.hostIP = request.getRemoteAddr();
         def pps = "${ps}"
-        if (pps.length()>100) {
+        if (pps.length() > 100) {
             log.doing = pps.substring(0, 100)
         } else {
             log.doing = pps

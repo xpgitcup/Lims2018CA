@@ -11,10 +11,6 @@ class Teacher extends Personnel implements DataExchangeInterface {
     static constraints = {
     }
 
-    String toString() {
-        return super.toString() + ",${title}"
-    }
-
     @Override
     String[] dataSheetTitles() {
         def r = ["姓名", "工号", "职称"]
