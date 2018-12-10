@@ -1,29 +1,34 @@
 <!--g:form resource="${this.newInstance}" method="POST"-->
-<g:form controller="operation4BasicData" action="saveProject" method="POST">
+<g:form controller="operation4ManageA" action="saveTeam" method="POST">
     <fieldset class="form">
         <!--f:all bean="newInstance"/-->
         <table>
             <tr>
-                <td>名称</td>
+                <td>团队名称</td>
                 <td>
                     <g:hiddenField name="id" value="${this.newInstance.id}"/>
                     <g:textField name="name"/>
                 </td>
             </tr>
             <tr>
-                <td>甲方公司</td>
                 <td>
-                    <g:textField name="companyA"/>
+                    项目
+                </td>
+                <td>
+                    <g:select name="project" from="${cn.edu.cup.lims.Project.list()}"
+                              noSelection="['': '-Choose-']"
+                              value="${params.project}"
+                              optionKey="id">
+                    </g:select>
                 </td>
             </tr>
             <tr>
-                <td>类型</td>
+                <td>指导教师</td>
                 <td>
-                    <g:select name="projectType" from="${cn.edu.cup.lims.ProjectType.list()}"
+                    <g:select name="director" from="${cn.edu.cup.lims.Teacher.list()}"
+                              noSelection="['': '-Choose-']"
                               optionKey="id"
-                              noSelection="['': '-Choose-']">
-
-                    </g:select>
+                              value="${params.director}"/>
                 </td>
             </tr>
         </table>

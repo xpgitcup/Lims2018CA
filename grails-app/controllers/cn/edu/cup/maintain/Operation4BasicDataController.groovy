@@ -3,6 +3,7 @@ package cn.edu.cup.maintain
 import cn.edu.cup.lims.Project
 import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
+import cn.edu.cup.lims.StudentType
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.TeacherTitle
 import grails.converters.JSON
@@ -123,37 +124,12 @@ class Operation4BasicDataController {
         // 缺省的情况
         def newInstance
         def view
-        switch (params.key) {
-            case "teacher":
-                newInstance = new Teacher(params)
-                view = "createTeacher"
-                break;
-            case "student":
-                newInstance = new Student(params)
-                view = "createStudent"
-                break;
-            case "project":
-                newInstance = new Project(params)
-                view = "createProject"
-                break;
-            case "teacherTitle":
-                newInstance = new TeacherTitle(params)
-                view = "createTeacherTitle"
-                break;
-            case "studentType":
-                newInstance = new cn.edu.cup.lims.StudentType(params)
-                view = "createStudentType"
-                break;
-            case "projectType":
-                newInstance = new cn.edu.cup.lims.ProjectType(params)
-                view = "createProjectType"
-                break;
-        }
+        (view, newInstance) = commonDataService.createInstance(params)
 
         if (request.xhr) {
             render(template: view, model: [newInstance: newInstance])
         } else {
-            respond dataItem
+            respond newInstance
         }
     }
 
@@ -228,34 +204,7 @@ class Operation4BasicDataController {
 
     def list() {
         println("${params}")
-        def view
-        def objectList
-        switch (params.key) {
-            case "teacher":
-                objectList = Teacher.list(params)
-                view = "listTeacher"
-                break;
-            case "student":
-                objectList = Student.list(params)
-                view = "listStudent"
-                break;
-            case "project":
-                objectList = Project.list(params)
-                view = "listProject"
-                break;
-            case "teacherTitle":
-                objectList = TeacherTitle.list(params)
-                view = "listTeacherTitle"
-                break;
-            case "studentType":
-                objectList = cn.edu.cup.lims.StudentType.list(params)
-                view = "listStudentType"
-                break;
-            case "projectType":
-                objectList = cn.edu.cup.lims.ProjectType.list(params)
-                view = "listProjectType"
-                break;
-        }
+        def (String view, List<? extends GroovyObject> objectList) = commonDataService.listObjectList(params)
 
         if (request.xhr) {
             render(template: view, model: [objectList: objectList])
@@ -266,26 +215,7 @@ class Operation4BasicDataController {
 
     def count() {
         def count = 0
-        switch (params.key) {
-            case "teacher":
-                count = Teacher.count()
-                break;
-            case "student":
-                count = Student.count()
-                break;
-            case "project":
-                count = Project.count()
-                break;
-            case "teacherTitle":
-                count = TeacherTitle.count()
-                break;
-            case "studentType":
-                count = cn.edu.cup.lims.StudentType.count()
-                break;
-            case "projectType":
-                count = ProjectType.count()
-                break;
-        }
+        count = commonDataService.countObject(params.key)
         def result = [count: count]
         if (request.xhr) {
             render result as JSON

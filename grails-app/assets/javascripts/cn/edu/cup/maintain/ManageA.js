@@ -11,12 +11,12 @@ $(function () {
 
 });
 
-function createItem() {
+function createItem(id) {
     var title = $("#currentTitle").html()
     console.info("创建..." + title)
     switch (title) {
-        case "教师":
-            ajaxRun("operation4ManageA/create?key=teacher", 0, "list" + title + "Div");
+        case "项目列表":
+            ajaxRun("operation4ManageA/create?key=team&project=" + id, 0, "list" + title + "Div");
             break
         case "学生":
             ajaxRun("operation4ManageA/create?key=student", 0, "list" + title + "Div");

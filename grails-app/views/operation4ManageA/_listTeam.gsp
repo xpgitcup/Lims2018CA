@@ -15,18 +15,19 @@
             <table>
                 <thead>
                 <th>名称</th>
-                <th>类型</th>
-                <th>团队</th>
+                <th>项目</th>
+                <th>指导教师人数</th>
+                <th>学生人数</th>
                 </thead>
                 <tbody>
                 <g:each in="${objectList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>
                             ${item.name}
-                            <a href="javascript: createItem(${item.id})">创建团队</a>
                         </td>
-                        <td>${item.projectType}</td>
-                        <td>${item.team?.size()}</td>
+                        <td>${item.project}</td>
+                        <td>${item.director?.size()}</td>
+                        <td>${item.teamMember?.size()}</td>
                     </tr>
                 </g:each>
                 </tbody>
