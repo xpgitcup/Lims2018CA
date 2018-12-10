@@ -9,7 +9,7 @@ class Student extends Personnel implements DataExchangeInterface {
     Teacher supervisor  //导师
     String major
 
-    static hasMany = [project: Project]
+    static hasMany = [team: Team]
 
     static constraints = {
         gradeName()
@@ -17,6 +17,8 @@ class Student extends Personnel implements DataExchangeInterface {
         supervisor(nullable: true)
         major()
     }
+
+    //==================================================================================================================
 
     @Override
     String[] dataSheetTitles() {

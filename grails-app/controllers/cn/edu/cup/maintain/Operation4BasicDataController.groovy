@@ -5,6 +5,8 @@ import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.TeacherTitle
+import cn.edu.cup.system.SystemAttribute
+import cn.edu.cup.system.SystemUser
 import grails.converters.JSON
 import grails.validation.ValidationException
 
@@ -18,6 +20,86 @@ class Operation4BasicDataController {
     def teacherService
     def studentService
     def projectService
+    def systemUserService
+
+    def removeFromSystemUserGrade() {
+        def k = 0
+        def grade = params.grade
+        def students = Student.findAllByGradeName(grade)
+        students.each { e ->
+            if (removeFromUser(e)) {
+                k++
+            }
+        }
+        flash.message = "毕业${k}名学生。"
+        redirect(action: "index")
+    }
+
+    def removeFromSystemUser() {
+        switch (params.key) {
+            case "student":
+                def student = studentService.get(params.id)
+                if (!student) {
+                    flash.message = "${params.id} -- 找不到学生。"
+                }
+                removeFromUser(student)
+                break
+        }
+        redirect(action: "index")
+    }
+
+    private boolean removeFromUser(student) {
+        def u = SystemUser.findByUserName(student.code)
+        if (u) {
+            systemUserService.delete(u.id)
+            return true
+        } else {
+            flash.message = "${student} 不在."
+            return false
+        }
+    }
+
+    def addToSystemUserGrade() {
+        def k = 0
+        def grade = params.grade
+        def students = Student.findAllByGradeName(grade)
+        students.each { e ->
+            if (addStudentToUser(e)) {
+                k++
+            }
+        }
+        flash.message = "新入学${k}名学生。"
+        redirect(action: "index")
+    }
+
+    def addToSystemUser() {
+        switch (params.key) {
+            case "student":
+                def student = studentService.get(params.id)
+                if (!student) {
+                    flash.message = "${params.id} -- 找不到学生。"
+                }
+                addStudentToUser(student)
+                break
+        }
+        redirect(action: "index")
+    }
+
+    private boolean addStudentToUser(student) {
+        def role = SystemAttribute.findByName("系统操作权限")
+        if (SystemUser.countByUserName(student.code) < 1) {
+            def u = new SystemUser(
+                    userName: student.code,
+                    password: "12345678",
+                    roleAttribute: role,
+                    appendAttribute: "student=${student.id}"
+            )
+            systemUserService.save(u)
+            return true
+        } else {
+            return false
+        }
+    }
 
     def saveProject(Project newInstance) {
         if (newInstance == null) {
@@ -103,7 +185,7 @@ class Operation4BasicDataController {
                 def resultstr = ""
                 def r
                 data.eachWithIndex { e, i ->
-                    if (i>0) {
+                    if (i > 0) {
                         println("当前 ${e}")
                         switch (params.key) {
                             case "teacher":

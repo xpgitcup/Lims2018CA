@@ -1,9 +1,9 @@
 var operation4ManageADiv;
-var tabList4BasicData = ["教师", "学生", "项目","教师职称","学生类别","项目类型"];
+var tabList4BasicData = ["项目列表", "参与团队", "所带学生"];
 var idList4BasicData = ["currentTeacher", "currentStudent", "currentProject"];
 
 $(function () {
-    console.info("教师、学生、项目 信息维护...");
+    console.info("教师登录 项目、团队 信息维护...");
 
     operation4ManageADiv = $("#operation4ManageADiv");
 
@@ -81,23 +81,14 @@ function countBasicData(title) {
 
     var total = 0;
     switch (title) {
-        case "教师":
-            total = ajaxCalculate("operation4ManageA/count?key=teacher");
+        case "项目列表":
+            total = ajaxCalculate("operation4ManageB/count?key=project");
             break
-        case "学生":
-            total = ajaxCalculate("operation4ManageA/count?key=student");
+        case "参与团队":
+            total = ajaxCalculate("operation4ManageB/count?key=team");
             break
-        case "项目":
-            total = ajaxCalculate("operation4ManageA/count?key=project");
-            break
-        case "教师职称":
-            total = ajaxCalculate("operation4ManageA/count?key=teacherTitle");
-            break
-        case "学生类别":
-            total = ajaxCalculate("operation4ManageA/count?key=studentType");
-            break
-        case "项目类型":
-            total = ajaxCalculate("operation4ManageA/count?key=projectType");
+        case "所带学生":
+            total = ajaxCalculate("operation4ManageB/count?key=student");
             break
     }
     return total;
@@ -108,24 +99,14 @@ function loadBasicData(title, page, pageSize) {
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
     console.info(params)
     switch (title) {
-        case "教师":
-            ajaxRun("operation4ManageA/list" + params + "&key=teacher", 0, "list" + title + "Div");
-            break
-        case "学生":
-            currentKey = readCookie("currentKey" + "用户自定义功能", "0");
-            ajaxRun("operation4ManageA/list" + params + "&key=student", 0, "list" + title + "Div");
-            break
-        case  "项目":
+        case "项目列表":
             ajaxRun("operation4ManageA/list" + params + "&key=project", 0, "list" + title + "Div");
             break
-        case "教师职称":
-            ajaxRun("operation4ManageA/list" + params + "&key=teacherTitle", 0, "list" + title + "Div");
+        case "参与团队":
+            ajaxRun("operation4ManageA/list" + params + "&key=team", 0, "list" + title + "Div");
             break
-        case "学生类别":
-            ajaxRun("operation4ManageA/list" + params + "&key=studentType", 0, "list" + title + "Div");
-            break
-        case "项目类型":
-            ajaxRun("operation4ManageA/list" + params + "&key=projectType", 0, "list" + title + "Div");
+        case  "所带学生":
+            ajaxRun("operation4ManageA/list" + params + "&key=student", 0, "list" + title + "Div");
             break
     }
     $.cookie("currentPage" + title, page);

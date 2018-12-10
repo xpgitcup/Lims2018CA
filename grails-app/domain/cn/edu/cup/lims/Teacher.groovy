@@ -6,7 +6,7 @@ class Teacher extends Personnel implements DataExchangeInterface {
 
     TeacherTitle title
 
-    static hasMany = [student: Student, project: Project]
+    static hasMany = [student: Student, team: Team]
 
     static constraints = {
     }
