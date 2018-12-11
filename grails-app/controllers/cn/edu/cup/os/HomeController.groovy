@@ -148,6 +148,7 @@ class HomeController {
             listSystemMenu()
             //查找真实的用户名
             session.realName = systemCommonService.getRealName(systemUser)
+            session.readNameId = session.realName.id
             //在会话中登记用户
             registeUserInSession(systemUser)
             systemCommonService.recordLog(session, request, params)

@@ -84,12 +84,9 @@ class CommonDataService {
         def view
         switch (params.key) {
             case "team":
+                //def teacher = Teacher.get(params.directorId)
                 newInstance = new Team(params)
-                if (params.director) {
-                    def teacher = params.director
-                    //teacher.addToTeam(newInstance)
-                    newInstance.addToDirector(teacher)
-                }
+                //teacher.addToTeam(newInstance).save()
                 view = "createTeam"
                 break
             case "teacher":

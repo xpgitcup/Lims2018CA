@@ -6,14 +6,22 @@ import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.TeacherTitle
 import cn.edu.cup.lims.Team
 import grails.converters.JSON
+import grails.gorm.transactions.Transactional
 
+@Transactional
 class Operation4ManageAController {
 
     def teamService
+    def teacherService
     def commonDataService
 
+    @Transactional(readOnly = false)
     def saveTeam(Team team) {
+        def teacher = teacherService.get(session.readNameId)
+        team.addToDirector(teacher)
+        teacher.addToTeam(team)
         teamService.save(team)
+        teacherService.save(teacher)
         redirect(action: "index")
     }
 
@@ -47,12 +55,10 @@ class Operation4ManageAController {
         def user = session.realName
         switch (user.class.simpleName) {
             case "Teacher":
-                //newInstance.addToDirector(user)
-                //user.addToTeam(newInstance)
                 params.director = user
-                break;
+                params.directorId = session.readNameId
+                break
         }
-
         def newInstance
         def view
         (view, newInstance) = commonDataService.createInstance(params)
