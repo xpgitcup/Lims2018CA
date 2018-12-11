@@ -12,6 +12,8 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class CommonDataService {
 
+    def teacherService
+
     int countObject(key) {
         def count = 0
         switch (key) {
@@ -84,8 +86,9 @@ class CommonDataService {
             case "team":
                 newInstance = new Team(params)
                 if (params.director) {
-                    newInstance.director = []
-                    newInstance.director.add(params.director)
+                    def teacher = params.director
+                    //teacher.addToTeam(newInstance)
+                    newInstance.addToDirector(teacher)
                 }
                 view = "createTeam"
                 break

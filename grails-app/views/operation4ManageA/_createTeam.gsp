@@ -25,10 +25,10 @@
             <tr>
                 <td>指导教师</td>
                 <td>
-                    <g:select name="director" from="${cn.edu.cup.lims.Teacher.list()}"
+                    <!--g:select name="director" from="${cn.edu.cup.lims.Teacher.list()}"
                               noSelection="['': '-Choose-']"
                               optionKey="id"
-                              value="${params.director}"/>
+                              value="${params.director}"/-->
                 </td>
             </tr>
         </table>

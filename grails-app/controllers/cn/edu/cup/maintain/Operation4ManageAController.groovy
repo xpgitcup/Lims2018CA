@@ -47,6 +47,8 @@ class Operation4ManageAController {
         def user = session.realName
         switch (user.class.simpleName) {
             case "Teacher":
+                //newInstance.addToDirector(user)
+                //user.addToTeam(newInstance)
                 params.director = user
                 break;
         }
