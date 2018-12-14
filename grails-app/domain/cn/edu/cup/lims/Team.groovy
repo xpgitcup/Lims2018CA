@@ -7,7 +7,7 @@ class Team {
     Project project     //针对某个项目创建
     Date createdDate  //应该是自动赋值
 
-    static hasMany = [member: Person]
+    static hasMany = [members: Person]
 
     static constraints = {
         name(unique: true)

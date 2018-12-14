@@ -13,8 +13,10 @@ $(function () {
 
 function selectAndTurnToNextManagerA(id) {
     $("#currentIdManageA").html(id);
+    var title = getCurrentTitle()
     switch (title) {
         case "项目列表":
+            operation4ManageADiv.tabs("select","攻关团队");
             break
         case "学生":
             $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=student');
@@ -40,13 +42,13 @@ function selectAndTurnToNextManagerA(id) {
 }
 
 function createItem(id) {
-    var title = $("#currentTitle").html()
+    var title = getCurrentTitle()
     console.info("创建..." + title)
     switch (title) {
         case "项目列表":
             ajaxRun("operation4ManageA/create?key=team&project=" + id, 0, "list" + title + "Div");
             break
-        case "学生":
+        case "攻关团队":
             ajaxRun("operation4ManageA/create?key=student", 0, "list" + title + "Div");
             break
         case  "项目":
@@ -64,8 +66,18 @@ function createItem(id) {
     }
 }
 
-function getCurrentKey() {
+function getCurrentTab() {
     var tab = operation4ManageADiv.tabs('getSelected');
+    return tab;
+}
+
+function  getCurrentTitle() {
+    var tab = getCurrentTab();
+    return tab.panel('options').title;
+}
+
+function getCurrentKey() {
+    var tab = getCurrentTab();
     var index = operation4ManageADiv.tabs('getTabIndex', tab);
     var currentKey = tabList4ManageA[index]
     return currentKey;
@@ -85,7 +97,7 @@ function countManageA(title) {
         case "项目列表":
             total = ajaxCalculate("operation4ManageA/count?key=project");
             break
-        case "参与团队":
+        case "攻关团队":
             total = ajaxCalculate("operation4ManageA/count?key=team");
             break
         case "所带学生":
@@ -103,7 +115,7 @@ function loadManageA(title, page, pageSize) {
         case "项目列表":
             ajaxRun("operation4ManageA/list" + params + "&key=project", 0, "list" + title + "Div");
             break
-        case "参与团队":
+        case "攻关团队":
             ajaxRun("operation4ManageA/list" + params + "&key=team", 0, "list" + title + "Div");
             break
         case  "所带学生":

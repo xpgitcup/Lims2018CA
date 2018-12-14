@@ -31,7 +31,7 @@
 <body>
 <div class="nav">
     <ul>
-        <li><a>当前</a></li>
+        <li><a>当前项目：</a></li>
         <li><a id="currentIdManageA"></a></li>
     </ul>
 </div>
