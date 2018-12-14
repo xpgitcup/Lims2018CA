@@ -1,6 +1,6 @@
 package cn.edu.cup.lims
 
-class Personnel {
+class Person {
 
     String name
     String code

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-12-10 11:15:43
+Date: 2018-12-14 10:31:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,6 +22,8 @@ CREATE TABLE `project` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `version` bigint(20) NOT NULL,
   `project_type_id` bigint(20) NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `stop_date` datetime DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `companya` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
@@ -33,6 +35,6 @@ CREATE TABLE `project` (
 -- ----------------------------
 -- Records of project
 -- ----------------------------
-INSERT INTO `project` VALUES ('1', '0', '19', '单管水力模拟', '华北煤层气');
-INSERT INTO `project` VALUES ('2', '0', '19', '管网水力学模拟', '华北煤层气');
-INSERT INTO `project` VALUES ('3', '0', '16', '多气合采', '中联煤');
+INSERT INTO `project` VALUES ('1', '0', '19', null, null, '单管水力模拟', '华北煤层气');
+INSERT INTO `project` VALUES ('2', '0', '19', null, null, '管网水力学模拟', '华北煤层气');
+INSERT INTO `project` VALUES ('3', '0', '16', null, null, '多气合采', '中联煤');

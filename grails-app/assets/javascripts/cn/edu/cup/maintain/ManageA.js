@@ -1,15 +1,43 @@
 var operation4ManageADiv;
-var tabList4ManageA = ["项目列表", "参与团队", "所带学生"];
-var idList4ManageA = ["currentTeacher", "currentStudent", "currentProject"];
+var tabList4ManageA = ["项目列表", "攻关团队", "涉及教师", "涉及的学生"];
+var idList4ManageA = ["currentProject", "currentTeam", "currentTeacher","currentStudent"];
 
 $(function () {
-    console.info("教师登录 项目、团队 信息维护...");
+    console.info("以项目为主线的管理...");
 
     operation4ManageADiv = $("#operation4ManageADiv");
 
     tabPagesManagerA("operation4ManageADiv", tabList4ManageA, idList4ManageA, loadManageA, countManageA);
 
 });
+
+function selectAndTurnToNextManagerA(id) {
+    $("#currentIdManageA").html(id);
+    switch (title) {
+        case "项目列表":
+            break
+        case "学生":
+            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=student');
+            $("#importKey").attr('value', 'student')
+            break
+        case "项目":
+            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=project');
+            $("#importKey").attr('value', 'project')
+            break
+        case "教师职称":
+            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=teacherTitle');
+            $("#importKey").attr('value', 'teacherTitle')
+            break
+        case "学生类别":
+            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=studentType');
+            $("#importKey").attr('value', 'studentType')
+            break
+        case "项目类型":
+            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=projectType');
+            $("#importKey").attr('value', 'projectType')
+            break
+    }
+}
 
 function createItem(id) {
     var title = $("#currentTitle").html()
@@ -45,33 +73,6 @@ function getCurrentKey() {
 
 
 function showCurrent(title) {
-    $("#currentTitle").html(title);
-    switch (title) {
-        case "教师":
-            $("#currentTemplate").attr('href','operation4ManageA/downloadTemplate/?key=teacher');
-            $("#importKey").attr('value', 'teacher')
-            break
-        case "学生":
-            $("#currentTemplate").attr('href','operation4ManageA/downloadTemplate/?key=student');
-            $("#importKey").attr('value', 'student')
-            break
-        case "项目":
-            $("#currentTemplate").attr('href','operation4ManageA/downloadTemplate/?key=project');
-            $("#importKey").attr('value', 'project')
-            break
-        case "教师职称":
-            $("#currentTemplate").attr('href','operation4ManageA/downloadTemplate/?key=teacherTitle');
-            $("#importKey").attr('value', 'teacherTitle')
-            break
-        case "学生类别":
-            $("#currentTemplate").attr('href','operation4ManageA/downloadTemplate/?key=studentType');
-            $("#importKey").attr('value', 'studentType')
-            break
-        case "项目类型":
-            $("#currentTemplate").attr('href','operation4ManageA/downloadTemplate/?key=projectType');
-            $("#importKey").attr('value', 'projectType')
-            break
-    }
 }
 
 function countManageA(title) {

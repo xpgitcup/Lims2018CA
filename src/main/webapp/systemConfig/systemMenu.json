@@ -76,7 +76,7 @@
     "menuOrder": 0,
     "menuItems": [
       {
-        "menuContext": "项目、学生管理",
+        "menuContext": "项目管理",
         "menuAction": "operation4ManageA/index",
         "menuDescription": "新生加入到系统中，创建用户",
         "upMenuItem": "教师服务",

@@ -20,7 +20,6 @@
         <th>姓名</th>
         <th>工号</th>
         <th>职称</th>
-        <th>团队</th>
         <th>学生</th>
         </thead>
         <tbody>
@@ -39,8 +38,7 @@
                 </td>
                 <td>${item.code}</td>
                 <td>${item.title}</td>
-                <td>${item?.team?.size()}</td>
-                <td>${item?.student?.size()}</td>
+                <td>${item.students?.size()}</td>
             </tr>
         </g:each>
         </tbody>

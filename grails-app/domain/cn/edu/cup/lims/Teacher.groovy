@@ -2,11 +2,11 @@ package cn.edu.cup.lims
 
 import cn.edu.cup.common.DataExchangeInterface
 
-class Teacher extends Personnel implements DataExchangeInterface {
+class Teacher extends Person implements DataExchangeInterface {
 
     TeacherTitle title
 
-    static hasMany = [student: Student, team: Team]
+    static hasMany = [students: Student]
 
     static constraints = {
     }
@@ -16,6 +16,10 @@ class Teacher extends Personnel implements DataExchangeInterface {
         def r = ["姓名", "工号", "职称"]
         return r
     }
+
+    /*
+    * 从数据表中导入
+    * */
 
     @Override
     Map importFromDataSheet(dataSheet) {
@@ -43,6 +47,10 @@ class Teacher extends Personnel implements DataExchangeInterface {
         def model = [teacher: this, result: result]
         return model
     }
+
+    /*
+    * 导出到数据表中
+    * */
 
     @Override
     List exportToDataSheet() {

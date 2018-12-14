@@ -16,12 +16,16 @@
                 <thead>
                 <th>名称</th>
                 <th>类型</th>
+                <th>起始</th>
+                <th>结束</th>
                 </thead>
                 <tbody>
                 <g:each in="${objectList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>${item.name}</td>
                         <td>${item.projectType}</td>
+                        <td>${item.startDate}</td>
+                        <td>${item.stopDate}</td>
                     </tr>
                 </g:each>
                 </tbody>

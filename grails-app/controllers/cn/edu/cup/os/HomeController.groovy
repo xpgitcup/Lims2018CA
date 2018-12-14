@@ -147,8 +147,16 @@ class HomeController {
             //初始化用户菜单
             listSystemMenu()
             //查找真实的用户名
-            session.realName = systemCommonService.getRealName(systemUser)
-            session.readNameId = session.realName.id
+            def realName = systemCommonService.getRealName(systemUser)
+            session.realName = realName
+            println("用户身份：${realName}")
+            if (realName != null) {
+                session.realId = realName.id
+                println("记录用户ID ${session.realId}")
+            } else {
+                println("身份不明...")
+                session.realId = 0
+            }
             //在会话中登记用户
             registeUserInSession(systemUser)
             systemCommonService.recordLog(session, request, params)

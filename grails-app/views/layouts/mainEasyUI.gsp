@@ -103,6 +103,7 @@
             <!-- 显示当前用户 -->
                 <g:if test="${session.systemUser}">
                     <li>${session.realName}</li>
+                    <li>${session.realId}</li>
                     <li><a href="${createLink(uri: '/home/logout')}">退出</a></li>
                 </g:if>
                 <g:else>

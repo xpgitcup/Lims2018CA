@@ -2,11 +2,13 @@ package cn.edu.cup.lims
 
 import cn.edu.cup.common.DataExchangeInterface
 
-class Project implements DataExchangeInterface{
+class Project implements DataExchangeInterface {
 
     String name
     ProjectType projectType
     String companyA
+    Date startDate
+    Date stopDate
 
     static hasMany = [team: Team]
 
@@ -14,6 +16,8 @@ class Project implements DataExchangeInterface{
         name(unique: true)
         companyA()
         projectType()
+        startDate(nullable: true)
+        stopDate(nullable: true)
     }
 
     String toString() {
@@ -22,7 +26,7 @@ class Project implements DataExchangeInterface{
 
     @Override
     String[] dataSheetTitles() {
-        def head = ["名称","甲方公司","项目类型"]
+        def head = ["名称", "甲方公司", "项目类型"]
         return head
     }
 

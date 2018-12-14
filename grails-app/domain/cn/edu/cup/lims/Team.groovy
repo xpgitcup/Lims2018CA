@@ -3,15 +3,25 @@ package cn.edu.cup.lims
 class Team {
 
     String name
+    Person leader
+    Project project     //针对某个项目创建
+    Date createdDate  //应该是自动赋值
 
-    static belongsTo = [project: Project]   // 属于某个项目
-    static hasMany = [teamMember: Student, director: Teacher]   // 队员，指导教师
+    static hasMany = [member: Person]
 
     static constraints = {
         name(unique: true)
+        leader()
+        project()
+        createdDate(nullable: true)
     }
 
     String toString() {
         return name
     }
+
+    def beforeInsert() {
+        createdDate = new Date()
+    }
+
 }

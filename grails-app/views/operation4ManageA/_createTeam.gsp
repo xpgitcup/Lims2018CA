@@ -7,7 +7,7 @@
                 <td>团队名称</td>
                 <td>
                     <g:hiddenField name="id" value="${this.newInstance.id}"/>
-                    <g:textField name="name"/>
+                    <g:textField name="name" value="${this.newInstance.name}" id="teamName"/>
                 </td>
             </tr>
             <tr>
@@ -23,12 +23,20 @@
                 </td>
             </tr>
             <tr>
-                <td>指导教师</td>
+                <td>队长</td>
                 <td>
-                    <!--g:select name="director" from="${cn.edu.cup.lims.Teacher.list()}"
-                              noSelection="['': '-Choose-']"
-                              optionKey="id"
-                              value="${params.director}"/-->
+                    <g:textField name="leader" value="${params.leader}"/>
+                </td>
+                <td>
+                    <label>
+                        ${params.person}
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>创建时间</td>
+                <td>
+                    <g:textField name="createDate" value="${new Date()}"/>
                 </td>
             </tr>
         </table>

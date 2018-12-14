@@ -3,8 +3,8 @@ package cn.edu.cup.lims
 class Progress {
 
     Project project
-    Personnel contributor   //贡献者
-    Date registrationTime   //时间
+    Person contributor   //贡献者
+    Date date   //时间
     String currentStatus    //当前状态
     String problemEncountered   //遇到问题
     String relatedFileName      //相关文件
@@ -13,7 +13,7 @@ class Progress {
     static constraints = {
         project()
         contributor()
-        registrationTime()
+        date()
         currentStatus()
         problemEncountered()
         relatedFileName()

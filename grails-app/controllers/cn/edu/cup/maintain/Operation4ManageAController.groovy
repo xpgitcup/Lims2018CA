@@ -1,5 +1,6 @@
 package cn.edu.cup.maintain
 
+import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.Project
 import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
@@ -17,11 +18,11 @@ class Operation4ManageAController {
 
     @Transactional(readOnly = false)
     def saveTeam(Team team) {
-        def teacher = teacherService.get(session.readNameId)
-        team.addToDirector(teacher)
-        teacher.addToTeam(team)
-        teamService.save(team)
-        teacherService.save(teacher)
+        if (Team.countByLeaderAndProject(team.leader, team.project)<1) {
+            teamService.save(team)
+        } else {
+            flash.message = "${team}有了！"
+        }
         redirect(action: "index")
     }
 
@@ -50,15 +51,14 @@ class Operation4ManageAController {
     }
 
     def create() {
-        println("${params}  ${session.realName}")
+        println("${params}  ${session.realName} 用户id ${session.readNameId}")
 
-        def user = session.realName
-        switch (user.class.simpleName) {
-            case "Teacher":
-                params.director = user
-                params.directorId = session.readNameId
-                break
+        if (session.realId) {
+            def p = Person.get(session.realId)
+            params.leader = p.id
+            params.person = p
         }
+        params.name = "项目_${params.project}.团队_${Team.count()+1}"
         def newInstance
         def view
         (view, newInstance) = commonDataService.createInstance(params)

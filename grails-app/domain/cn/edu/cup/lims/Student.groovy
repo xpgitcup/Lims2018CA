@@ -2,14 +2,12 @@ package cn.edu.cup.lims
 
 import cn.edu.cup.common.DataExchangeInterface
 
-class Student extends Personnel implements DataExchangeInterface {
+class Student extends Person implements DataExchangeInterface {
 
-    String gradeName    //年级
-    StudentType studentType //
-    Teacher supervisor  //导师
-    String major
-
-    static hasMany = [team: Team]
+    String gradeName            //年级
+    StudentType studentType     //
+    Teacher supervisor          //导师
+    String major                //专业
 
     static constraints = {
         gradeName()
