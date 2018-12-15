@@ -16,9 +16,40 @@ class Operation4ManageAController {
     def teacherService
     def commonDataService
 
-    @Transactional(readOnly = false)
+    def enlist(Team team) {
+        println("${team} 招聘... 队长: ${team.leader}")
+        def objectList = [:]
+        def teachers = []
+        def tt = Teacher.get(team.leader.id)
+        if (tt) {
+            teachers.add(tt)
+        }
+        team.members.each { e ->
+            def t = Teacher.get(e.id)
+            if (t) {
+                teachers.add(t)
+            }
+        }
+        objectList.put("members", teachers)
+
+        def eteachers = []
+        Teacher.list().each { e->
+            if (!teachers.contains(e)) {
+                eteachers.add(e)
+            }
+        }
+        objectList.put("teachers", eteachers)
+
+        def view = "enlist"
+        if (request.xhr) {
+            render(template: view, model: [team: team, objectList: objectList])
+        } else {
+            respond objectList
+        }
+    }
+
     def saveTeam(Team team) {
-        if (Team.countByLeaderAndProject(team.leader, team.project)<1) {
+        if (Team.countByLeaderAndProject(team.leader, team.project) < 1) {
             teamService.save(team)
         } else {
             flash.message = "${team}有了！"
@@ -28,6 +59,7 @@ class Operation4ManageAController {
 
     def list() {
         println("${params}")
+
         def view
         def objectList
         (view, objectList) = commonDataService.listObjectList(params)
@@ -58,7 +90,7 @@ class Operation4ManageAController {
             params.leader = p.id
             params.person = p
         }
-        params.name = "项目_${params.project}.团队_${Team.count()+1}"
+        params.name = "项目_${params.project}.团队_${Team.count() + 1}"
         def newInstance
         def view
         (view, newInstance) = commonDataService.createInstance(params)

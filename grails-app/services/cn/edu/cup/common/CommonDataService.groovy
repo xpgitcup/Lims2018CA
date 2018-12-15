@@ -1,5 +1,6 @@
 package cn.edu.cup.common
 
+import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.Project
 import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
@@ -47,7 +48,21 @@ class CommonDataService {
         def objectList
         switch (params.key) {
             case "team":
-                objectList = Team.list(params)
+                if (params.leader) {
+                    def p = Person.get(params.leader)
+                    println("队长：${p}")
+                    if (params.projectId) {
+                        def project = Project.get(params.projectId)
+                        if (project) {
+                            println("队长：${p} 项目: ${project}")
+                            objectList = Team.findAllByLeaderAndProject(p, project, params)
+                        }
+                    } else {
+                        objectList = Team.findAllByLeader(p, params)
+                    }
+                } else {
+                    objectList = Team.list(params)
+                }
                 view = "listTeam"
                 break;
             case "teacher":

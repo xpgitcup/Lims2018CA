@@ -1,13 +1,13 @@
 var operation4ManageADiv;
-var tabList4ManageA = ["项目列表", "攻关团队", "涉及教师", "涉及的学生"];
-var idList4ManageA = ["currentProject", "currentTeam", "currentTeacher","currentStudent"];
+var tabList4ManageA = ["项目列表", "团队", "教师", "学生","进度"];
+var idList4ManageA = ["currentProject", "currentTeam", "currentTeacher","currentStudent","currentProgress"];
 
 $(function () {
     console.info("以项目为主线的管理...");
 
     operation4ManageADiv = $("#operation4ManageADiv");
 
-    tabPagesManagerA("operation4ManageADiv", tabList4ManageA, idList4ManageA, loadManageA, countManageA);
+    tabPagesManagerB("operation4ManageADiv", tabList4ManageA, loadManageA, countManageA);
 
 });
 
@@ -16,7 +16,7 @@ function selectAndTurnToNextManagerA(id) {
     var title = getCurrentTitle()
     switch (title) {
         case "项目列表":
-            operation4ManageADiv.tabs("select","攻关团队");
+            operation4ManageADiv.tabs("select","团队");
             break
         case "学生":
             $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=student');
@@ -66,6 +66,12 @@ function createItem(id) {
     }
 }
 
+function enlistTeacher(id) {
+    console.info("招募老师...")
+    var title = "团队"
+    ajaxRun("operation4ManageA/enlist", id, "list" + title + "Div");
+}
+
 function getCurrentTab() {
     var tab = operation4ManageADiv.tabs('getSelected');
     return tab;
@@ -97,7 +103,7 @@ function countManageA(title) {
         case "项目列表":
             total = ajaxCalculate("operation4ManageA/count?key=project");
             break
-        case "攻关团队":
+        case "团队":
             total = ajaxCalculate("operation4ManageA/count?key=team");
             break
         case "所带学生":
@@ -110,15 +116,18 @@ function countManageA(title) {
 function loadManageA(title, page, pageSize) {
     console.info("调入基础数据..." + title);
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
+    var personId = $("#currentPersonId").text()
+    var id = $("#currentIdManageA").text()
     console.info(params)
     switch (title) {
         case "项目列表":
             ajaxRun("operation4ManageA/list" + params + "&key=project", 0, "list" + title + "Div");
             break
-        case "攻关团队":
-            ajaxRun("operation4ManageA/list" + params + "&key=team", 0, "list" + title + "Div");
+        case "团队":
+            console.info("当前项目:" + id)
+            ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
             break
-        case  "所带学生":
+        case  "教师":
             ajaxRun("operation4ManageA/list" + params + "&key=student", 0, "list" + title + "Div");
             break
     }

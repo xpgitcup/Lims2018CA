@@ -22,6 +22,7 @@
         <th>项目</th>
         <th>创建时间</th>
         <th>人员</th>
+        <th>操作</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
@@ -31,6 +32,10 @@
                 <td>${item.project}</td>
                 <td>${item.createdDate}</td>
                 <td>${item.members?.size()}</td>
+                <td>
+                    <a href="javascript: enlistTeacher(${item.id})">招募教师</a>
+                    <a href="javascript: enlistStudent(${item.id})">招募学生</a>
+                </td>
             </tr>
         </g:each>
         </tbody>
