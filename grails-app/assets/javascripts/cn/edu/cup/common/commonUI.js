@@ -85,8 +85,6 @@ function tabPagesManagerB(tabsName, tabNameList, listFunction, countFunction) {
                 //------------------------------------------------------------------------------------------------------
                 loadFirstData(title, listFunction);
                 setupPaginationDiv(paginationDiv, title);      //切换到某一页的时候，需要更新分页机制。
-                //------------------------------------------------------------------------------------------------------
-                var id = readCookie("currentKey" + title, "0")
             }
         }
     );

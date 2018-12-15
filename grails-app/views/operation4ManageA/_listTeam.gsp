@@ -27,14 +27,17 @@
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td>${item.name}</td>
+                <td>
+                    <a href="javascript: selectAndTurnToNextManagerA(${item.id})">
+                        ${item.name}
+                    </a>
+                </td>
                 <td>${item.leader}</td>
                 <td>${item.project}</td>
                 <td>${item.createdDate}</td>
                 <td>${item.members?.size()}</td>
                 <td>
-                    <a href="javascript: enlistTeacher(${item.id})">招募教师</a>
-                    <a href="javascript: enlistStudent(${item.id})">招募学生</a>
+                    <a href="javascript: enlist(${item.id})">招募</a>
                 </td>
             </tr>
         </g:each>

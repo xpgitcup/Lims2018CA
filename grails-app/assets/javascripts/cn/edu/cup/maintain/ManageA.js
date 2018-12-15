@@ -1,42 +1,27 @@
 var operation4ManageADiv;
-var tabList4ManageA = ["项目列表", "团队", "教师", "学生","进度"];
-var idList4ManageA = ["currentProject", "currentTeam", "currentTeacher","currentStudent","currentProgress"];
+var tabList4ManageA = ["项目列表", "团队", "队员", "人力资源"];
+var idList4ManageA = ["currentProject", "currentTeam", "currentMember", "currentPerson"];
 
 $(function () {
     console.info("以项目为主线的管理...");
-
     operation4ManageADiv = $("#operation4ManageADiv");
-
     tabPagesManagerB("operation4ManageADiv", tabList4ManageA, loadManageA, countManageA);
-
 });
 
 function selectAndTurnToNextManagerA(id) {
-    $("#currentIdManageA").html(id);
-    var title = getCurrentTitle()
+    var currentKey = getCurrentKey();
+    var title = getCurrentTitle();
+    console.info("点击当前：" + currentKey);
+    $("#" + currentKey).html(id);
     switch (title) {
         case "项目列表":
-            operation4ManageADiv.tabs("select","团队");
+            operation4ManageADiv.tabs("select", "团队");
             break
-        case "学生":
-            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=student');
-            $("#importKey").attr('value', 'student')
+        case "团队":
             break
-        case "项目":
-            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=project');
-            $("#importKey").attr('value', 'project')
+        case "队员":
             break
-        case "教师职称":
-            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=teacherTitle');
-            $("#importKey").attr('value', 'teacherTitle')
-            break
-        case "学生类别":
-            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=studentType');
-            $("#importKey").attr('value', 'studentType')
-            break
-        case "项目类型":
-            $("#currentTemplate").attr('href', 'operation4ManageA/downloadTemplate/?key=projectType');
-            $("#importKey").attr('value', 'projectType')
+        case "人力资源":
             break
     }
 }
@@ -48,28 +33,12 @@ function createItem(id) {
         case "项目列表":
             ajaxRun("operation4ManageA/create?key=team&project=" + id, 0, "list" + title + "Div");
             break
-        case "攻关团队":
-            ajaxRun("operation4ManageA/create?key=student", 0, "list" + title + "Div");
-            break
-        case  "项目":
-            ajaxRun("operation4ManageA/create?key=project", 0, "list" + title + "Div");
-            break
-        case "教师职称":
-            ajaxRun("operation4ManageA/create?key=teacherTitle", 0, "list" + title + "Div");
-            break
-        case "学生类别":
-            ajaxRun("operation4ManageA/create?key=studentType", 0, "list" + title + "Div");
-            break
-        case "项目类型":
-            ajaxRun("operation4ManageA/create?key=projectType", 0, "list" + title + "Div");
-            break
     }
 }
 
-function enlistTeacher(id) {
-    console.info("招募老师...")
-    var title = "团队"
-    ajaxRun("operation4ManageA/enlist", id, "list" + title + "Div");
+function enlist(id) {
+    console.info("招募...")
+    operation4ManageADiv.tabs("select", "人力资源");
 }
 
 function getCurrentTab() {
@@ -77,7 +46,7 @@ function getCurrentTab() {
     return tab;
 }
 
-function  getCurrentTitle() {
+function getCurrentTitle() {
     var tab = getCurrentTab();
     return tab.panel('options').title;
 }
@@ -85,29 +54,21 @@ function  getCurrentTitle() {
 function getCurrentKey() {
     var tab = getCurrentTab();
     var index = operation4ManageADiv.tabs('getTabIndex', tab);
-    var currentKey = tabList4ManageA[index]
+    var currentKey = idList4ManageA[index]
     return currentKey;
 }
 
 
-function showCurrent(title) {
-}
-
 function countManageA(title) {
     console.info("统计基础数据..." + title);
-
-    showCurrent(title);
-
     var total = 0;
     switch (title) {
         case "项目列表":
             total = ajaxCalculate("operation4ManageA/count?key=project");
             break
-        case "团队":
-            total = ajaxCalculate("operation4ManageA/count?key=team");
+        case "队员":
             break
-        case "所带学生":
-            total = ajaxCalculate("operation4ManageA/count?key=student");
+        case "人力资源":
             break
     }
     return total;
@@ -117,18 +78,26 @@ function loadManageA(title, page, pageSize) {
     console.info("调入基础数据..." + title);
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
     var personId = $("#currentPersonId").text()
-    var id = $("#currentIdManageA").text()
+    var id = 0
     console.info(params)
     switch (title) {
         case "项目列表":
             ajaxRun("operation4ManageA/list" + params + "&key=project", 0, "list" + title + "Div");
             break
         case "团队":
+            id = $("#currentProject").text()
             console.info("当前项目:" + id)
             ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
             break
-        case  "教师":
-            ajaxRun("operation4ManageA/list" + params + "&key=student", 0, "list" + title + "Div");
+        case "队员":
+            id = $("#currentProject").text()
+            console.info("当前项目:" + id)
+            ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
+            break
+        case  "人力资源":
+            id = $("#currentProject").text()
+            console.info("当前项目:" + id)
+            ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
             break
     }
     $.cookie("currentPage" + title, page);

@@ -66,8 +66,18 @@ class CommonDataService {
                 view = "listTeam"
                 break;
             case "teacher":
-                objectList = Teacher.list(params)
-                view = "listTeacher"
+                if (params.teamId) {
+                    def t = Team.get(params.teamId) {
+                        if (t) {
+                            objectList = t.members
+                            objectList = Teacher.list(params)
+                            view = "listPerson"
+                        }
+                    }
+                } else {
+                    objectList = Teacher.list(params)
+                    view = "listTeacher"
+                }
                 break;
             case "student":
                 objectList = Student.list(params)

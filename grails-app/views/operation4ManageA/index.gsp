@@ -32,7 +32,11 @@
 <div class="nav">
     <ul>
         <li><a>当前项目：</a></li>
-        <li><a id="currentIdManageA"></a></li>
+        <li><div id="currentProject"></div></li>
+        <li><a>当前团队：</a></li>
+        <li><a id="currentTeam"></a></li>
+        <li><a>当前教师：</a></li>
+        <li><a id="currentTeacher"></a></li>
     </ul>
 </div>
 
