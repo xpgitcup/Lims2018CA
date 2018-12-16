@@ -59,6 +59,7 @@ function enlist(id) {
     console.info("招募...")
     var currentTeam = readCookie("currentKey" + "currentTeam", 0);
     ajaxRun("operation4ManageA/enlist/?team=" + currentTeam + "&person=" + id, 0, "");
+    this.refresh();
 }
 
 /*
