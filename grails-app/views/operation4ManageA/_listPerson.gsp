@@ -22,16 +22,23 @@
         <th>身份</th>
         </thead>
         <tbody>
-        <g:each in="${objectList}" var="item" status="i">
-            <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td>
-                    ${item.name}
-                    <a href="javascript: enlist(${item.id})">招募</a>
-                </td>
-                <td>${item.code}</td>
-                <td>${item.personStatus()}</td>
+        <g:if test="${session.isLeader}">
+            <g:each in="${objectList}" var="item" status="i">
+                <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                    <td>
+                        ${item.name}
+                        <a href="javascript: enlist(${item.id})">招募</a>
+                    </td>
+                    <td>${item.code}</td>
+                    <td>${item.personStatus()}</td>
+                </tr>
+            </g:each>
+        </g:if>
+        <g:else>
+            <tr>
+                <td>您不是${session.team}的队长，不负责招聘。</td>
             </tr>
-        </g:each>
+        </g:else>
         </tbody>
     </table>
 </div>

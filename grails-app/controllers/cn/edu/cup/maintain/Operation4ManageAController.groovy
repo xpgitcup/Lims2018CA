@@ -53,6 +53,22 @@ class Operation4ManageAController {
         def objectList
         (view, objectList) = commonDataService.listObjectList(params)
 
+        switch (params.key) {
+            case "person":
+            case "personGrade":
+                def person = Person.get(session.realId)
+                def team = Team.get(params.team)
+                if (team) {
+                    def isLeader = team.leader.id == person.id
+                    session.isLeader = isLeader
+                    session.team = team
+                    if (!isLeader) {
+                        flash.message = "您不是${team} 的队长，不负责招聘。"
+                    }
+                }
+                break;
+        }
+
         if (request.xhr) {
             render(template: view, model: [objectList: objectList])
         } else {

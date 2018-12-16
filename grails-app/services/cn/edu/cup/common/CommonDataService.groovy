@@ -76,19 +76,41 @@ class CommonDataService {
         def view
         def objectList = []
         switch (params.key) {
+            case "personGrade":
+                def team = teamService.get(params.team)
+                if (team) {
+                    List members = getMembersId(team)
+
+                    objectList = [:]
+
+                    def teachers = Teacher.findAllByIdNotInList(members, params)
+                    objectList.put("teachers", teachers)
+
+                    def sts = StudentType.list()
+                    def gs = Student.executeQuery("select distinct a.gradeName from Student a")
+                    println("${gs}")
+                    sts.each { e ->
+                        gs.each { ee ->
+                            def key = "${ee}-${e}"
+                            def list = Student.findAllByGradeNameAndStudentTypeAndIdNotInList(ee, e, members, params)
+                            if (!list.isEmpty()) {
+                                objectList.put(key, list)
+                                println("${key}")
+                                println("${list}")
+                            }
+                        }
+                    }
+                    view = "listPersonGrade"
+                } else {
+                    objectList = Person.list(params)
+                    view = "listPerson"
+                }
+                break
             case "person":
                 //println("寻找人力资源：")
                 def team = teamService.get(params.team)
                 if (team) {
-                    def members = []
-                    members.add(team.leader.id)
-                    if (team) {
-                        if (team.members) {
-                            team.members.each { it ->
-                                members.add(it.id)
-                            }
-                        }
-                    }
+                    List members = getMembersId(team)
                     //println("${team} 招人 ${members}")
                     objectList = Person.findAllByIdNotInList(members, params)
                 } else {
@@ -101,7 +123,7 @@ class CommonDataService {
                 if (team) {
                     if (team.members) {
                         def ms = []
-                        team.members.each { e->
+                        team.members.each { e ->
                             ms.add(e.id)
                         }
                         objectList = Person.findAllByIdInList(ms, params)
@@ -163,6 +185,19 @@ class CommonDataService {
                 break;
         }
         return [view, objectList]
+    }
+
+    private List getMembersId(team) {
+        def members = []
+        members.add(team.leader.id)
+        if (team) {
+            if (team.members) {
+                team.members.each { it ->
+                    members.add(it.id)
+                }
+            }
+        }
+        return members
     }
 
     def createInstance(params) {

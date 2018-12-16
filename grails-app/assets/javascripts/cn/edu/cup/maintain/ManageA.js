@@ -1,5 +1,5 @@
 var operation4ManageADiv;
-var tabList4ManageA = ["项目列表", "团队", "队员", "人力资源"];
+var tabList4ManageA = ["项目列表", "团队", "队员", "人力资源","分类浏览"];
 var idList4ManageA = ["currentProject", "currentTeam", "currentMember", "currentPerson"];
 
 $(function () {
@@ -140,6 +140,9 @@ function loadManageA(title, page, pageSize) {
         case  "人力资源":
             console.info("招人：" + currentTeam);
             ajaxRun("operation4ManageA/list" + params + "&key=person&team=" + currentTeam, 0, "list" + title + "Div");
+            break
+        case "分类浏览":
+            ajaxRun("operation4ManageA/list" + params + "&key=personGrade&team=" + currentTeam, 0, "list" + title + "Div");
             break
     }
     $.cookie("currentPage" + title, page);
