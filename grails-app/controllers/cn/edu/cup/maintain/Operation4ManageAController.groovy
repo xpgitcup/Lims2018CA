@@ -17,6 +17,18 @@ class Operation4ManageAController {
     def personService
     def commonDataService
 
+    def dismiss() {
+        println("解聘：${params}")
+        def person = personService.get(params.person)
+        def team = teamService.get(params.team)
+        if (team) {
+            team.members.remove(person)
+            teamService.save(team)
+        }
+        flash.message = "${person} 离开 ${team} 了..."
+        redirect(action: "index")
+    }
+
     def enlist() {
         println("招募：${params}")
         def person = personService.get(params.person)
@@ -25,6 +37,7 @@ class Operation4ManageAController {
             team.members.add(person)
             teamService.save(team)
         }
+        flash.message = "招收 ${person} 加入 ${team}..."
         redirect(action: "index")
     }
 

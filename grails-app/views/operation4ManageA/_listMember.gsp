@@ -11,22 +11,22 @@
                                                                    default="Skip to content&hellip;"/></a>
 
 <div id="list-teacherTitle" class="content scaffold-list" role="main">
-    <h1><g:message code="default.list.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
+    <h1>团队成员</h1>
     <table>
         <thead>
         <th>姓名</th>
-        <th>工号</th>
-        <th>职称</th>
+        <th>编号</th>
+        <th>身份</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td>${item.name}</td>
+                <td>
+                    ${item.name}
+                    <a href="javascript: dismiss(${item.id})">退出</a>
+                </td>
                 <td>${item.code}</td>
-                <td>${item.title}</td>
+                <td>${item.personStatus()}</td>
             </tr>
         </g:each>
         </tbody>

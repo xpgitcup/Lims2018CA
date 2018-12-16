@@ -21,14 +21,23 @@ class CommonDataService {
         def count = 0
         switch (key) {
             case "person":
+                println("招募统计：${params}")
                 def team = teamService.get(params.team)
-                count = Person.count()
                 if (team) {
-                    if (team.members) {
-                        count -= team.members.size()
+                    def members = []
+                    members.add(team.leader.id)
+                    if (team) {
+                        if (team.members) {
+                            team.members.each { it ->
+                                members.add(it.id)
+                            }
+                        }
                     }
+                    println("统计： ${team} ${members}")
+                    count = Person.countByIdNotInList(members)
+                } else {
+                    count = Person.count()
                 }
-                count -= 1
                 break;
             case "member":
                 def team = teamService.get(params.team)
@@ -68,23 +77,20 @@ class CommonDataService {
         def objectList = []
         switch (params.key) {
             case "person":
-                println("寻找人力资源：")
+                //println("寻找人力资源：")
                 def team = teamService.get(params.team)
                 if (team) {
                     def members = []
                     members.add(team.leader.id)
                     if (team) {
                         if (team.members) {
-                            team.members.each { it->
+                            team.members.each { it ->
                                 members.add(it.id)
                             }
                         }
                     }
-                    println("${team} 招人 ${members}")
-                    def pg = [:]
-                    pg.offset = params.offset
-                    pg.max = params.max
-                    objectList = Person.findAllByIdNotInList(members, pg)
+                    //println("${team} 招人 ${members}")
+                    objectList = Person.findAllByIdNotInList(members, params)
                 } else {
                     objectList = Person.list(params)
                 }
@@ -94,7 +100,11 @@ class CommonDataService {
                 def team = teamService.get(params.team)
                 if (team) {
                     if (team.members) {
-                        objectList = team.members
+                        def ms = []
+                        team.members.each { e->
+                            ms.add(e.id)
+                        }
+                        objectList = Person.findAllByIdInList(ms, params)
                     }
                 }
                 view = "listMember"
