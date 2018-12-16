@@ -1,11 +1,8 @@
 package cn.edu.cup.maintain
 
 import cn.edu.cup.lims.Project
-import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
-import cn.edu.cup.lims.StudentType
 import cn.edu.cup.lims.Teacher
-import cn.edu.cup.lims.TeacherTitle
 import grails.converters.JSON
 import grails.validation.ValidationException
 

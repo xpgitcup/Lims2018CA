@@ -19,10 +19,10 @@ class ProjectTypeController {
     }
 
     def create() {
-        respond new ProjectType(params)
+        respond new ThingType(params)
     }
 
-    def save(ProjectType projectType) {
+    def save(ThingType projectType) {
         if (projectType == null) {
             notFound()
             return
@@ -37,7 +37,7 @@ class ProjectTypeController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'projectType.label', default: 'ProjectType'), projectType.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'thingType.label', default: 'ThingType'), projectType.id])
                 redirect projectType
             }
             '*' { respond projectType, [status: CREATED] }
@@ -48,7 +48,7 @@ class ProjectTypeController {
         respond projectTypeService.get(id)
     }
 
-    def update(ProjectType projectType) {
+    def update(ThingType projectType) {
         if (projectType == null) {
             notFound()
             return
@@ -63,7 +63,7 @@ class ProjectTypeController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'projectType.label', default: 'ProjectType'), projectType.id])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'thingType.label', default: 'ThingType'), projectType.id])
                 redirect projectType
             }
             '*'{ respond projectType, [status: OK] }
@@ -80,7 +80,7 @@ class ProjectTypeController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'projectType.label', default: 'ProjectType'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'thingType.label', default: 'ThingType'), id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -90,7 +90,7 @@ class ProjectTypeController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'projectType.label', default: 'ProjectType'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'thingType.label', default: 'ThingType'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

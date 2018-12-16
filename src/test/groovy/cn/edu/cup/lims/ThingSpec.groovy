@@ -3,7 +3,7 @@ package cn.edu.cup.lims
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class ProjectTypeSpec extends Specification implements DomainUnitTest<ProjectType> {
+class ThingSpec extends Specification implements DomainUnitTest<Thing> {
 
     def setup() {
     }

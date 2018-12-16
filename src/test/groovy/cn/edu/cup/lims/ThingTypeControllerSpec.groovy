@@ -5,7 +5,7 @@ import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class ProjectTypeControllerSpec extends Specification implements ControllerUnitTest<ProjectTypeController>, DomainUnitTest<ProjectType> {
+class ThingTypeControllerSpec extends Specification implements ControllerUnitTest<ProjectTypeController>, DomainUnitTest<ThingType> {
 
     def populateValidParams(params) {
         assert params != null
@@ -45,14 +45,14 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/projectType/index'
+        response.redirectedUrl == '/thingType/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
         controller.projectTypeService = Mock(ProjectTypeService) {
-            1 * save(_ as ProjectType)
+            1 * save(_ as ThingType)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,20 +60,20 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def projectType = new ProjectType(params)
+        def projectType = new ThingType(params)
         projectType.id = 1
 
         controller.save(projectType)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/projectType/show/1'
+        response.redirectedUrl == '/thingType/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
         controller.projectTypeService = Mock(ProjectTypeService) {
-            1 * save(_ as ProjectType) >> { ProjectType projectType ->
+            1 * save(_ as ThingType) >> { ThingType projectType ->
                 throw new ValidationException("Invalid instance", projectType.errors)
             }
         }
@@ -81,7 +81,7 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def projectType = new ProjectType()
+        def projectType = new ThingType()
         controller.save(projectType)
 
         then:"The create view is rendered again with the correct model"
@@ -105,14 +105,14 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
     void "Test the show action with a valid id"() {
         given:
         controller.projectTypeService = Mock(ProjectTypeService) {
-            1 * get(2) >> new ProjectType()
+            1 * get(2) >> new ThingType()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.projectType instanceof ProjectType
+        model.projectType instanceof ThingType
     }
 
     void "Test the edit action with a null id"() {
@@ -131,14 +131,14 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
     void "Test the edit action with a valid id"() {
         given:
         controller.projectTypeService = Mock(ProjectTypeService) {
-            1 * get(2) >> new ProjectType()
+            1 * get(2) >> new ThingType()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.projectType instanceof ProjectType
+        model.projectType instanceof ThingType
     }
 
 
@@ -149,14 +149,14 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/projectType/index'
+        response.redirectedUrl == '/thingType/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
         controller.projectTypeService = Mock(ProjectTypeService) {
-            1 * save(_ as ProjectType)
+            1 * save(_ as ThingType)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,20 +164,20 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def projectType = new ProjectType(params)
+        def projectType = new ThingType(params)
         projectType.id = 1
 
         controller.update(projectType)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/projectType/show/1'
+        response.redirectedUrl == '/thingType/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
         controller.projectTypeService = Mock(ProjectTypeService) {
-            1 * save(_ as ProjectType) >> { ProjectType projectType ->
+            1 * save(_ as ThingType) >> { ThingType projectType ->
                 throw new ValidationException("Invalid instance", projectType.errors)
             }
         }
@@ -185,7 +185,7 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new ProjectType())
+        controller.update(new ThingType())
 
         then:"The edit view is rendered again with the correct model"
         model.projectType != null
@@ -199,7 +199,7 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/projectType/index'
+        response.redirectedUrl == '/thingType/index'
         flash.message != null
     }
 
@@ -215,7 +215,7 @@ class ProjectTypeControllerSpec extends Specification implements ControllerUnitT
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/projectType/index'
+        response.redirectedUrl == '/thingType/index'
         flash.message != null
     }
 }

@@ -2,17 +2,17 @@ package cn.edu.cup.lims
 
 import grails.gorm.services.Service
 
-@Service(ProjectType)
+@Service(ThingType)
 interface ProjectTypeService {
 
-    ProjectType get(Serializable id)
+    ThingType get(Serializable id)
 
-    List<ProjectType> list(Map args)
+    List<ThingType> list(Map args)
 
     Long count()
 
     void delete(Serializable id)
 
-    ProjectType save(ProjectType projectType)
+    ThingType save(ThingType projectType)
 
 }

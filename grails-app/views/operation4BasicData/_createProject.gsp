@@ -19,7 +19,7 @@
             <tr>
                 <td>类型</td>
                 <td>
-                    <g:select name="projectType" from="${cn.edu.cup.lims.ProjectType.list()}"
+                    <g:select name="projectType" from="${cn.edu.cup.lims.ThingType.list()}"
                               optionKey="id"
                               noSelection="['': '-Choose-']">
 

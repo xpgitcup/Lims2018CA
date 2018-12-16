@@ -7,37 +7,37 @@ import org.hibernate.SessionFactory
 
 @Integration
 @Rollback
-class ProjectTypeServiceSpec extends Specification {
+class ThingServiceSpec extends Specification {
 
-    ProjectTypeService projectTypeService
+    ThingService thingService
     SessionFactory sessionFactory
 
     private Long setupData() {
         // TODO: Populate valid domain instances and return a valid ID
-        //new ProjectType(...).save(flush: true, failOnError: true)
-        //new ProjectType(...).save(flush: true, failOnError: true)
-        //ProjectType projectType = new ProjectType(...).save(flush: true, failOnError: true)
-        //new ProjectType(...).save(flush: true, failOnError: true)
-        //new ProjectType(...).save(flush: true, failOnError: true)
+        //new Thing(...).save(flush: true, failOnError: true)
+        //new Thing(...).save(flush: true, failOnError: true)
+        //Thing thing = new Thing(...).save(flush: true, failOnError: true)
+        //new Thing(...).save(flush: true, failOnError: true)
+        //new Thing(...).save(flush: true, failOnError: true)
         assert false, "TODO: Provide a setupData() implementation for this generated test suite"
-        //projectType.id
+        //thing.id
     }
 
     void "test get"() {
         setupData()
 
         expect:
-        projectTypeService.get(1) != null
+        thingService.get(1) != null
     }
 
     void "test list"() {
         setupData()
 
         when:
-        List<ProjectType> projectTypeList = projectTypeService.list(max: 2, offset: 2)
+        List<Thing> thingList = thingService.list(max: 2, offset: 2)
 
         then:
-        projectTypeList.size() == 2
+        thingList.size() == 2
         assert false, "TODO: Verify the correct instances are returned"
     }
 
@@ -45,30 +45,30 @@ class ProjectTypeServiceSpec extends Specification {
         setupData()
 
         expect:
-        projectTypeService.count() == 5
+        thingService.count() == 5
     }
 
     void "test delete"() {
-        Long projectTypeId = setupData()
+        Long thingId = setupData()
 
         expect:
-        projectTypeService.count() == 5
+        thingService.count() == 5
 
         when:
-        projectTypeService.delete(projectTypeId)
+        thingService.delete(thingId)
         sessionFactory.currentSession.flush()
 
         then:
-        projectTypeService.count() == 4
+        thingService.count() == 4
     }
 
     void "test save"() {
         when:
         assert false, "TODO: Provide a valid instance to save"
-        ProjectType projectType = new ProjectType()
-        projectTypeService.save(projectType)
+        Thing thing = new Thing()
+        thingService.save(thing)
 
         then:
-        projectType.id != null
+        thing.id != null
     }
 }

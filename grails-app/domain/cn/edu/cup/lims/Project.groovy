@@ -1,27 +1,15 @@
 package cn.edu.cup.lims
 
-import cn.edu.cup.common.DataExchangeInterface
+class Project extends Thing {
 
-class Project implements DataExchangeInterface {
-
-    String name
-    ProjectType projectType
     String companyA
-    Date startDate
-    Date stopDate
-
-    static hasMany = [team: Team]
 
     static constraints = {
         name(unique: true)
-        companyA()
-        projectType()
+        thingType()
+        companyA(nullable: true)
         startDate(nullable: true)
         stopDate(nullable: true)
-    }
-
-    String toString() {
-        return name
     }
 
     @Override
@@ -38,14 +26,14 @@ class Project implements DataExchangeInterface {
             def n = dataSheet[0]
             def c = dataSheet[1]
             def t = dataSheet[2]
-            def tt = ProjectType.findByName(t)
+            def tt = ThingType.findByName(t)
             if (cn.edu.cup.lims.Project.findByName(n)) {
                 result += "${n} 重复了！"
             } else {
                 if (tt) {
                     name = n
                     companyA = c
-                    projectType = tt
+                    thingType = tt
                 } else {
                     result += "${t} 类型找不到！"
                 }

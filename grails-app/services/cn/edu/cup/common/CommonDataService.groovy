@@ -2,12 +2,12 @@ package cn.edu.cup.common
 
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.Project
-import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.StudentType
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.TeacherTitle
 import cn.edu.cup.lims.Team
+import cn.edu.cup.lims.ThingType
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -65,8 +65,8 @@ class CommonDataService {
             case "studentType":
                 count = StudentType.count()
                 break;
-            case "projectType":
-                count = ProjectType.count()
+            case "thingType":
+                count = ThingType.count()
                 break;
         }
         return count
@@ -179,8 +179,8 @@ class CommonDataService {
                 objectList = StudentType.list(params)
                 view = "listStudentType"
                 break;
-            case "projectType":
-                objectList = ProjectType.list(params)
+            case "thingType":
+                objectList = ThingType.list(params)
                 view = "listProjectType"
                 break;
         }
@@ -231,8 +231,8 @@ class CommonDataService {
                 newInstance = new StudentType(params)
                 view = "createStudentType"
                 break;
-            case "projectType":
-                newInstance = new ProjectType(params)
+            case "thingType":
+                newInstance = new ThingType(params)
                 view = "createProjectType"
                 break;
         }
