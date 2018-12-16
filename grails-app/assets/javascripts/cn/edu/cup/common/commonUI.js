@@ -170,7 +170,7 @@ function tabPagesManagerA(tabsName, tabNameList, idList, listFunction, countFunc
                 setupPaginationDiv(paginationDiv, title);      //切换到某一页的时候，需要更新分页机制。
                 //------------------------------------------------------------------------------------------------------
                 var id = readCookie("currentKey" + title, "0")
-                $("#" + idList[index]).html(id)
+                $("#" + idList[index]).html(id)                 // 只是切换到这一页的时候，是不够的！！
             }
         }
     );

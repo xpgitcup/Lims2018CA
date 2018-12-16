@@ -14,38 +14,18 @@ class Operation4ManageAController {
 
     def teamService
     def teacherService
+    def personService
     def commonDataService
 
-    def enlist(Team team) {
-        println("${team} 招聘... 队长: ${team.leader}")
-        def objectList = [:]
-        def teachers = []
-        def tt = Teacher.get(team.leader.id)
-        if (tt) {
-            teachers.add(tt)
+    def enlist() {
+        println("招募：${params}")
+        def person = personService.get(params.person)
+        def team = teamService.get(params.team)
+        if (team) {
+            team.members.add(person)
+            teamService.save(team)
         }
-        team.members.each { e ->
-            def t = Teacher.get(e.id)
-            if (t) {
-                teachers.add(t)
-            }
-        }
-        objectList.put("members", teachers)
-
-        def eteachers = []
-        Teacher.list().each { e->
-            if (!teachers.contains(e)) {
-                eteachers.add(e)
-            }
-        }
-        objectList.put("teachers", eteachers)
-
-        def view = "enlist"
-        if (request.xhr) {
-            render(template: view, model: [team: team, objectList: objectList])
-        } else {
-            respond objectList
-        }
+        redirect(action: "index")
     }
 
     def saveTeam(Team team) {
@@ -73,7 +53,7 @@ class Operation4ManageAController {
 
     def count() {
         def count = 0
-        count = commonDataService.countObject(params.key)
+        count = commonDataService.countObject(params)
         def result = [count: count]
         if (request.xhr) {
             render result as JSON

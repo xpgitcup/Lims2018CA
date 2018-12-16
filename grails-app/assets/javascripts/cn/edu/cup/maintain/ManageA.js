@@ -6,18 +6,37 @@ $(function () {
     console.info("以项目为主线的管理...");
     operation4ManageADiv = $("#operation4ManageADiv");
     tabPagesManagerB("operation4ManageADiv", tabList4ManageA, loadManageA, countManageA);
+    //tabPagesManagerA("operation4ManageADiv", tabList4ManageA, idList4ManageA, loadManageA, countManageA);
+
+    // 更新全部当前记录标志
+    updatePageIdList(idList4ManageA);
 });
+
+function updatePageIdList(idList) {
+    var id
+    for (e in idList) {
+        id = readCookie("currentKey" + idList[e], 0)
+        $("#" + idList[e]).html(id)
+        console.info("当前：" + idList[e] + ": " + id);
+    }
+}
 
 function selectAndTurnToNextManagerA(id) {
     var currentKey = getCurrentKey();
     var title = getCurrentTitle();
     console.info("点击当前：" + currentKey);
+
+    // 显示
     $("#" + currentKey).html(id);
+    // 记录
+    $.cookie("currentKey" + currentKey, id)
+
     switch (title) {
         case "项目列表":
             operation4ManageADiv.tabs("select", "团队");
             break
         case "团队":
+            operation4ManageADiv.tabs("select", "队员");
             break
         case "队员":
             break
@@ -38,6 +57,20 @@ function createItem(id) {
 
 function enlist(id) {
     console.info("招募...")
+    var currentTeam = readCookie("currentKey" + "currentTeam", 0);
+    ajaxRun("operation4ManageA/enlist/?team=" + currentTeam + "&person=" + id, 0, "");
+}
+
+/*
+* 去招募S
+* */
+function toEnlist(id) {
+    console.info("招募...")
+    var currentKey = "currentTeam"
+    // 显示
+    $("#" + currentKey).html(id);
+    // 记录
+    $.cookie("currentKey" + currentKey, id)
     operation4ManageADiv.tabs("select", "人力资源");
 }
 
@@ -67,8 +100,12 @@ function countManageA(title) {
             total = ajaxCalculate("operation4ManageA/count?key=project");
             break
         case "队员":
+            var currentTeam = $("#currentTeam").text()
+            total = ajaxCalculate("operation4ManageA/count?key=member&team=" + currentTeam);
             break
         case "人力资源":
+            var currentTeam = $("#currentTeam").text()
+            total = ajaxCalculate("operation4ManageA/count?key=person&team=" + currentTeam);
             break
     }
     return total;
@@ -78,26 +115,23 @@ function loadManageA(title, page, pageSize) {
     console.info("调入基础数据..." + title);
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
     var personId = $("#currentPersonId").text()
-    var id = 0
-    console.info(params)
+    var id = readCookie("currentKey" + "currentProject", 0);
+    var currentTeam = readCookie("currentKey" + "currentTeam", 0);
+    console.info("项目:" + id + "团队：" + currentTeam);
     switch (title) {
         case "项目列表":
             ajaxRun("operation4ManageA/list" + params + "&key=project", 0, "list" + title + "Div");
             break
         case "团队":
-            id = $("#currentProject").text()
             console.info("当前项目:" + id)
             ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
             break
         case "队员":
-            id = $("#currentProject").text()
-            console.info("当前项目:" + id)
-            ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
+            ajaxRun("operation4ManageA/list" + params + "&key=member&team=" + currentTeam, 0, "list" + title + "Div");
             break
         case  "人力资源":
-            id = $("#currentProject").text()
-            console.info("当前项目:" + id)
-            ajaxRun("operation4ManageA/list" + params + "&key=team&leader=" + personId + "&projectId=" + id, 0, "list" + title + "Div");
+            console.info("招人：" + currentTeam);
+            ajaxRun("operation4ManageA/list" + params + "&key=person&team=" + currentTeam, 0, "list" + title + "Div");
             break
     }
     $.cookie("currentPage" + title, page);

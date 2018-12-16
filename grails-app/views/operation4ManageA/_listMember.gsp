@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'project.label', default: 'Project')}"/>
+    <g:set var="entityName" value="${message(code: 'teacher.label', default: 'Teacher')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
 </head>
 
@@ -17,28 +17,16 @@
     </g:if>
     <table>
         <thead>
-        <th>名称</th>
-        <th>队长</th>
-        <th>项目</th>
-        <th>创建时间</th>
-        <th>人员</th>
-        <th>操作</th>
+        <th>姓名</th>
+        <th>工号</th>
+        <th>职称</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                <td>
-                    <a href="javascript: selectAndTurnToNextManagerA(${item.id})">
-                        ${item.name}
-                    </a>
-                </td>
-                <td>${item.leader}</td>
-                <td>${item.project}</td>
-                <td>${item.createdDate}</td>
-                <td>${item.members?.size()}</td>
-                <td>
-                    <a href="javascript: toEnlist(${item.id})">去招人</a>
-                </td>
+                <td>${item.name}</td>
+                <td>${item.code}</td>
+                <td>${item.title}</td>
             </tr>
         </g:each>
         </tbody>

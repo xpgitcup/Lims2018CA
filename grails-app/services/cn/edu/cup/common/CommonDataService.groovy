@@ -14,10 +14,30 @@ import grails.gorm.transactions.Transactional
 class CommonDataService {
 
     def teacherService
+    def teamService
 
-    int countObject(key) {
+    int countObject(params) {
+        def key = params.key
         def count = 0
         switch (key) {
+            case "person":
+                def team = teamService.get(params.team)
+                count = Person.count()
+                if (team) {
+                    if (team.members) {
+                        count -= team.members.size()
+                    }
+                }
+                count -= 1
+                break;
+            case "member":
+                def team = teamService.get(params.team)
+                if (team) {
+                    if (team.members) {
+                        count = team.members.size()
+                    }
+                }
+                break
             case "team":
                 count = Team.count()
                 break;
@@ -45,8 +65,40 @@ class CommonDataService {
 
     def listObjectList(params) {
         def view
-        def objectList
+        def objectList = []
         switch (params.key) {
+            case "person":
+                println("寻找人力资源：")
+                def team = teamService.get(params.team)
+                if (team) {
+                    def members = []
+                    members.add(team.leader.id)
+                    if (team) {
+                        if (team.members) {
+                            team.members.each { it->
+                                members.add(it.id)
+                            }
+                        }
+                    }
+                    println("${team} 招人 ${members}")
+                    def pg = [:]
+                    pg.offset = params.offset
+                    pg.max = params.max
+                    objectList = Person.findAllByIdNotInList(members, pg)
+                } else {
+                    objectList = Person.list(params)
+                }
+                view = "listPerson"
+                break
+            case "member":
+                def team = teamService.get(params.team)
+                if (team) {
+                    if (team.members) {
+                        objectList = team.members
+                    }
+                }
+                view = "listMember"
+                break
             case "team":
                 if (params.leader) {
                     def p = Person.get(params.leader)

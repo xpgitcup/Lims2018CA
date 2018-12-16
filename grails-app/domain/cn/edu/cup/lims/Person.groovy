@@ -12,4 +12,7 @@ class Person {
         return "${name}/${code}"
     }
 
+    def personStatus() {
+        return this.class.simpleName
+    }
 }

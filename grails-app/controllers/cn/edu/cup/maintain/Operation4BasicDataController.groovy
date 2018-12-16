@@ -215,7 +215,7 @@ class Operation4BasicDataController {
 
     def count() {
         def count = 0
-        count = commonDataService.countObject(params.key)
+        count = commonDataService.countObject(params)
         def result = [count: count]
         if (request.xhr) {
             render result as JSON
