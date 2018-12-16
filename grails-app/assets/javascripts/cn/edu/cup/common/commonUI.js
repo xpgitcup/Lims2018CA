@@ -39,7 +39,7 @@ function tabPagesManagerB(tabsName, tabNameList, listFunction, countFunction) {
         paginationDiv.pagination({
             pagesize: pageSize,
             total: total,
-            pageNumber: currentPage,
+            pageNumber: currentPage,  // 这一参数很关键啊-- 不是当前页面的意思。-- 创建分页（pagination）时显示的页码。
             onSelectPage: function (pageNumber, pageSize) {
                 var ct = tabsDiv.tabs('getSelected').panel('options').title;    //这一句是关键啊
                 console.info("翻页：" + ct + "页码：" + pageNumber);
@@ -122,7 +122,7 @@ function tabPagesManagerA(tabsName, tabNameList, idList, listFunction, countFunc
         paginationDiv.pagination({
             pagesize: pageSize,
             total: total,
-            pageNumber: currentPage,
+            //pageNumber: currentPage,
             onSelectPage: function (pageNumber, pageSize) {
                 var ct = tabsDiv.tabs('getSelected').panel('options').title;    //这一句是关键啊
                 console.info("翻页：" + ct + "页码：" + pageNumber);

@@ -1,3 +1,4 @@
+<%@ page import="cn.edu.cup.lims.Project; cn.edu.cup.lims.Person; cn.edu.cup.lims.Team" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,7 @@
         <th>操作</th>
         <th>类型</th>
         <th>团队</th>
+        <th>所领导的团队</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
@@ -35,6 +37,7 @@
                 </td>
                 <td>${item.projectType}</td>
                 <td>${item.team?.size()}</td>
+                <td>${cn.edu.cup.lims.Team.countByLeaderAndProject(cn.edu.cup.lims.Person.get(session.realId), cn.edu.cup.lims.Project.get(item.id))}</td>
             </tr>
         </g:each>
         </tbody>

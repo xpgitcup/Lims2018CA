@@ -25,7 +25,6 @@ function selectAndTurnToNextManagerA(id) {
     var currentKey = getCurrentKey();
     var title = getCurrentTitle();
     console.info("点击当前：" + currentKey);
-
     // 显示
     $("#" + currentKey).html(id);
     // 记录

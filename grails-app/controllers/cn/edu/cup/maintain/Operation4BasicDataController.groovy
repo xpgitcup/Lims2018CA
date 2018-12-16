@@ -195,10 +195,10 @@ class Operation4BasicDataController {
     }
 
     def downloadTemplate() {
-
         def hs = commonDataService.dataSheetHead(new Teacher())
         println("数据模板：")
         println("${hs}")
+        flash.message = "该功能尚未实现..."
         redirect(action: "index")
     }
 

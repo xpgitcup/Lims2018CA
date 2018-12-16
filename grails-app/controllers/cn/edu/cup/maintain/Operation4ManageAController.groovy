@@ -1,10 +1,6 @@
 package cn.edu.cup.maintain
 
 import cn.edu.cup.lims.Person
-import cn.edu.cup.lims.Project
-import cn.edu.cup.lims.Student
-import cn.edu.cup.lims.Teacher
-import cn.edu.cup.lims.TeacherTitle
 import cn.edu.cup.lims.Team
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
