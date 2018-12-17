@@ -2,6 +2,7 @@ package cn.edu.cup.common
 
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.Project
+import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.StudentType
 import cn.edu.cup.lims.Teacher
@@ -179,6 +180,10 @@ class CommonDataService {
                 objectList = StudentType.list(params)
                 view = "listStudentType"
                 break;
+            case "projectType":
+                objectList = ProjectType.list(params)
+                view = "listProjectType"
+                break;
             case "thingType":
                 objectList = ThingType.list(params)
                 view = "listProjectType"
@@ -231,9 +236,13 @@ class CommonDataService {
                 newInstance = new StudentType(params)
                 view = "createStudentType"
                 break;
+            case "projectType":
+                newInstance = new ProjectType(params)
+                view = "createProjectType"
+                break;
             case "thingType":
                 newInstance = new ThingType(params)
-                view = "createProjectType"
+                view = "createThingType"
                 break;
         }
         return [view, newInstance]
