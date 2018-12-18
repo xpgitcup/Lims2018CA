@@ -22,10 +22,10 @@
         </g:else>
     </g:else>
 <!-- end 实现可定制的布局 -->
-    <g:set var="entityName" value="BasicData"/>
+    <g:set var="entityName" value="BasicType"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>${entityName}维护</title>
-    <asset:javascript src="cn/edu/cup/maintain/${entityName}.js"/>
+    <asset:javascript src="cn/edu/cup/os4lims/${entityName}.js"/>
 </head>
 
 <body>
@@ -61,7 +61,7 @@
     <div class="message" role="status">${flash.message}</div>
 </g:if>
 
-<div id="operation4BasicDataDiv" class="easyui-tabs">
+<div id="operation4BasicTypeDiv" class="easyui-tabs">
 </div>
 </body>
 </html>
