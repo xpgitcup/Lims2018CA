@@ -37,12 +37,19 @@
     ]
   },
   {
-    "menuContext": "基础数据",
+    "menuContext": "基础维护",
     "menuAction": "#",
     "menuDescription": "维护基础数据",
     "roleAttribute": "基础数据服务",
     "menuOrder": 0,
     "menuItems": [
+      {
+        "menuContext": "基础类型",
+        "menuAction": "Operation4BasicType/index",
+        "menuDescription": "维护各种类型数据",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
+      },
       {
         "menuContext": "基础数据",
         "menuAction": "Operation4BasicData/index",

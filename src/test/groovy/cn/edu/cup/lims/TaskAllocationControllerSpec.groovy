@@ -5,7 +5,7 @@ import grails.testing.web.controllers.ControllerUnitTest
 import grails.validation.ValidationException
 import spock.lang.*
 
-class ThingTypeControllerSpec extends Specification implements ControllerUnitTest<ThingTypeController>, DomainUnitTest<ThingType> {
+class TaskAllocationControllerSpec extends Specification implements ControllerUnitTest<TaskAllocationController>, DomainUnitTest<TaskAllocation> {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,7 +17,7 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
 
     void "Test the index action returns the correct model"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
+        controller.taskAllocationService = Mock(TaskAllocationService) {
             1 * list(_) >> []
             1 * count() >> 0
         }
@@ -26,8 +26,8 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         controller.index()
 
         then:"The model is correct"
-        !model.thingTypeList
-        model.thingTypeCount == 0
+        !model.taskAllocationList
+        model.taskAllocationCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -35,7 +35,7 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         controller.create()
 
         then:"The model is correctly created"
-        model.thingType!= null
+        model.taskAllocation!= null
     }
 
     void "Test the save action with a null instance"() {
@@ -45,14 +45,14 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         controller.save(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/thingType/index'
+        response.redirectedUrl == '/taskAllocation/index'
         flash.message != null
     }
 
     void "Test the save action correctly persists"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
-            1 * save(_ as ThingType)
+        controller.taskAllocationService = Mock(TaskAllocationService) {
+            1 * save(_ as TaskAllocation)
         }
 
         when:"The save action is executed with a valid instance"
@@ -60,38 +60,38 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
         populateValidParams(params)
-        def thingType = new ThingType(params)
-        thingType.id = 1
+        def taskAllocation = new TaskAllocation(params)
+        taskAllocation.id = 1
 
-        controller.save(thingType)
+        controller.save(taskAllocation)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/thingType/show/1'
+        response.redirectedUrl == '/taskAllocation/show/1'
         controller.flash.message != null
     }
 
     void "Test the save action with an invalid instance"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
-            1 * save(_ as ThingType) >> { ThingType thingType ->
-                throw new ValidationException("Invalid instance", thingType.errors)
+        controller.taskAllocationService = Mock(TaskAllocationService) {
+            1 * save(_ as TaskAllocation) >> { TaskAllocation taskAllocation ->
+                throw new ValidationException("Invalid instance", taskAllocation.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'POST'
-        def thingType = new ThingType()
-        controller.save(thingType)
+        def taskAllocation = new TaskAllocation()
+        controller.save(taskAllocation)
 
         then:"The create view is rendered again with the correct model"
-        model.thingType != null
+        model.taskAllocation != null
         view == 'create'
     }
 
     void "Test the show action with a null id"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
+        controller.taskAllocationService = Mock(TaskAllocationService) {
             1 * get(null) >> null
         }
 
@@ -104,20 +104,20 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
 
     void "Test the show action with a valid id"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
-            1 * get(2) >> new ThingType()
+        controller.taskAllocationService = Mock(TaskAllocationService) {
+            1 * get(2) >> new TaskAllocation()
         }
 
         when:"A domain instance is passed to the show action"
         controller.show(2)
 
         then:"A model is populated containing the domain instance"
-        model.thingType instanceof ThingType
+        model.taskAllocation instanceof TaskAllocation
     }
 
     void "Test the edit action with a null id"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
+        controller.taskAllocationService = Mock(TaskAllocationService) {
             1 * get(null) >> null
         }
 
@@ -130,15 +130,15 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
 
     void "Test the edit action with a valid id"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
-            1 * get(2) >> new ThingType()
+        controller.taskAllocationService = Mock(TaskAllocationService) {
+            1 * get(2) >> new TaskAllocation()
         }
 
         when:"A domain instance is passed to the show action"
         controller.edit(2)
 
         then:"A model is populated containing the domain instance"
-        model.thingType instanceof ThingType
+        model.taskAllocation instanceof TaskAllocation
     }
 
 
@@ -149,14 +149,14 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         controller.update(null)
 
         then:"A 404 error is returned"
-        response.redirectedUrl == '/thingType/index'
+        response.redirectedUrl == '/taskAllocation/index'
         flash.message != null
     }
 
     void "Test the update action correctly persists"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
-            1 * save(_ as ThingType)
+        controller.taskAllocationService = Mock(TaskAllocationService) {
+            1 * save(_ as TaskAllocation)
         }
 
         when:"The save action is executed with a valid instance"
@@ -164,31 +164,31 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
         populateValidParams(params)
-        def thingType = new ThingType(params)
-        thingType.id = 1
+        def taskAllocation = new TaskAllocation(params)
+        taskAllocation.id = 1
 
-        controller.update(thingType)
+        controller.update(taskAllocation)
 
         then:"A redirect is issued to the show action"
-        response.redirectedUrl == '/thingType/show/1'
+        response.redirectedUrl == '/taskAllocation/show/1'
         controller.flash.message != null
     }
 
     void "Test the update action with an invalid instance"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
-            1 * save(_ as ThingType) >> { ThingType thingType ->
-                throw new ValidationException("Invalid instance", thingType.errors)
+        controller.taskAllocationService = Mock(TaskAllocationService) {
+            1 * save(_ as TaskAllocation) >> { TaskAllocation taskAllocation ->
+                throw new ValidationException("Invalid instance", taskAllocation.errors)
             }
         }
 
         when:"The save action is executed with an invalid instance"
         request.contentType = FORM_CONTENT_TYPE
         request.method = 'PUT'
-        controller.update(new ThingType())
+        controller.update(new TaskAllocation())
 
         then:"The edit view is rendered again with the correct model"
-        model.thingType != null
+        model.taskAllocation != null
         view == 'edit'
     }
 
@@ -199,13 +199,13 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         controller.delete(null)
 
         then:"A 404 is returned"
-        response.redirectedUrl == '/thingType/index'
+        response.redirectedUrl == '/taskAllocation/index'
         flash.message != null
     }
 
     void "Test the delete action with an instance"() {
         given:
-        controller.thingTypeService = Mock(ThingTypeService) {
+        controller.taskAllocationService = Mock(TaskAllocationService) {
             1 * delete(2)
         }
 
@@ -215,7 +215,7 @@ class ThingTypeControllerSpec extends Specification implements ControllerUnitTes
         controller.delete(2)
 
         then:"The user is redirected to index"
-        response.redirectedUrl == '/thingType/index'
+        response.redirectedUrl == '/taskAllocation/index'
         flash.message != null
     }
 }

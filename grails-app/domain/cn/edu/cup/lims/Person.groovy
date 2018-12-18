@@ -1,18 +1,14 @@
 package cn.edu.cup.lims
 
-class Person {
+class Person extends Matter{
 
-    String name
     String code
 
     static constraints = {
+        code(unique: true)
+        name()
     }
 
-    String toString() {
-        return "${name}/${code}"
-    }
-
-    def personStatus() {
-        return this.class.simpleName
-    }
 }
+
+

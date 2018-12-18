@@ -1,11 +1,8 @@
 package cn.edu.cup.maintain
 
 import cn.edu.cup.lims.Project
-import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
-import cn.edu.cup.lims.StudentType
 import cn.edu.cup.lims.Teacher
-import cn.edu.cup.lims.TeacherTitle
 import grails.converters.JSON
 import grails.validation.ValidationException
 
@@ -108,50 +105,7 @@ class Operation4BasicDataController {
         redirect(action: "index")
     }
 
-    def saveProjectType(ProjectType newInstance) {
-        if (newInstance == null) {
-            notFound()
-            return
-        }
 
-        try {
-            projectTypeService.save(newInstance)
-        } catch (ValidationException e) {
-            flash.message = newInstance.errors
-        }
-
-        redirect(action: "index")
-    }
-
-    def saveStudentType(StudentType newInstance) {
-        if (newInstance == null) {
-            notFound()
-            return
-        }
-
-        try {
-            studentTypeService.save(newInstance)
-        } catch (ValidationException e) {
-            flash.message = newInstance.errors
-        }
-
-        redirect(action: "index")
-    }
-
-    def saveTeacherTitle(TeacherTitle newInstance) {
-        if (newInstance == null) {
-            notFound()
-            return
-        }
-
-        try {
-            teacherTitleService.save(newInstance)
-        } catch (ValidationException e) {
-            flash.message = newInstance.errors
-        }
-
-        redirect(action: "index")
-    }
 
     def saveTeacher(Teacher newInstance) {
         if (newInstance == null) {

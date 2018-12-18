@@ -1,11 +1,9 @@
 package cn.edu.cup.lims
 
-import cn.edu.cup.common.DataExchangeInterface
-
-class Student extends Person implements DataExchangeInterface {
+class Student extends Person {
 
     String gradeName            //年级
-    StudentType studentType     //
+    PersonTitle studentType     //
     Teacher supervisor          //导师
     String major                //专业
 

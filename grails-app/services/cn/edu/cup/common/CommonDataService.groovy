@@ -2,11 +2,8 @@ package cn.edu.cup.common
 
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.Project
-import cn.edu.cup.lims.ProjectType
 import cn.edu.cup.lims.Student
-import cn.edu.cup.lims.StudentType
 import cn.edu.cup.lims.Teacher
-import cn.edu.cup.lims.TeacherTitle
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.ThingType
 import grails.gorm.transactions.Transactional
@@ -227,18 +224,6 @@ class CommonDataService {
             case "project":
                 newInstance = new Project(params)
                 view = "createProject"
-                break;
-            case "teacherTitle":
-                newInstance = new TeacherTitle(params)
-                view = "createTeacherTitle"
-                break;
-            case "studentType":
-                newInstance = new StudentType(params)
-                view = "createStudentType"
-                break;
-            case "projectType":
-                newInstance = new ProjectType(params)
-                view = "createProjectType"
                 break;
             case "thingType":
                 newInstance = new ThingType(params)

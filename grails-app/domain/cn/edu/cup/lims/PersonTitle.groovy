@@ -1,8 +1,6 @@
 package cn.edu.cup.lims
 
-class Thing extends Matter{
-
-    ThingType thingType
+class PersonTitle extends MatterType {
 
     static constraints = {
     }

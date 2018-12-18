@@ -3,6 +3,8 @@ package cn.edu.cup.lims
 class Project extends Thing {
 
     String companyA
+    Date startDate
+    Date stopDate
 
     static constraints = {
         name(unique: true)
@@ -49,4 +51,5 @@ class Project extends Thing {
     List exportToDataSheet() {
         return null
     }
+
 }
