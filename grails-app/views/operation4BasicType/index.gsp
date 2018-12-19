@@ -33,27 +33,9 @@
     <ul>
         <li><a>当前</a></li>
         <li><a id="currentTitle"></a></li>
+        <li><a>||</a></li>
+        <li><a id="createRootItem" href="javascript: createItem(0)">创建根节点</a></li>
         <li><a id="createItem" href="javascript: createItem()">创建</a></li>
-        <li>
-            <a id="currentTemplate" href="#">下载模板</a>
-        </li>
-        <li><a>|</a></li>
-        <li><a>导入数据</a></li>
-        <li>
-            <g:uploadForm method="post" action="importFromFile">
-                <ul>
-                    <li>
-                        <input type="file" name="uploadedFile"/>
-                    </li>
-                    <li>
-                        <input type="hidden" name="key" value="" id="importKey">
-                    </li>
-                    <li>
-                        <input type="submit" value="ok">
-                    </li>
-                </ul>
-            </g:uploadForm>
-        </li>
     </ul>
 </div>
 

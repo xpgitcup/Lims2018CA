@@ -5,7 +5,11 @@ class MatterType {
     String name
     MatterType upType
 
+    static hasMany = [subItems: MatterType]
+
     static constraints = {
+        name(unique: true)
+        upType(nullable: true)
     }
 
     String toString() {

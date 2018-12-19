@@ -1,23 +1,50 @@
 package cn.edu.cup.common
 
 import cn.edu.cup.lims.Person
+import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.Project
 import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.ThingType
+import cn.edu.cup.system.JsFrame
 import grails.gorm.transactions.Transactional
 
 @Transactional
 class CommonDataService {
 
-    def teacherService
+    def personTitleService
+    def matterTypeService
+    def thingTypeService
     def teamService
+    def treeViewService
+
+    def saveInstance(params) {
+        def result
+        println("try 保存：${params}")
+        switch (params.objectType) {
+            case "MatterType":
+                matterTypeService.save(newInstance)
+                break;
+            case "PersonTitle":
+                def newInstance = new PersonTitle(params)
+                result = personTitleService.save(newInstance)
+                break;
+            case "ThingType":
+                def newInstance = new ThingType(params)
+                thingTypeService.save(newInstance)
+                break;
+        }
+        return result
+    }
 
     int countObject(params) {
         def key = params.key
         def count = 0
         switch (key) {
+            case "personTitle":
+                count = PersonTitle.count()
+                break;
             case "person":
                 println("招募统计：${params}")
                 def team = teamService.get(params.team)
@@ -68,6 +95,31 @@ class CommonDataService {
                 break;
         }
         return count
+    }
+
+    def getTreeviewData(params) {
+        println("getTreeviewData: ${params}")
+        def treeviewData
+        def data
+        switch (params.key) {
+            case "personTitle":
+                data = PersonTitle.findAllByUpTypeIsNull()
+                params.context = "name"
+                params.subItems = "subItems"
+                params.attributes = "id"    //
+                params.useMethod = false
+                treeviewData = treeViewService.generateNodesString(data, params, JsFrame.EasyUI)
+                break
+            case "thingType":
+                data = ThingType.findAllByUpTypeIsNull()
+                params.context = "name"
+                params.subItems = "subItems"
+                params.attributes = "id"    //
+                params.useMethod = false
+                treeviewData = treeViewService.generateNodesString(data, params, JsFrame.EasyUI)
+                break
+        }
+        return treeviewData
     }
 
     def listObjectList(params) {
@@ -207,6 +259,21 @@ class CommonDataService {
         def newInstance
         def view
         switch (params.key) {
+            case "personTitle":
+                if (params.id) {
+                    params.upType = params.id
+                }
+                newInstance = new PersonTitle(params)
+                view = "createPersonTitle"
+                println("创建：${newInstance.class.simpleName}")
+                break
+            case "thingType":
+                if (params.id) {
+                    params.upType = params.id
+                }
+                newInstance = new ThingType(params)
+                view = "createThingType"
+                break;
             case "team":
                 //def teacher = Teacher.get(params.directorId)
                 newInstance = new Team(params)
@@ -224,10 +291,6 @@ class CommonDataService {
             case "project":
                 newInstance = new Project(params)
                 view = "createProject"
-                break;
-            case "thingType":
-                newInstance = new ThingType(params)
-                view = "createThingType"
                 break;
         }
         return [view, newInstance]

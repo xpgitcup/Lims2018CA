@@ -7,9 +7,36 @@ var idList4BasicType = ["currentPersonTitle", "currentThingType"];
 * */
 $(function () {
     console.info("教师、学生、项目 信息维护...");
+    // 静态设置
     operation4BasicTypeDiv = $("#operation4BasicTypeDiv");
-    tabPagesManagerB("operation4BasicTypeDiv", tabList4BasicType, loadBasicType, countBasicType);
+    setupTabsWithDivAndPaginationAndTreeview(operation4BasicTypeDiv, tabList4BasicType);
+    // 动态设置
+    var urlList = ["operation4BasicType/getTreeviewData?key=personTitle", "operation4BasicType/getTreeviewData?key=thingType"]
+    setupTabsDivParams4TreeView("operation4BasicTypeDiv", tabList4BasicType, urlList);
+    setupPaginationParams4TreeView(tabList4BasicType, countBasicType, urlList);
+    setupTreeviewNodeSelectFunction(tabList4BasicType, changeUpNode)
+
+    //tabPagesManagerWithTreeViewA("operation4BasicTypeDiv", tabList4BasicType, loadBasicType, countBasicType);
 });
+
+function changeUpNode(node) {
+    console.info("修改根节点的id...")
+    $("#createItem").attr('href', 'javascript: createItem(' + node.attributes[0] + ')');
+    $("#createItem").html("创建" + node.attributes[0] + '的子节点');
+    $("#currentTitle").html(node.text);
+}
+
+function createItem(id) {
+    var title = getCurrentTabTitle(operation4BasicTypeDiv);
+    switch (title) {
+        case "人员身份":
+            ajaxRun("operation4BasicType/create?key=personTitle", id, "list" + title + "Div");
+            break
+        case "事情分类":
+            ajaxRun("operation4BasicType/create?key=thingType", id, "list" + title + "Div");
+            break
+    }
+}
 
 function loadBasicType(title, page, pageSize) {
     console.info("调入基础数据..." + title);
@@ -17,8 +44,10 @@ function loadBasicType(title, page, pageSize) {
     console.info(params)
     switch (title) {
         case "人员身份":
+            ajaxRun("operation4BasicType/list?key=personTitle", 0, "");
             break
         case "事情分类":
+            ajaxRun("operation4BasicType/list?key=thingType", 0, "");
             break
     }
 }
@@ -39,5 +68,5 @@ function countBasicType(title) {
 }
 
 function showCurrent(title) {
-
+    $("#currentTitle").html("请选择...");
 }
