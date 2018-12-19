@@ -46,6 +46,9 @@ function addNewListDiv(title, tab) {
     return listDiv;
 }
 
+/*
+* 设置标签--分页--树形结构显示
+* */
 function setupTabsWithDivAndPaginationAndTreeview(tabsDiv, tabNameList) {
     for (x in tabNameList) {
         console.info("创建：" + x);
@@ -66,6 +69,9 @@ function setupTabsWithDivAndPaginationAndTreeview(tabsDiv, tabNameList) {
     }
 }
 
+/*
+* 设置标签--分页机制
+* */
 function setupTabsWithDivAndPagination(tabsDiv, tabNameList) {
     for (x in tabNameList) {
         console.info("创建：" + x);
@@ -84,6 +90,9 @@ function setupTabsWithDivAndPagination(tabsDiv, tabNameList) {
     }
 }
 
+/*
+* 设置树形结构显示的数据加载函数
+* */
 function setupTabsDivParams4TreeView(tabsName, tabNameList, urlList) {
     // 当前页
     var defaultTab = tabNameList[0];
@@ -112,6 +121,9 @@ function setupTabsDivParams4TreeView(tabsName, tabNameList, urlList) {
     //loadFirstData(currentTab, listFunction);
 }
 
+/*
+* 设置树形结构显示的--分页机制参数
+* */
 function setupPaginationParams4TreeView(tabNameList, aCountFunction, urlList) {
     var title
     var total = 0
@@ -133,6 +145,9 @@ function setupPaginationParams4TreeView(tabNameList, aCountFunction, urlList) {
     }
 }
 
+/*
+* 设置树形结构显示--节点选择的操作---点击某个节点后的动作
+* */
 function setupTreeviewNodeSelectFunction(tabNameList, doSomeThing) {
     console.info("设置树形结构节点选择动作...")
     var title
@@ -148,6 +163,41 @@ function setupTreeviewNodeSelectFunction(tabNameList, doSomeThing) {
             }
         })
     }
+}
+
+function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunction) {
+    var title;
+    var total = 0;
+    var countFunction = eval(aCountFunction);
+    var loadFunction = eval(aLoadFunction);
+    var paginationDiv
+    for (x in tabNameList) {
+        title = tabNameList[x];
+        total = countFunction(title)
+        paginationDiv = $("#pagination" + title + "Div")
+        paginationDiv.pagination({
+            pageSize: pageSize,
+            total: total,
+            onSelectPage: function (pageNumber, pageSize) {
+                loadFunction(title, pageNumber, pageSize);
+            }
+        })
+    }
+}
+
+function setupTabPageParams(tabsName, aLoadFunction) {
+    var tabsDiv = $("#" + tabsName);
+    var loadFunction = eval(aLoadFunction);
+    tabsDiv.tabs({
+        onSelect: function (title, index) {
+            //记录tabs的缺省页面，所以采用tabsName
+            console.info(tabsName + "--选择标签：" + title + "--" + index);
+            $.cookie("current" + tabsName, title, {path: '/'});
+            //------------------------------------------------------------------------------------------------------
+            var pageNumber = readCookie("currentPage" + title, 1)
+            loadFunction(title, pageNumber, pageSize)
+        }
+    })
 }
 
 /*
@@ -346,157 +396,4 @@ function tabPagesManager(tabsName, tabNameList, listFunction) {
     // 打开缺省的标签
     tabsDiv.tabs("select", currentTab);
     loadFirstData(currentTab, listFunction);
-}
-
-/*
-* 基础函数==============================================================================================================
-* */
-
-function createTabpageAndTreeView4Tabs(tabNameList, tabsDiv, listFunction, countFunction) {
-// 创建各个标签页
-    for (x in tabNameList) {
-        console.info("创建：" + x);
-        var title = tabNameList[x];
-
-        tabsDiv.tabs('add', {
-            title: title,
-            closable: false
-        })
-
-        //插入到tab中
-        tabsDiv.tabs('select', x)
-        var tab = tabsDiv.tabs('getSelected');
-        //显示页面
-        var listDiv = $('<div>' + title + '</div>');
-        listDiv.attr('id', 'list' + title + 'Div');
-        listDiv.appendTo(tab)
-
-        //设置树型显示
-        var treeUl = $('<ul class="easyui-tree"></ul>');
-        treeUl.attr('id', 'tree' + title + 'Ul');
-        treeUl.appendTo(listDiv)
-
-        //分页Div
-        var paginationDiv = $('<div class="easyui-pagination"></div>');
-        paginationDiv.attr('id', 'pagination' + title + 'Div');
-        paginationDiv.appendTo(tab)
-        var __ret = setupPaginationDiv(paginationDiv, title, listFunction, countFunction);
-        var total = __ret.total;
-        var currentPage = __ret.currentPage;
-    }
-    return paginationDiv;
-}
-
-function createTabsDivA(tabNameList, tabsDiv) {
-// 创建各个标签页
-    for (x in tabNameList) {
-        console.info("创建：" + x);
-        var title = tabNameList[x];
-
-        tabsDiv.tabs('add', {
-            title: title,
-            closable: false
-        })
-
-        //插入到tab中
-        tabsDiv.tabs('select', x)
-        var tab = tabsDiv.tabs('getSelected');
-        //显示页面
-        var listDiv = $('<div>' + title + '</div>');
-        listDiv.attr('id', 'list' + title + 'Div');
-        listDiv.appendTo(tab)
-        //分页Div
-        var paginationDiv = $('<div class="easyui-pagination"></div>');
-        paginationDiv.attr('id', 'pagination' + title + 'Div');
-        paginationDiv.appendTo(tab)
-        var __ret = setupPaginationDiv(paginationDiv, title);
-        var total = __ret.total;
-        var currentPage = __ret.currentPage;
-    }
-    return paginationDiv;
-}
-
-/*
-* 创建tab标签
-* */
-function createTabs4Div(tabNameList, tabsDiv) {
-// 创建各个标签页
-    for (x in tabNameList) {
-        console.info("创建：" + x);
-        var title = tabNameList[x];
-
-        tabsDiv.tabs('add', {
-            title: title,
-            closable: false
-        })
-
-        //插入到tab中
-        tabsDiv.tabs('select', x)
-        var tab = tabsDiv.tabs('getSelected');
-        //显示页面--加入到标签中---这里设置成树型显示
-        //显示页面
-        var listDiv = $('<div>' + title + '</div>');
-        listDiv.attr('id', 'list' + title + 'Div');
-        listDiv.appendTo(tab)
-
-        //分页Div------加入到标签中
-        var paginationDiv = $('<div class="easyui-pagination"></div>');
-        paginationDiv.attr('id', 'pagination' + title + 'Div');
-        paginationDiv.appendTo(tab)
-        var __ret = setupPaginationDiv(paginationDiv, title);
-        var total = __ret.total;
-        var currentPage = __ret.currentPage;
-    }
-    return paginationDiv;
-}
-
-
-function loadFirstData(title, listFunction) {
-    console.info("第一次加载tab...");
-    var page = readCookie("currentPage" + title, 1);
-    console.info("当前：" + title + "   -->页码：" + page);
-    var listFunction = eval(listFunction);
-    listFunction(title, page, pageSize);
-}
-
-/*
-* 加载页面的数据
-* */
-function loadTabPageDefaultData(title, listFunction, countFunction) {
-    console.info("加载缺省页面数据...");
-
-    var countFunction = eval(countFunction);
-    var listFunction = eval(listFunction);
-
-    //首先获取缺省的页面，获取页大小，获取总数
-    var currentPage = readCookie("currentPage" + title, 1);
-    var cpageSize = readCookie("pageSize" + title, pageSize);
-    var totalCount = countFunction(title);
-    console.info("当前页：" + title + ":" + currentPage + "总数：" + totalCount);
-    listFunction(title, currentPage, cpageSize)
-}
-
-
-/*
-* 抽象出来的设置分页的代码
-* */
-function setupPaginationDiv(paginationDiv, title, listFunction, countFunction) {
-    console.info("设置分页处理代码..." + title);
-    var countFunction = eval(countFunction);
-    var listFunction = eval(listFunction);
-    //分页设置
-    var total = countFunction(title)
-    var currentPage = readCookie("currentPage" + title, 1);
-    paginationDiv.pagination({
-        pagesize: pageSize,
-        total: total,
-        pageNumber: currentPage,  // 这一参数很关键啊-- 不是当前页面的意思。-- 创建分页（pagination）时显示的页码。
-        onSelectPage: function (pageNumber, pageSize) {
-            var ct = tabsDiv.tabs('getSelected').panel('options').title;    //这一句是关键啊
-            console.info("翻页：" + ct + "页码：" + pageNumber);
-            listFunction(ct, pageNumber, pageSize)
-        }
-    })
-    console.info("当前页：" + currentPage + ",   总数：" + total);
-    return {total: total, currentPage: currentPage};
 }

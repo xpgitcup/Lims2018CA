@@ -12,7 +12,6 @@ import static org.springframework.http.HttpStatus.CREATED
 class Operation4BasicTypeController {
 
     def commonDataService
-    def treeViewService
 
     def save() {
         println("save ${params}")

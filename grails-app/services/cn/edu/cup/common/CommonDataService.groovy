@@ -85,10 +85,12 @@ class CommonDataService {
                 count = Project.count()
                 break;
             case "teacherTitle":
-                count = TeacherTitle.count()
+                def teacherTitle = PersonTitle.findByName("教师")
+                count = teacherTitle.subItems.size()
                 break;
             case "studentType":
-                count = StudentType.count()
+                def studentType = PersonTitle.findByName("学生")
+                count = studentType.subItems.size()
                 break;
             case "thingType":
                 count = ThingType.count()
@@ -222,15 +224,18 @@ class CommonDataService {
                 view = "listProject"
                 break;
             case "teacherTitle":
-                objectList = TeacherTitle.list(params)
+                def teacherTitle = PersonTitle.findByName("教师")
+                objectList = PersonTitle.findAllByUpType(teacherTitle, params)
                 view = "listTeacherTitle"
                 break;
             case "studentType":
-                objectList = StudentType.list(params)
+                def studentType = PersonTitle.findByName("学生")
+                objectList = PersonTitle.findAllByUpType(studentType, params)
                 view = "listStudentType"
                 break;
             case "projectType":
-                objectList = ProjectType.list(params)
+                def projectType = ThingType.findByName("科研项目")
+                objectList = ThingType.findAllByUpType(projectType, params)
                 view = "listProjectType"
                 break;
             case "thingType":
