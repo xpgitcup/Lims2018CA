@@ -1,5 +1,5 @@
 var operation4BasicDataDiv;
-var tabList4BasicData = ["教师", "学生", "项目", "专业"];
+var tabList4BasicData = ["教师", "学生", "项目", "专业", "课程"];
 var idList4BasicData = ["currentTeacher", "currentStudent", "currentMajor"];
 
 $(function () {
@@ -35,6 +35,11 @@ function updateDownloadHref(title) {
             $("#currentTemplate").html("暂不支持！");
             $("#currentTemplate").attr("href", "#");
             break
+        case "课程":
+            //alert("目前不支持这一功能！")
+            $("#currentTemplate").html("暂不支持！");
+            $("#currentTemplate").attr("href", "#");
+            break
     }
 }
 
@@ -54,6 +59,9 @@ function createItem() {
         case "专业":
             ajaxRun("operation4BasicData/create?key=major", 0, "list" + title + "Div");
             break
+        case "课程":
+            ajaxRun("operation4BasicData/create?key=course", 0, "list" + title + "Div");
+            break
     }
 }
 
@@ -72,6 +80,9 @@ function countBasicData(title) {
             break
         case "专业":
             total = ajaxCalculate("operation4BasicData/count?key=major");
+            break
+        case "课程":
+            total = ajaxCalculate("operation4BasicData/count?key=course");
             break
     }
     return total;
@@ -94,6 +105,9 @@ function loadBasicData(title, page, pageSize) {
             break
         case "专业":
             ajaxRun("operation4BasicData/list" + params + "&key=major", 0, "list" + title + "Div");
+            break
+        case "课程":
+            ajaxRun("operation4BasicData/list" + params + "&key=course", 0, "list" + title + "Div");
             break
     }
     $.cookie("currentPage" + title, page);

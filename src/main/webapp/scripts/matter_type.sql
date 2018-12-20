@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : sample
-Source Server Version : 50716
+Source Server Version : 50722
 Source Host           : localhost:3306
 Source Database       : lims2018bdb
 
 Target Server Type    : MYSQL
-Target Server Version : 50716
+Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-12-19 21:17:14
+Date: 2018-12-20 18:21:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `matter_type` (
   UNIQUE KEY `UK_9xa6s2kg1inab6l0vkrai8sq5` (`name`),
   KEY `FK8cl3gydm9syjk1qa55nqnka2y` (`up_type_id`),
   CONSTRAINT `FK8cl3gydm9syjk1qa55nqnka2y` FOREIGN KEY (`up_type_id`) REFERENCES `matter_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of matter_type
@@ -58,3 +58,4 @@ INSERT INTO `matter_type` VALUES ('22', '0', '横向项目', '16', 'cn.edu.cup.l
 INSERT INTO `matter_type` VALUES ('23', '0', '博士论文', '17', 'cn.edu.cup.lims.ThingType');
 INSERT INTO `matter_type` VALUES ('24', '0', '硕士论文', '17', 'cn.edu.cup.lims.ThingType');
 INSERT INTO `matter_type` VALUES ('25', '0', '课程设计', '18', 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('26', '0', '硕士', '2', 'cn.edu.cup.lims.PersonTitle');

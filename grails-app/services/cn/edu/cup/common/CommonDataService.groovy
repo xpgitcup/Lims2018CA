@@ -1,5 +1,6 @@
 package cn.edu.cup.common
 
+import cn.edu.cup.lims.Course
 import cn.edu.cup.lims.Major
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.PersonTitle
@@ -23,12 +24,17 @@ class CommonDataService {
     def majorService
     def studentService
     def projectService
+    def courseService
 
     def saveInstance(params) {
         def result
         def newInstance
         println("try 保存：${params}")
         switch (params.objectType) {
+            case "Course":
+                newInstance = new Course(params)
+                courseService.save(newInstance)
+                break
             case "Project":
                 newInstance = new Project(params)
                 projectService.save(newInstance)
@@ -65,6 +71,9 @@ class CommonDataService {
         def key = params.key
         def count = 0
         switch (key) {
+            case "course":
+                count = Course.count()
+                break
             case "major":
                 count = Major.count()
                 break
@@ -155,6 +164,10 @@ class CommonDataService {
         def objectList = []
         switch (params.key) {
             // 简单对象
+            case "course":
+                objectList = Course.list(params)
+                view = "listCourse"
+                break
             case "major":
                 objectList = Major.list(params)
                 view = "listMajor"
@@ -339,6 +352,10 @@ class CommonDataService {
             case "major":
                 newInstance = new Major(params)
                 view = "createMajor"
+                break
+            case "course":
+                newInstance = new Course(params)
+                view = "createCourse"
                 break
         }
         println("可选项：${options}")
