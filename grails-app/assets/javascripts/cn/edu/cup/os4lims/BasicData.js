@@ -1,6 +1,6 @@
 var operation4BasicDataDiv;
-var tabList4BasicData = ["教师", "学生", "项目","教师职称","学生类别","项目类型"];
-var idList4BasicData = ["currentTeacher", "currentStudent", "currentProject"];
+var tabList4BasicData = ["教师", "学生", "项目","专业"];
+var idList4BasicData = ["currentTeacher", "currentStudent", "currentMajor"];
 
 $(function () {
     console.info("教师、学生、项目 信息维护...");
@@ -12,6 +12,25 @@ $(function () {
     //tabPagesManagerA("operation4BasicDataDiv", tabList4BasicData, idList4BasicData, loadBasicData, countBasicData);
 
 });
+
+function createItem() {
+    var title = getCurrentTabTitle(operation4BasicDataDiv);
+    console.info("创建..." + title)
+    switch (title) {
+        case "教师":
+            ajaxRun("operation4BasicData/create?key=teacher", 0, "list" + title + "Div");
+            break
+        case "学生":
+            ajaxRun("operation4BasicData/create?key=student", 0, "list" + title + "Div");
+            break
+        case  "项目":
+            ajaxRun("operation4BasicData/create?key=project", 0, "list" + title + "Div");
+            break
+        case "专业":
+            ajaxRun("operation4BasicData/create?key=major", 0, "list" + title + "Div");
+            break
+    }
+}
 
 function countBasicData(title) {
     console.info("统计基础数据..." + title);
@@ -26,14 +45,8 @@ function countBasicData(title) {
         case "项目":
             total = ajaxCalculate("operation4BasicData/count?key=project");
             break
-        case "教师职称":
-            total = ajaxCalculate("operation4BasicData/count?key=teacherTitle");
-            break
-        case "学生类别":
-            total = ajaxCalculate("operation4BasicData/count?key=studentType");
-            break
-        case "项目类型":
-            total = ajaxCalculate("operation4BasicData/count?key=projectType");
+        case "专业":
+            total = ajaxCalculate("operation4BasicData/count?key=major");
             break
     }
     return total;
@@ -54,14 +67,8 @@ function loadBasicData(title, page, pageSize) {
         case  "项目":
             ajaxRun("operation4BasicData/list" + params + "&key=project", 0, "list" + title + "Div");
             break
-        case "教师职称":
-            ajaxRun("operation4BasicData/list" + params + "&key=teacherTitle", 0, "list" + title + "Div");
-            break
-        case "学生类别":
-            ajaxRun("operation4BasicData/list" + params + "&key=studentType", 0, "list" + title + "Div");
-            break
-        case "项目类型":
-            ajaxRun("operation4BasicData/list" + params + "&key=projectType", 0, "list" + title + "Div");
+        case "专业":
+            ajaxRun("operation4BasicData/list" + params + "&key=major", 0, "list" + title + "Div");
             break
     }
     $.cookie("currentPage" + title, page);

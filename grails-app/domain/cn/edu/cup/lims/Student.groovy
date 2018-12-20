@@ -5,7 +5,7 @@ class Student extends Person {
     String gradeName            //年级
     PersonTitle studentType     //
     Teacher supervisor          //导师
-    String major                //专业
+    Major major                //专业
 
     static constraints = {
         gradeName()

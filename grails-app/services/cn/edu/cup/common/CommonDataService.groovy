@@ -1,5 +1,6 @@
 package cn.edu.cup.common
 
+import cn.edu.cup.lims.Major
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.Project
@@ -18,20 +19,41 @@ class CommonDataService {
     def thingTypeService
     def teamService
     def treeViewService
+    def teacherService
+    def majorService
+    def studentService
+    def projectService
 
     def saveInstance(params) {
         def result
+        def newInstance
         println("try 保存：${params}")
         switch (params.objectType) {
+            case "Project":
+                newInstance = new Project(params)
+                projectService.save(newInstance)
+                break
+            case "Student":
+                newInstance = new Student(params)
+                studentService.save(newInstance)
+                break
+            case "Major":
+                newInstance = new Major(params)
+                majorService.save(newInstance)
+                break;
+            case "Teacher":
+                newInstance = new Teacher(params)
+                teacherService.save(newInstance)
+                break;
             case "MatterType":
                 matterTypeService.save(newInstance)
                 break;
             case "PersonTitle":
-                def newInstance = new PersonTitle(params)
+                newInstance = new PersonTitle(params)
                 result = personTitleService.save(newInstance)
                 break;
             case "ThingType":
-                def newInstance = new ThingType(params)
+                newInstance = new ThingType(params)
                 thingTypeService.save(newInstance)
                 break;
         }
@@ -42,6 +64,9 @@ class CommonDataService {
         def key = params.key
         def count = 0
         switch (key) {
+            case "major":
+                count = Major.count()
+                break
             case "personTitle":
                 count = PersonTitle.count()
                 break;
@@ -128,6 +153,12 @@ class CommonDataService {
         def view
         def objectList = []
         switch (params.key) {
+            // 简单对象
+            case "major":
+                objectList = Major.list(params)
+                view = "listMajor"
+                break
+            //复杂对象
             case "personGrade":
                 def team = teamService.get(params.team)
                 if (team) {
@@ -263,6 +294,7 @@ class CommonDataService {
         println("CommonDataService: ${params}")
         def newInstance
         def view
+        def options
         switch (params.key) {
             case "personTitle":
                 if (params.id) {
@@ -288,17 +320,28 @@ class CommonDataService {
             case "teacher":
                 newInstance = new Teacher(params)
                 view = "createTeacher"
+                def teacherTitle = PersonTitle.findByName("教师")
+                options = teacherTitle.subItems
                 break;
             case "student":
                 newInstance = new Student(params)
                 view = "createStudent"
+                def studentType = PersonTitle.findByName("学生")
+                options = studentType.subItems
                 break;
             case "project":
                 newInstance = new Project(params)
                 view = "createProject"
+                def projectType = ThingType.findByName("科研项目")
+                options = projectType.subItems
                 break;
+            case "major":
+                newInstance = new Major(params)
+                view = "createMajor"
+                break
         }
-        return [view, newInstance]
+        println("可选项：${options}")
+        return [view, newInstance, options]
     }
 
     /*

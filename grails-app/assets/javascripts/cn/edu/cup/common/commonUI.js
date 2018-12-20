@@ -93,12 +93,12 @@ function setupTabsWithDivAndPagination(tabsDiv, tabNameList) {
 /*
 * 设置树形结构显示的数据加载函数
 * */
-function setupTabsDivParams4TreeView(tabsName, tabNameList, urlList) {
+function setupDataExchangeTabsDiv4TreeView(tabsName, tabNameList, urlList) {
     // 当前页
     var defaultTab = tabNameList[0];
     var currentTab = readCookie("current" + tabsName, defaultTab);
     var tabsDiv = $("#" + tabsName);
-    var treeviewDiv
+    var treeviewUl
 
     // 设置标签管理函数
     tabsDiv.tabs({
@@ -122,7 +122,7 @@ function setupTabsDivParams4TreeView(tabsName, tabNameList, urlList) {
 }
 
 /*
-* 设置树形结构显示的--分页机制参数
+* 设置树形结构显示的--翻页功能的相关参数
 * */
 function setupPaginationParams4TreeView(tabNameList, aCountFunction, urlList) {
     var title
@@ -165,6 +165,9 @@ function setupTreeviewNodeSelectFunction(tabNameList, doSomeThing) {
     }
 }
 
+/*
+* 设置 标签页的 翻页功能的相关参数
+* */
 function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunction) {
     var title;
     var total = 0;
@@ -185,9 +188,18 @@ function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunctio
     }
 }
 
+/*
+* 设置标签控件的切换
+* */
 function setupTabPageParams(tabsName, aLoadFunction) {
     var tabsDiv = $("#" + tabsName);
     var loadFunction = eval(aLoadFunction);
+
+    // 当前页
+    var defaultTab = tabsDiv.tabs("tabs")[0].panel("options").title
+    console.info("缺省标签标题：" + defaultTab);
+    var currentTab = readCookie("current" + tabsName, defaultTab);
+
     tabsDiv.tabs({
         onSelect: function (title, index) {
             //记录tabs的缺省页面，所以采用tabsName
@@ -198,6 +210,9 @@ function setupTabPageParams(tabsName, aLoadFunction) {
             loadFunction(title, pageNumber, pageSize)
         }
     })
+
+    // 打开缺省的标签
+    tabsDiv.tabs("select", currentTab);
 }
 
 /*

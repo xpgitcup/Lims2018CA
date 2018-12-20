@@ -1,11 +1,12 @@
 <!--g:form resource="${this.newInstance}" method="POST"-->
-<g:form controller="operation4BasicData" action="saveTeacher" method="POST">
+<g:form controller="operation4BasicData" action="save" method="POST">
     <fieldset class="form">
         <!--f:all bean="newInstance"/-->
         <table>
             <tr>
                 <td>姓名</td>
                 <td>
+                    <g:hiddenField name="objectType" value="${newInstance.class.simpleName}"/>
                     <g:hiddenField name="id" value="${this.newInstance.id}"/>
                     <g:textField name="name"/>
                 </td>
@@ -19,7 +20,7 @@
             <tr>
                 <td>职称</td>
                 <td>
-                    <g:select name="title" from="${cn.edu.cup.lims.TeacherTitle.list()}"
+                    <g:select name="teacherTitle" from="${options}"
                               optionKey="id"
                               noSelection="['': '-Choose-']">
 

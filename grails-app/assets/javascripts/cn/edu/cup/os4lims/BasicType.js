@@ -12,7 +12,7 @@ $(function () {
     setupTabsWithDivAndPaginationAndTreeview(operation4BasicTypeDiv, tabList4BasicType);
     // 动态设置
     var urlList = ["operation4BasicType/getTreeviewData?key=personTitle", "operation4BasicType/getTreeviewData?key=thingType"]
-    setupTabsDivParams4TreeView("operation4BasicTypeDiv", tabList4BasicType, urlList);
+    setupDataExchangeTabsDiv4TreeView("operation4BasicTypeDiv", tabList4BasicType, urlList);
     setupPaginationParams4TreeView(tabList4BasicType, countBasicType, urlList);
     setupTreeviewNodeSelectFunction(tabList4BasicType, changeUpNode)
 
