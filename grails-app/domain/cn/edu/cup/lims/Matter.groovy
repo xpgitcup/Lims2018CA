@@ -14,8 +14,8 @@ class Matter implements DataExchangeInterface {
     }
 
     @Override
-    String[] dataSheetTitles() {
-        return new String[0]
+    List<String> dataSheetTitles() {
+        return null
     }
 
     @Override

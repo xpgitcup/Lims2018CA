@@ -17,7 +17,7 @@ class Student extends Person {
     //==================================================================================================================
 
     @Override
-    String[] dataSheetTitles() {
+    static List<String> dataSheetTitles() {
         def head = ["姓名", "学号", "类型", "年级", "专业", "导师"]
         return head
     }
@@ -30,9 +30,14 @@ class Student extends Person {
             def n = dataSheet[0]
             def c = dataSheet[1]
             def t = dataSheet[2]
-            def tt = StudentType.findByName(t)
+            def tt = PersonTitle.findByName(t)
             def g = dataSheet[3]
             def z = dataSheet[4]
+            def m = Major.findByName(z)
+            if (!m) {
+                m = new Major(name: z)
+                m.save(true)
+            }
             def ds = Teacher.findByName(dataSheet[5])       //这个地方可能是一个BUG!!
             if (Student.findByCode(c)) {
                 result += "${c} 重复了！"
@@ -44,7 +49,7 @@ class Student extends Person {
                         studentType = tt
                         supervisor = ds
                         gradeName = g
-                        major = z
+                        major = m
                     } else {
                         result += "${dataSheet[5]} 找不到这个导师！"
                     }

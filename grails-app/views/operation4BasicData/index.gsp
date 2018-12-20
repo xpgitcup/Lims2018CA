@@ -35,10 +35,10 @@
         <li><a id="currentTitle"></a></li>
         <li><a id="createItem" href="javascript: createItem()">创建</a></li>
         <li>
-            <a id="currentTemplate" href="#">下载模板</a>
+            <a id="currentTemplate" href="">下载模板</a>
         </li>
         <li><a>|</a></li>
-        <li><a>导入数据</a></li>
+        <li><a id="currentImport">导入数据</a></li>
         <li>
             <g:uploadForm method="post" action="importFromFile">
                 <ul>

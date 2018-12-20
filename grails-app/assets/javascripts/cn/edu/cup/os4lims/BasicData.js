@@ -1,5 +1,5 @@
 var operation4BasicDataDiv;
-var tabList4BasicData = ["教师", "学生", "项目","专业"];
+var tabList4BasicData = ["教师", "学生", "项目", "专业"];
 var idList4BasicData = ["currentTeacher", "currentStudent", "currentMajor"];
 
 $(function () {
@@ -7,11 +7,36 @@ $(function () {
     operation4BasicDataDiv = $("#operation4BasicDataDiv");
 
     setupTabsWithDivAndPagination(operation4BasicDataDiv, tabList4BasicData);
-    setupPaginationParams4TabPage(tabList4BasicData, countBasicData, loadBasicData);
-    setupTabPageParams("operation4BasicDataDiv", loadBasicData);
+    //setupPaginationParams4TabPage(tabList4BasicData, countBasicData, loadBasicData);  // 这个实际上不工作
+    setupTabPageParams("operation4BasicDataDiv", countBasicData, loadBasicData);
     //tabPagesManagerA("operation4BasicDataDiv", tabList4BasicData, idList4BasicData, loadBasicData, countBasicData);
 
 });
+
+function updateDownloadHref(title) {
+    $("#currentTemplate").html("下载[" + title + "]数据模板");
+    $("#currentImport").html("导入[" + title + "]数据");
+    $("#createItem").html("创建[" + title + "]");
+    switch (title) {
+        case "教师":
+            $("#currentTemplate").attr("href", "operation4BasicData/downloadTemplate?key=teacher");
+            $("#importKey").attr("value", "teacher");
+            break
+        case "学生":
+            $("#currentTemplate").attr("href", "operation4BasicData/downloadTemplate?key=student");
+            $("#importKey").attr("value", "student");
+            break
+        case "项目":
+            $("#currentTemplate").attr("href", "operation4BasicData/downloadTemplate?key=project");
+            $("#importKey").attr("value", "project");
+            break
+        case "专业":
+            //alert("目前不支持这一功能！")
+            $("#currentTemplate").html("暂不支持！");
+            $("#currentTemplate").attr("href", "#");
+            break
+    }
+}
 
 function createItem() {
     var title = getCurrentTabTitle(operation4BasicDataDiv);
@@ -54,6 +79,7 @@ function countBasicData(title) {
 
 function loadBasicData(title, page, pageSize) {
     console.info("调入基础数据..." + title);
+    updateDownloadHref(title);
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
     console.info(params)
     switch (title) {
@@ -61,7 +87,6 @@ function loadBasicData(title, page, pageSize) {
             ajaxRun("operation4BasicData/list" + params + "&key=teacher", 0, "list" + title + "Div");
             break
         case "学生":
-            currentKey = readCookie("currentKey" + "用户自定义功能", "0");
             ajaxRun("operation4BasicData/list" + params + "&key=student", 0, "list" + title + "Div");
             break
         case  "项目":

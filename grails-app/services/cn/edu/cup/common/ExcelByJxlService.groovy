@@ -43,7 +43,7 @@ class ExcelByJxlService {
             // 先输出标题
             dataTable.eachWithIndex { e, i ->
                 e.eachWithIndex { ee, j ->
-                    def label = new Label(i, j, "${ee}")
+                    def label = new Label(j, i, "${ee}")
                     sheet.addCell(label)
                 }
             }

@@ -15,7 +15,7 @@ class Project extends Thing {
     }
 
     @Override
-    String[] dataSheetTitles() {
+    static List<String> dataSheetTitles() {
         def head = ["名称", "甲方公司", "项目类型"]
         return head
     }

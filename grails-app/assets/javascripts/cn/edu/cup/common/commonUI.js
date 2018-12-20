@@ -168,6 +168,24 @@ function setupTreeviewNodeSelectFunction(tabNameList, doSomeThing) {
 /*
 * 设置 标签页的 翻页功能的相关参数
 * */
+function configPaginationParams4TabPage(title, firstPageNumber, aCountFunction, aLoadFunction) {
+    var total = 0;
+    var countFunction = eval(aCountFunction);
+    var loadFunction = eval(aLoadFunction);
+    var paginationDiv = $("#pagination" + title + "Div")
+    total = countFunction(title)
+
+    paginationDiv.pagination({
+        pageSize: pageSize,
+        total: total,
+        pageNumber: firstPageNumber,
+        onSelectPage: function (pageNumber, pageSize) {
+            console.info("setupPaginationParams4TabPage: " + title)
+            loadFunction(title, pageNumber, pageSize);
+        }
+    })
+}
+
 function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunction) {
     var title;
     var total = 0;
@@ -182,16 +200,18 @@ function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunctio
             pageSize: pageSize,
             total: total,
             onSelectPage: function (pageNumber, pageSize) {
+                console.info("setupPaginationParams4TabPage: " + title)
                 loadFunction(title, pageNumber, pageSize);
             }
         })
     }
 }
 
+
 /*
 * 设置标签控件的切换
 * */
-function setupTabPageParams(tabsName, aLoadFunction) {
+function setupTabPageParams(tabsName, aCountFunction, aLoadFunction) {
     var tabsDiv = $("#" + tabsName);
     var loadFunction = eval(aLoadFunction);
 
@@ -206,8 +226,9 @@ function setupTabPageParams(tabsName, aLoadFunction) {
             console.info(tabsName + "--选择标签：" + title + "--" + index);
             $.cookie("current" + tabsName, title, {path: '/'});
             //------------------------------------------------------------------------------------------------------
-            var pageNumber = readCookie("currentPage" + title, 1)
-            loadFunction(title, pageNumber, pageSize)
+            var cPageNumber = readCookie("currentPage" + title, 1)
+            loadFunction(title, cPageNumber, pageSize)
+            configPaginationParams4TabPage(title, cPageNumber, aCountFunction, aLoadFunction)
         }
     })
 

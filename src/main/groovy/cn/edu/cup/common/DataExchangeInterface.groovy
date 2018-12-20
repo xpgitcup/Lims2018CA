@@ -2,7 +2,7 @@ package cn.edu.cup.common
 
 interface DataExchangeInterface {
 
-    String[] dataSheetTitles()
+    List<String> dataSheetTitles()
 
     Map importFromDataSheet(dataSheet)
 

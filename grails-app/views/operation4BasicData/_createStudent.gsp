@@ -23,7 +23,6 @@
 <!--g:form resource="${this.student}" method="POST"-->
     <g:form controller="operation4BasicData" action="save" id="${this.newInstance.id}">
         <fieldset class="form">
-            <g:hiddenField name="objectType" value="${newInstance.class.simpleName}"/>
             <!--f:all bean="newInstance"/-->
             <table>
                 <tr>

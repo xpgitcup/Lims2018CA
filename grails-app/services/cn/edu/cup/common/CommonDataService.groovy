@@ -57,6 +57,7 @@ class CommonDataService {
                 thingTypeService.save(newInstance)
                 break;
         }
+        println("保存结果：${newInstance}")
         return result
     }
 
