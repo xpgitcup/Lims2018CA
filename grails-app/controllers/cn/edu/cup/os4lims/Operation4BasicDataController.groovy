@@ -10,10 +10,79 @@ class Operation4BasicDataController {
 
     def commonDataService
     def commonService
+    def systemCommonService
     def excelByJxlService
     def teacherService
     def studentService
     def projectService
+
+    def removeFromSystemUserGrade() {
+        def k = 0
+        def grade = params.grade
+        def students = Student.findAllByGradeName(grade)
+        students.each { e ->
+            if (systemCommonService.removePersonFromUser(e)) {
+                k++
+            }
+        }
+        flash.message = "毕业${k}名学生。"
+        redirect(action: "index")
+    }
+
+    def removeFromSystemUser() {
+        switch (params.key) {
+            case "student":
+                def student = studentService.get(params.id)
+                if (!student) {
+                    flash.message = "${params.id} -- 找不到学生。"
+                } else {
+                    systemCommonService.removePersonFromUser(student)
+                }
+                break
+            case "teacher":
+                def teacher = teacherService.get(params.id)
+                if (!teacher) {
+                    flash.message = "${params.id} -- 找不到。"
+                } else {
+                    systemCommonService.removePersonFromUser(teacher)
+                }
+                break
+        }
+        redirect(action: "index")
+    }
+
+    def addToSystemUserGrade() {
+        def k = 0
+        def grade = params.grade
+        def students = Student.findAllByGradeName(grade)
+        students.each { e ->
+            if (systemCommonService.addPersonToUser(e)) {
+                k++
+            }
+        }
+        flash.message = "新入学${k}名学生。"
+        redirect(action: "index")
+    }
+
+    def addToSystemUser() {
+        switch (params.key) {
+            case "student":
+                def student = studentService.get(params.id)
+                if (!student) {
+                    flash.message = "${params.id} -- 找不到学生。"
+                }
+                systemCommonService.addPersonToUser(student)
+                break
+            case "teacher":
+                def teacher = teacherService.get(params.id)
+                if (!teacher) {
+                    flash.message = "${params.id} -- 找不到。"
+                }
+                systemCommonService.addPersonToUser(teacher)
+                break;
+        }
+        redirect(action: "index")
+    }
 
     def importFromFile() {
         println("导入...${params}")
