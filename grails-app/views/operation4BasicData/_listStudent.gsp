@@ -22,6 +22,7 @@
         <th>年级</th>
         <th>类型</th>
         <th>导师</th>
+        <th>专业</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
@@ -51,6 +52,7 @@
                 </td>
                 <td>${item.studentType}</td>
                 <td>${item.supervisor}</td>
+                <td>${item?.major}</td>
             </tr>
         </g:each>
         </tbody>

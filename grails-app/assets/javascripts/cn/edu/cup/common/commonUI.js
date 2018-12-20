@@ -186,6 +186,9 @@ function configPaginationParams4TabPage(title, firstPageNumber, aCountFunction, 
     })
 }
 
+/*
+* 这样设置后出现很诡异的效果--？？？？？？？？？？？？
+* */
 function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunction) {
     var title;
     var total = 0;
@@ -228,7 +231,7 @@ function setupTabPageParams(tabsName, aCountFunction, aLoadFunction) {
             //------------------------------------------------------------------------------------------------------
             var cPageNumber = readCookie("currentPage" + title, 1)
             loadFunction(title, cPageNumber, pageSize)
-            configPaginationParams4TabPage(title, cPageNumber, aCountFunction, aLoadFunction)
+            configPaginationParams4TabPage(title, cPageNumber, aCountFunction, aLoadFunction) // 必须重新设置
         }
     })
 

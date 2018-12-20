@@ -4,4 +4,5 @@ class PersonTitle extends MatterType {
 
     static constraints = {
     }
+
 }

@@ -56,6 +56,13 @@
         "menuDescription": "维护教师、学生、项目数据",
         "upMenuItem": "基础数据",
         "menuOrder": 0
+      },
+      {
+        "menuContext": "基础管理",
+        "menuAction": "Operation4ManageA/index",
+        "menuDescription": "给事儿找人，给人找事儿",
+        "upMenuItem": "基础数据",
+        "menuOrder": 0
       }
     ]
   },

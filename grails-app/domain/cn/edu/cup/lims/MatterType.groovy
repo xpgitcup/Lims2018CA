@@ -12,6 +12,11 @@ class MatterType {
         upType(nullable: true)
     }
 
+    static mapping = {
+        sort('name')
+        subItems sort('name')
+    }
+
     String toString() {
         return name
     }

@@ -9,7 +9,7 @@ grails:
             # Disabled by default for performance reasons
             events: false
     #--------------------------------------------
-    #date:
+    #recordDate:
     # formats=["yyyy-MM-dd HH:mm:ss"]
     #--------------------------------------------
     #上传文件大侠的限制--李晓平--20181128
