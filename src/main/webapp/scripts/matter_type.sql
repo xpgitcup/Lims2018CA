@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-12-20 18:21:11
+Date: 2018-12-21 08:44:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `matter_type` (
   UNIQUE KEY `UK_9xa6s2kg1inab6l0vkrai8sq5` (`name`),
   KEY `FK8cl3gydm9syjk1qa55nqnka2y` (`up_type_id`),
   CONSTRAINT `FK8cl3gydm9syjk1qa55nqnka2y` FOREIGN KEY (`up_type_id`) REFERENCES `matter_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of matter_type
@@ -43,19 +43,16 @@ INSERT INTO `matter_type` VALUES ('7', '0', '教授级高工', '1', 'cn.edu.cup.
 INSERT INTO `matter_type` VALUES ('8', '0', '高工', '1', 'cn.edu.cup.lims.PersonTitle');
 INSERT INTO `matter_type` VALUES ('9', '0', '工程师', '1', 'cn.edu.cup.lims.PersonTitle');
 INSERT INTO `matter_type` VALUES ('10', '0', '助理工程师', '1', 'cn.edu.cup.lims.PersonTitle');
-INSERT INTO `matter_type` VALUES ('11', '0', '博士', '2', 'cn.edu.cup.lims.PersonTitle');
-INSERT INTO `matter_type` VALUES ('12', '0', '学术硕士', '2', 'cn.edu.cup.lims.PersonTitle');
-INSERT INTO `matter_type` VALUES ('13', '0', '专业硕士', '2', 'cn.edu.cup.lims.PersonTitle');
-INSERT INTO `matter_type` VALUES ('14', '0', '工程硕士', '2', 'cn.edu.cup.lims.PersonTitle');
-INSERT INTO `matter_type` VALUES ('15', '0', '本科生', '2', 'cn.edu.cup.lims.PersonTitle');
-INSERT INTO `matter_type` VALUES ('16', '0', '科研项目', null, 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('17', '0', '学位论文', null, 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('11', '0', '技术员', '1', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('12', '0', '研究员', '1', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('13', '0', '副研究员', '1', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('14', '0', '博士', '2', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('15', '0', '硕士', '2', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('16', '1', '本科', '2', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('17', '0', '科研任务', null, 'cn.edu.cup.lims.ThingType');
 INSERT INTO `matter_type` VALUES ('18', '0', '教学任务', null, 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('19', '0', '国家科技重大专项', '16', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('20', '0', '自然基金', '16', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('21', '0', '省级基金', '16', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('22', '0', '横向项目', '16', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('23', '0', '博士论文', '17', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('24', '0', '硕士论文', '17', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('25', '0', '课程设计', '18', 'cn.edu.cup.lims.ThingType');
-INSERT INTO `matter_type` VALUES ('26', '0', '硕士', '2', 'cn.edu.cup.lims.PersonTitle');
+INSERT INTO `matter_type` VALUES ('19', '0', '重大专项', '17', 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('20', '0', '自然基金', '17', 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('21', '0', '横向课题', '17', 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('22', '0', '课程设计', '18', 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('23', '0', '横向项目', '17', 'cn.edu.cup.lims.ThingType');

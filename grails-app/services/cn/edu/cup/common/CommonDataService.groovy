@@ -130,6 +130,13 @@ class CommonDataService {
             case "thingType":
                 count = ThingType.count()
                 break;
+            case "thingTypeOnlyType":
+                count = ThingType.countByUpTypeIsNull()
+                break
+            case "thingTypeOnlyThing":
+                def upType = ThingType.get(params.upType)
+                count = ThingType.countByUpType(upType)
+                break;
         }
         return count
     }
@@ -163,7 +170,7 @@ class CommonDataService {
         def view
         def objectList = []
         switch (params.key) {
-            // 简单对象
+        // 简单对象
             case "course":
                 objectList = Course.list(params)
                 view = "listCourse"
@@ -172,7 +179,7 @@ class CommonDataService {
                 objectList = Major.list(params)
                 view = "listMajor"
                 break
-            //复杂对象
+        //复杂对象
             case "personGrade":
                 def team = teamService.get(params.team)
                 if (team) {
@@ -287,6 +294,15 @@ class CommonDataService {
                 objectList = ThingType.list(params)
                 view = "listProjectType"
                 break;
+            case "thingTypeOnlyType":
+                objectList = ThingType.findAllByUpTypeIsNull()
+                view = "listThingTypeOnlyType"
+                break;
+            case "thingTypeOnlyThing":
+                def upType = ThingType.get(params.upType)
+                objectList = ThingType.findAllByUpType(upType)
+                view = "listThingTypeOnlyThing"
+                break
         }
         return [view, objectList]
     }

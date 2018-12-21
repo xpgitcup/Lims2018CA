@@ -25,18 +25,14 @@
     <g:set var="entityName" value="ManageA"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>${entityName}维护</title>
-    <asset:javascript src="cn/edu/cup/maintain/${entityName}.js"/>
+    <asset:javascript src="cn/edu/cup/os4lims/${entityName}.js"/>
 </head>
 
 <body>
 <div class="nav">
     <ul>
-        <li><a>当前项目：</a></li>
-        <li><a id="currentProject"></a></li>
-        <li><a>当前团队：</a></li>
-        <li><a id="currentTeam"></a></li>
-        <li><a>当前教师：</a></li>
-        <li><a id="currentTeacher"></a></li>
+        <li><a>当前分类：</a></li>
+        <li><a id="currentThingType"></a></li>
     </ul>
 </div>
 
