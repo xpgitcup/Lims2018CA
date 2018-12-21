@@ -4,6 +4,12 @@
 
 var pageSize = 10
 
+function getCurrentTabIndex(tabsDiv) {
+    var tab = getCurrentTab(tabsDiv)
+    var index = tabsDiv.tabs('getTabIndex',tab);
+    return index
+}
+
 function getCurrentTabTitle(tabsDiv) {
     var tab = getCurrentTab(tabsDiv)
     return tab.panel("options").title;

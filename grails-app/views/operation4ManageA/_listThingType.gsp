@@ -12,15 +12,19 @@
     <table>
         <thead>
         <th>名称</th>
+        <th>操作</th>
         <th>安排情况</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                 <td>
-                    <a href="javascript: checkThing(${item.id})">
+                    <a href="javascript: clickListItem(${item.id})">
                         ${item.name}
                     </a>
+                </td>
+                <td>
+                    <a href="javascript: arrangeIt(${item.id})">安排</a>
                 </td>
                 <td>
                     ${cn.edu.cup.lims.TaskAllocation.countByThingType(item)}

@@ -6,8 +6,10 @@ import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.Project
 import cn.edu.cup.lims.Student
+import cn.edu.cup.lims.TaskAllocation
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
+import cn.edu.cup.lims.Thing
 import cn.edu.cup.lims.ThingType
 import cn.edu.cup.system.JsFrame
 import grails.gorm.transactions.Transactional
@@ -128,14 +130,23 @@ class CommonDataService {
                 count = studentType.subItems.size()
                 break;
             case "thingType":
-                count = ThingType.count()
+                if (params.upType) {
+                    def upType = ThingType.get(params.upType)
+                    count = ThingType.countByUpType(upType)
+                } else {
+                    count = ThingType.count()
+                }
                 break;
-            case "thingTypeOnlyType":
+            case "thingTypeClassify":
                 count = ThingType.countByUpTypeIsNull()
                 break
-            case "thingTypeOnlyThing":
-                def upType = ThingType.get(params.upType)
-                count = ThingType.countByUpType(upType)
+            case "taskAllocation":
+                if (params.thingType) {
+                    def ty = ThingType.get(params.thingType)
+                    count = TaskAllocation.countByThingType(ty)
+                } else {
+                    count = TaskAllocation.count()
+                }
                 break;
         }
         return count
@@ -291,18 +302,27 @@ class CommonDataService {
                 view = "listProjectType"
                 break;
             case "thingType":
-                objectList = ThingType.list(params)
-                view = "listProjectType"
+                if (params.upType) {
+                    def upType = ThingType.get(params.upType)
+                    objectList = ThingType.findAllByUpType(upType, params)
+                } else {
+                    objectList = ThingType.list(params)
+                }
+                view = "listThingType"
                 break;
-            case "thingTypeOnlyType":
-                objectList = ThingType.findAllByUpTypeIsNull()
-                view = "listThingTypeOnlyType"
+            case "thingTypeClassify":
+                objectList = ThingType.findAllByUpTypeIsNull(params)
+                view = "listThingTypeClassify"
                 break;
-            case "thingTypeOnlyThing":
-                def upType = ThingType.get(params.upType)
-                objectList = ThingType.findAllByUpType(upType)
-                view = "listThingTypeOnlyThing"
-                break
+            case "taskAllocation":
+                if (params.thingType) {
+                    def ty = ThingType.get(params.thingType)
+                    objectList = TaskAllocation.findAllByThingType(ty, params)
+                }  else {
+                    objectList = TaskAllocation.list(params)
+                }
+                view = "listTaskAllocation"
+                break;
         }
         return [view, objectList]
     }

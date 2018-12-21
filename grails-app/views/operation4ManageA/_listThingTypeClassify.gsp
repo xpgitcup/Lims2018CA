@@ -18,12 +18,12 @@
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                 <td>
-                    <a href="javascript: checkThingType(${item.id})">
+                    <a href="javascript: clickListItem(${item.id})">
                         ${item.name}
                     </a>
                 </td>
                 <td>
-                    <a href="javascript: checkThingType(${item.id})">查看</a>
+                    <a href="javascript: clickListItem(${item.id})">查看</a>
                 </td>
             </tr>
         </g:each>
