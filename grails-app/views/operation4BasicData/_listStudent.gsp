@@ -50,7 +50,7 @@
                         <a href="operation4BasicData/addToSystemUserGrade/?grade=${item.gradeName}">批量入学</a>
                     </g:else>
                 </td>
-                <td>${item.studentType}</td>
+                <td>${item.personTitle}</td>
                 <td>${item.supervisor}</td>
                 <td>${item?.major}</td>
             </tr>

@@ -46,8 +46,12 @@
                         <input type="file" name="uploadedFile"/>
                     </li>
                     <li>
-                        <input type="hidden" name="key" value="" id="importKey">
+                        <input type="hidden" name="key" value="" id="importKey"/>
                     </li>
+                    <!--li>
+                        <input type="checkbox" name="autoUpdateType" checked="checked"/>
+                        <label>自动更新分类</label>
+                    </li-->
                     <li>
                         <input type="submit" value="ok">
                     </li>

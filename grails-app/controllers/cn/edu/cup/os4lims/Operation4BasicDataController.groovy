@@ -207,7 +207,7 @@ class Operation4BasicDataController {
 
     def list() {
         println("${params}")
-        def (String view, List<? extends GroovyObject> objectList) = commonDataService.listObjectList(params)
+        def (String view, List<? extends GroovyObject> objectList) = commonDataService.listObject(params)
 
         if (request.xhr) {
             render(template: view, model: [objectList: objectList])

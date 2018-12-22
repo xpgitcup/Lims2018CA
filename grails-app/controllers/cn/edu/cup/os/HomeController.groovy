@@ -152,7 +152,8 @@ class HomeController {
             println("用户身份：${realName}")
             if (realName != null) {
                 session.realId = realName.id
-                println("记录用户ID ${session.realId}")
+                session.realTitle = realName.personTitle.id
+                println("记录用户ID${session.realTitle}.${session.realId}")
             } else {
                 println("身份不明...")
                 session.realId = 0

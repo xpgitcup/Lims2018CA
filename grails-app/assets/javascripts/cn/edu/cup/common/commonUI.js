@@ -6,7 +6,7 @@ var pageSize = 10
 
 function getCurrentTabIndex(tabsDiv) {
     var tab = getCurrentTab(tabsDiv)
-    var index = tabsDiv.tabs('getTabIndex',tab);
+    var index = tabsDiv.tabs('getTabIndex', tab);
     return index
 }
 
@@ -50,6 +50,33 @@ function addNewListDiv(title, tab) {
     listDiv.attr('id', 'list' + title + 'Div');
     listDiv.appendTo(tab)
     return listDiv;
+}
+
+/*
+* 读取、调入所有页面指示标志
+* */
+function loadAllDisplayTitleId(idList) {
+    var currentId
+    var ids = new Array()
+    for (index in idList) {
+        currentId = readCookie(idList[index], 0)
+        ids[index] = currentId
+    }
+    return ids
+}
+
+/*
+* 页面指示标志的更新
+* */
+function reflashDisplayTitle(idList) {
+    var currentId
+    var ids = new Array()
+    for (index in idList) {
+        currentId = readCookie(idList[index], 0)
+        $("#" + idList[index]).html(currentId)
+        ids[index] = currentId
+    }
+    return ids
 }
 
 /*
@@ -218,7 +245,7 @@ function setupPaginationParams4TabPage(tabNameList, aCountFunction, aLoadFunctio
 
 
 /*
-* 设置标签控件的切换
+* 设置标签控件的切换------每次选择一个标签页，需要重新设置翻页参数---否则会有诡异的结果出现
 * */
 function setupTabPageParams(tabsName, aCountFunction, aLoadFunction) {
     var tabsDiv = $("#" + tabsName);

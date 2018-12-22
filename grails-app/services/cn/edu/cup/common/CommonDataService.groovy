@@ -177,7 +177,7 @@ class CommonDataService {
         return treeviewData
     }
 
-    def listObjectList(params) {
+    def listObject(params) {
         def view
         def objectList = []
         switch (params.key) {
@@ -304,7 +304,11 @@ class CommonDataService {
             case "thingType":
                 if (params.upType) {
                     def upType = ThingType.get(params.upType)
-                    objectList = ThingType.findAllByUpType(upType, params)
+                    if (upType) {
+                        objectList = ThingType.findAllByUpType(upType, params)
+                    } else {
+                        objectList = ThingType.list(params)
+                    }
                 } else {
                     objectList = ThingType.list(params)
                 }

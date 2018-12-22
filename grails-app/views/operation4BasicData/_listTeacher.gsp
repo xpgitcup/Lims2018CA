@@ -37,7 +37,7 @@
                     </g:else>
                 </td>
                 <td>${item.code}</td>
-                <td>${item.teacherTitle}</td>
+                <td>${item.personTitle}</td>
                 <td>${item.students?.size()}</td>
             </tr>
         </g:each>

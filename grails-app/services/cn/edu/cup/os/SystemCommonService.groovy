@@ -1,6 +1,6 @@
 package cn.edu.cup.os
 
-
+import cn.edu.cup.lims.Student
 import cn.edu.cup.system.SystemAttribute
 import cn.edu.cup.system.SystemLog
 import cn.edu.cup.system.SystemMenu

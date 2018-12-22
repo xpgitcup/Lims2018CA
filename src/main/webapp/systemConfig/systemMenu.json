@@ -90,8 +90,15 @@
     "menuOrder": 0,
     "menuItems": [
       {
-        "menuContext": "队长服务",
-        "menuAction": "operation4ManageA/index",
+        "menuContext": "团队管理",
+        "menuAction": "operation4ManageTeamA/index",
+        "menuDescription": "新生加入到系统中，创建用户",
+        "upMenuItem": "教师服务",
+        "menuOrder": 0
+      },
+      {
+        "menuContext": "任务管理",
+        "menuAction": "operation4ManageThing/index",
         "menuDescription": "新生加入到系统中，创建用户",
         "upMenuItem": "教师服务",
         "menuOrder": 0

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-12-21 08:44:52
+Date: 2018-12-22 09:13:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `matter_type` (
   UNIQUE KEY `UK_9xa6s2kg1inab6l0vkrai8sq5` (`name`),
   KEY `FK8cl3gydm9syjk1qa55nqnka2y` (`up_type_id`),
   CONSTRAINT `FK8cl3gydm9syjk1qa55nqnka2y` FOREIGN KEY (`up_type_id`) REFERENCES `matter_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of matter_type
@@ -56,3 +56,4 @@ INSERT INTO `matter_type` VALUES ('20', '0', '自然基金', '17', 'cn.edu.cup.l
 INSERT INTO `matter_type` VALUES ('21', '0', '横向课题', '17', 'cn.edu.cup.lims.ThingType');
 INSERT INTO `matter_type` VALUES ('22', '0', '课程设计', '18', 'cn.edu.cup.lims.ThingType');
 INSERT INTO `matter_type` VALUES ('23', '0', '横向项目', '17', 'cn.edu.cup.lims.ThingType');
+INSERT INTO `matter_type` VALUES ('24', '0', '国家科技重大专项', '17', 'cn.edu.cup.lims.ThingType');

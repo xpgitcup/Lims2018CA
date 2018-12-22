@@ -19,6 +19,7 @@ function updateDisplayTitle() {
 
 function clickListItem(id) {
     var x = getCurrentTabIndex(operation4ManageADiv)
+    console.info("点击操作：" + x);
     $("#" + idList4ManageA[x]).html(id)
     $.cookie(idList4ManageA[x], id);
     var ix = (x + 1) % 3
@@ -56,6 +57,7 @@ function loadManageA(title, page, pageSize) {
     var params = getParams(page, pageSize);    //getParams必须是放在最最前面！！
     var currentThingTypeClassify = readCookie("currentThingTypeClassify", 0);
     var currentThingType = readCookie("currentThingType", 0);
+    console.info("当前参数：" + currentThingTypeClassify + "," + currentThingType)
     switch (title) {
         case "任务分类":
             ajaxRun("operation4ManageA/list" + params + "&key=thingTypeClassify", 0, "list" + title + "Div");

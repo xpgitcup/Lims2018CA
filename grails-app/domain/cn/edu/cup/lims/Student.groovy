@@ -3,13 +3,12 @@ package cn.edu.cup.lims
 class Student extends Person {
 
     String gradeName            //年级
-    PersonTitle studentType     //
     Teacher supervisor          //导师
     Major major                //专业
 
     static constraints = {
         gradeName()
-        studentType()
+        personTitle()
         supervisor(nullable: true)
         major()
     }
@@ -46,7 +45,7 @@ class Student extends Person {
                     if (ds) {
                         name = n
                         code = c
-                        studentType = tt
+                        personTitle = tt
                         supervisor = ds
                         gradeName = g
                         major = m
