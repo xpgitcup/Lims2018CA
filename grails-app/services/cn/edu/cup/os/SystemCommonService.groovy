@@ -1,5 +1,6 @@
 package cn.edu.cup.os
 
+import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.Student
 import cn.edu.cup.system.SystemAttribute
 import cn.edu.cup.system.SystemLog
@@ -13,17 +14,7 @@ class SystemCommonService {
     def systemUserService
 
     def getRealName(SystemUser systemUser) {
-        def app = systemUser.appendAttribute
-        def key = app.split("=")
-        def user = null
-        switch (key[0].toLowerCase()) {
-            case "student":
-                user = Student.get(Integer.parseInt(key[1]))
-                break
-            case "teacher":
-                user = cn.edu.cup.lims.Teacher.get(Integer.parseInt(key[1]))
-                break
-        }
+        def user = Person.findByCode(systemUser.userName)
         return user
     }
 
@@ -45,7 +36,7 @@ class SystemCommonService {
                     userName: person.code,
                     password: "12345678",
                     roleAttribute: role,
-                    appendAttribute: "${app}=${person.id}"
+                    appendAttribute: "${app}=${person.code}"
             )
             systemUserService.save(u)
             return true

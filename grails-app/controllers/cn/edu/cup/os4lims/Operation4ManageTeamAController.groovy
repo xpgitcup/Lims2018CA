@@ -3,11 +3,28 @@ package cn.edu.cup.os4lims
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.RelatedPersonAndProject
+import cn.edu.cup.lims.Thing
 import grails.converters.JSON
 
 class Operation4ManageTeamAController {
 
     def commonLimsService
+    def relatedPersonAndProjectService
+
+    def selectIt(Thing thing) {
+        def myself = Person.get(session.realId)
+        if (myself) {
+            def newRelation = new RelatedPersonAndProject(
+                    person: myself,
+                    thing: thing
+            )
+            relatedPersonAndProjectService.save(newRelation)
+            flash.message = "${newRelation} 保存成功。"
+        } else {
+            flash.message = "当前用户不在人员名单中。"
+        }
+        redirect(action: "index")
+    }
 
     def count() {
         def personTitle = PersonTitle.get(session.realTitle)
@@ -41,7 +58,7 @@ class Operation4ManageTeamAController {
 
     private def relatedThingNames() {
         def relatedNames = []
-        def myself = Person.get(session.readId)
+        def myself = Person.get(session.realId)
         if (myself) {
             def related = RelatedPersonAndProject.findAllByPerson(myself)
             related.each { e -> relatedNames.add(e.thing.name) }

@@ -1,11 +1,18 @@
 package cn.edu.cup.lims
 
-class Thing extends Matter{
+class Thing extends Matter {
 
     ThingType thingType
-    Date startDate
-    Double duration
+    Date startDate = new Date()
+    Double duration = 1
 
     static constraints = {
+        thingType()
+        startDate(nullable: true)
+        duration(nullable: true)
+    }
+
+    static mapping = {
+        sort('thingType')
     }
 }

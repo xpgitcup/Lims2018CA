@@ -16,14 +16,15 @@
                 <thead>
                 <th>名称</th>
                 <th>类型</th>
-                <th>甲方</th>
-                <th>起始</th>
+                <th>起始日期</th>
                 <th>期限(年)</th>
                 </thead>
                 <tbody>
                 <g:each in="${objectList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                        <td>${item.name}</td>
+                        <td>
+                            ${item.name}<a href="operation4ManageTeamA/selectIt/${item.id}">选择</a>
+                        </td>
                         <td>${item.thingType}</td>
                         <td>
                             ${item.startDate}

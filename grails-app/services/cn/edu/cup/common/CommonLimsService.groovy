@@ -36,10 +36,8 @@ class CommonLimsService {
                 if (relatedThingNames) {
                     objectList = Thing.findAllByNameNotInList(relatedThingNames, params)
                 } else {
-                    def q = Thing.createCriteria()
-                    objectList = q.list {
-
-                    }
+                    params.sort = 'thingType'
+                    objectList = Thing.list(params)
                 }
                 view = "listThing"
                 break
