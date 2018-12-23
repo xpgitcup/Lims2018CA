@@ -79,6 +79,13 @@
         "menuDescription": "与系统中的用户对话",
         "upMenuItem": "公共服务",
         "menuOrder": 0
+      },
+      {
+        "menuContext": "课题选择",
+        "menuAction": "operation4ManageTeamA/index",
+        "menuDescription": "与系统中的用户对话",
+        "upMenuItem": "公共服务",
+        "menuOrder": 0
       }
     ]
   },

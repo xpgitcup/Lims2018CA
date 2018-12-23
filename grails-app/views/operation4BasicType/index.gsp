@@ -36,6 +36,7 @@
         <li><a>||</a></li>
         <li><a id="createRootItem" href="javascript: createItem(0)">创建根节点</a></li>
         <li><a id="createItem" href="javascript: createItem()">创建</a></li>
+        <li><a id="exportMatterType" href="operation4BasicType/exportToJsonFile/0" class="save">导出文件</a></li>
     </ul>
 </div>
 

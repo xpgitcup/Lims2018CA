@@ -1,9 +1,12 @@
 package cn.edu.cup.common
 
 import cn.edu.cup.lims.Course
+import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.PersonTitle
+import cn.edu.cup.lims.RelatedPersonAndProject
 import cn.edu.cup.lims.TaskAllocation
 import cn.edu.cup.lims.Team
+import cn.edu.cup.lims.Thing
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -12,15 +15,6 @@ class CommonLimsService {
     /*
     * 相关事情的类型
     * */
-
-    def relatedThingType(PersonTitle personTitle) {
-        def tasks = TaskAllocation.findAllByPersonTitle(personTitle)
-        if (personTitle.upType) {
-            tasks.addAll(TaskAllocation.findAllByPersonTitle(personTitle.upType))
-        }
-        tasks.unique()
-        return tasks
-    }
 
     def listObject(params) {
         def controller = params.controller
@@ -37,9 +31,17 @@ class CommonLimsService {
         def view
         def objectList = []
         switch (params.key) {
-            case "relatedThingType":
-                objectList = relatedThingType(params.personTitle)
-                view = "listThingType"
+            case "thing4Choice":
+                def relatedThingNames = params.relatedThingNames
+                if (relatedThingNames) {
+                    objectList = Thing.findAllByNameNotInList(relatedThingNames, params)
+                } else {
+                    def q = Thing.createCriteria()
+                    objectList = q.list {
+
+                    }
+                }
+                view = "listThing"
                 break
         }
         return [view, objectList]
@@ -60,8 +62,13 @@ class CommonLimsService {
         def key = params.key
         def count = 0
         switch (key) {
-            case "relatedThingType":
-                count = relatedThingType(params.personTitle).size()
+            case "thing4Choice":
+                def relatedThingNames = params.relatedThingNames
+                if (relatedThingNames) {
+                    count = Thing.countByNameNotInList(relatedThingNames)
+                } else {
+                    count = Thing.count()
+                }
                 break;
             case "leader":
                 if (params.myself) {

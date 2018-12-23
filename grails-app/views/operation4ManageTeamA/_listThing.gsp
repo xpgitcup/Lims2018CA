@@ -25,7 +25,6 @@
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>${item.name}</td>
                         <td>${item.thingType}</td>
-                        <td>${item.companyA}</td>
                         <td>
                             ${item.startDate}
                             <!--g:formatDate date="${item.startDate}" format="yyyy-MM-dd" /-->

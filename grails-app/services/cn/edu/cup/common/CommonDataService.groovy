@@ -386,7 +386,7 @@ class CommonDataService {
             case "project":
                 newInstance = new Project(params)
                 view = "createProject"
-                def projectType = ThingType.findByName("科研项目")
+                def projectType = ThingType.findByName("科研任务")
                 options = projectType.subItems
                 break;
             case "major":
