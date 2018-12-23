@@ -1,6 +1,6 @@
 var operation4ManageTeamADiv;
-var tabList4ManageTeamA = ["可选课题", "相关课题", "组建团队", "参与团队"];
-var idList4ManageTeamA = ["currentThing", "currentRelatedProject", "currentTeamLeader", "currentTeamJoin"];
+var tabList4ManageTeamA = ["可选课题", "相关课题", "我的团队", "参与团队"];
+var idList4ManageTeamA = ["currentThing", "currentRElatedThing", "currentTeamLeader", "currentTeamJoin"];
 
 $(function () {
     console.info("课题选择...");
@@ -19,8 +19,11 @@ function countManageTeamA(title) {
         case "可选课题":
             total = ajaxCalculate("operation4ManageTeamA/count?key=thing4Choice");
             break
-        case "组建团队":
-            total = ajaxCalculate("operation4ManageTeamA/count?key=teamLeader");
+        case "相关课题":
+            total = ajaxCalculate("operation4ManageTeamA/count?key=thingRelated");
+            break
+        case "我的团队":
+            total = ajaxCalculate("operation4ManageTeamA/count?key=myTeam");
             break
         case "参与团队":
             total = ajaxCalculate("operation4ManageTeamA/count?key=teamJoin");
@@ -36,8 +39,11 @@ function loadManageTeamA(title, page, pageSize) {
         case "可选课题":
             ajaxRun("operation4ManageTeamA/list" + params + "&key=thing4Choice", 0, "list" + title + "Div");
             break
-        case "组建团队":
-            ajaxRun("operation4ManageTeamA/list" + params + "&key=teamLeader" + currentThingTypeClassify, 0, "list" + title + "Div");
+        case "相关课题":
+            ajaxRun("operation4ManageTeamA/list" + params + "&key=thingRelated", 0, "list" + title + "Div");
+            break
+        case "我的团队":
+            ajaxRun("operation4ManageTeamA/list" + params + "&key=myTeam" + currentThingTypeClassify, 0, "list" + title + "Div");
             break
         case "参与团队":
             ajaxRun("operation4ManageTeamA/list" + params + "&key=teamJoin&thingType=" + currentThingType, 0, "list" + title + "Div");

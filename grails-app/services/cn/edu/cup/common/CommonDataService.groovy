@@ -9,7 +9,6 @@ import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.TaskAllocation
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
-import cn.edu.cup.lims.Thing
 import cn.edu.cup.lims.ThingType
 import cn.edu.cup.system.JsFrame
 import grails.gorm.transactions.Transactional

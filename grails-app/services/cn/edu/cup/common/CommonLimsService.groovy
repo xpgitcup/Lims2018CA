@@ -1,10 +1,7 @@
 package cn.edu.cup.common
 
-import cn.edu.cup.lims.Course
-import cn.edu.cup.lims.Person
-import cn.edu.cup.lims.PersonTitle
+
 import cn.edu.cup.lims.RelatedPersonAndProject
-import cn.edu.cup.lims.TaskAllocation
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
 import grails.gorm.transactions.Transactional
@@ -33,6 +30,7 @@ class CommonLimsService {
         switch (params.key) {
             case "thing4Choice":
                 def relatedThingNames = params.relatedThingNames
+                params.sort = 'thingType'
                 if (relatedThingNames) {
                     objectList = Thing.findAllByNameNotInList(relatedThingNames, params)
                 } else {
@@ -40,6 +38,22 @@ class CommonLimsService {
                     objectList = Thing.list(params)
                 }
                 view = "listThing"
+                break
+            case "thingRelated":
+                if (params.myself) {
+                    objectList = RelatedPersonAndProject.findAllByPerson(params.myself, params)
+                } else {
+                    objectList = Thing.list(params)
+                }
+                view = "listRelatedThing"
+                break;
+            case "myTeam":
+                if (params.myself) {
+                    objectList = Team.findAllByLeader(params.myself, params)
+                } else {
+                    objectList = Team.list(params)
+                }
+                view = "listTeam"
                 break
         }
         return [view, objectList]
@@ -66,6 +80,13 @@ class CommonLimsService {
                     count = Thing.countByNameNotInList(relatedThingNames)
                 } else {
                     count = Thing.count()
+                }
+                break;
+            case "thingRelated":
+                if (params.myself) {
+                    count = RelatedPersonAndProject.countByPerson(params.myself)
+                } else {
+                    count = RelatedPersonAndProject.count()
                 }
                 break;
             case "leader":

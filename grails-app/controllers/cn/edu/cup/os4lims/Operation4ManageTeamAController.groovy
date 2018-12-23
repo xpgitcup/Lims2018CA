@@ -1,8 +1,8 @@
 package cn.edu.cup.os4lims
 
 import cn.edu.cup.lims.Person
-import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.RelatedPersonAndProject
+import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
 import grails.converters.JSON
 
@@ -10,6 +10,33 @@ class Operation4ManageTeamAController {
 
     def commonLimsService
     def relatedPersonAndProjectService
+    def teamService
+
+    def createTeam(RelatedPersonAndProject relatedPersonAndProject) {
+        if (Team.countByThingAndLeader(relatedPersonAndProject.thing, relatedPersonAndProject.person) < 1) {
+            def team = new Team(
+                    name: "${relatedPersonAndProject}",
+                    thing: relatedPersonAndProject.thing,
+                    leader: relatedPersonAndProject.person,
+                    createdDate: new Date()
+            )
+            teamService.save(team)
+            flash.message = "恭喜队长!"
+        } else {
+            flash.message = "已经有了!"
+        }
+        redirect(action: "index")
+    }
+
+    def unselectIt(RelatedPersonAndProject relatedPersonAndProject) {
+        def p = relatedPersonAndProject
+        if (relatedPersonAndProject) {
+            relatedPersonAndProjectService.delete(relatedPersonAndProject.id)
+        } else {
+            flash.message = "找不到！"
+        }
+        redirect(action: "index")
+    }
 
     def selectIt(Thing thing) {
         def myself = Person.get(session.realId)
@@ -27,10 +54,9 @@ class Operation4ManageTeamAController {
     }
 
     def count() {
-        def personTitle = PersonTitle.get(session.realTitle)
-        params.personTitle = personTitle
-        println("${params}")
         def count = 0
+        def myself = Person.get(session.realId)
+        params.myself = myself
         params.relatedThingNames = relatedThingNames()
         count = commonLimsService.countObject(params)
         def result = [count: count]
@@ -42,11 +68,10 @@ class Operation4ManageTeamAController {
     }
 
     def list() {
-        def personTitle = PersonTitle.get(session.realTitle)
-        params.personTitle = personTitle
         params.relatedThingNames = relatedThingNames()
+        def myself = Person.get(session.realId)
+        params.myself = myself
         def (String view, List<? extends GroovyObject> objectList) = commonLimsService.listObject(params)
-
         if (request.xhr) {
             render(template: view, model: [objectList: objectList])
         } else {
@@ -54,7 +79,7 @@ class Operation4ManageTeamAController {
         }
     }
 
-    def index() { }
+    def index() {}
 
     private def relatedThingNames() {
         def relatedNames = []

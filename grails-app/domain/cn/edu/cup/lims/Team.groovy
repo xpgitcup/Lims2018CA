@@ -23,5 +23,4 @@ class Team {
     def beforeInsert() {
         createdDate = new Date()
     }
-
 }

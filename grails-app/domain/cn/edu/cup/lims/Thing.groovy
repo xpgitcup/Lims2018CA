@@ -7,6 +7,7 @@ class Thing extends Matter {
     Double duration = 1
 
     static constraints = {
+        name()
         thingType()
         startDate(nullable: true)
         duration(nullable: true)
