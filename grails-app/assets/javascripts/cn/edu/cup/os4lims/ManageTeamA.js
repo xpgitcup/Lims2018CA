@@ -42,6 +42,9 @@ function countManageTeamA(title) {
         case "参与团队":
             total = ajaxCalculate("operation4ManageTeamA/count?key=teamJoin");
             break
+        case "本科生":
+            total = ajaxCalculate("operation4ManageTeamA/count?key=call4Student&teamLeader=" + ids[2]);
+            break
     }
     return total;
 }

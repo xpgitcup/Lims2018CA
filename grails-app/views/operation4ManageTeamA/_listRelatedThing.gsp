@@ -15,26 +15,24 @@
             </g:if>
             <table>
                 <thead>
-                <th>人员</th>
                 <th>课题</th>
+                <th>人员</th>
                 <th>课题类型</th>
                 <th>相关团队</th>
-                <th>领导团队</th>
                 </thead>
                 <tbody>
                 <g:each in="${objectList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                        <td>${item.thing}</td>
                         <td>
                             ${item.person}
                             <a href="operation4ManageTeamA/unselectIt/${item.id}">退选</a>
                             <a href="operation4ManageTeamA/createTeam/${item.id}">创建团队</a>
                         </td>
-                        <td>${item.thing}</td>
                         <td>${item.thing.thingType}</td>
                         <td>
                             ${Team.countByThing(item.thing)}
                         </td>
-                        <td>${Team.countByLeader(cn.edu.cup.lims.Person.get(session.realId))}</td>
                     </tr>
                 </g:each>
                 </tbody>

@@ -393,6 +393,8 @@ class CommonDataService {
                 view = "createMajor"
                 break
             case "course":
+                def thingType = ThingType.findByName("教学任务")
+                params.thingType = thingType
                 newInstance = new Course(params)
                 view = "createCourse"
                 break

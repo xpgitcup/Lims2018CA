@@ -75,16 +75,17 @@ class CommonLimsService {
                 view = "listCall4Teacher"
                 break
             case "call4Student":
-                //println("招聘本科生...")
+                println("招聘本科生...")
                 if (params.teamLeader) {
                     def team = Team.get(params.teamLeader)
-                    //println("${team} 正在招聘")
+                    println("${team} 正在招聘")
                     def members = []
                     if (team) {
                         members.add(team.leader.id)
                         team.students.each { e -> members.add(e.id) }
                     }
-                    def studentType = PersonTitle.get("本科")
+                    def studentType = PersonTitle.findByName("本科")
+                    println("只要${studentType}")
                     objectList = Student.findAllByPersonTitleAndIdNotInList(studentType, members, params)
                 } else {
                     objectList = Student.list(params)
@@ -130,6 +131,23 @@ class CommonLimsService {
                     count = Team.countByLeader(params.myself)
                 } else {
                     count = Team.count()
+                }
+                break
+            case "call4Student":
+                println("招聘本科生...")
+                if (params.teamLeader) {
+                    def team = Team.get(params.teamLeader)
+                    println("${team} 正在招聘")
+                    def members = []
+                    if (team) {
+                        members.add(team.leader.id)
+                        team.students.each { e -> members.add(e.id) }
+                    }
+                    def studentType = PersonTitle.findByName("本科")
+                    println("只要${studentType}")
+                    count = Student.countByPersonTitleAndIdNotInList(studentType, members)
+                } else {
+                    count = Student.count()
                 }
                 break
         }

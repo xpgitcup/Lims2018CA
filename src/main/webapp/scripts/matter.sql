@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50722
 File Encoding         : 65001
 
-Date: 2018-12-23 17:33:16
+Date: 2018-12-24 10:26:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,7 +42,7 @@ CREATE TABLE `matter` (
   CONSTRAINT `FKbq1snas6c0btffe55o53d2ndd` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`),
   CONSTRAINT `FKcl85blmloap2qupq8eyoalrd` FOREIGN KEY (`thing_type_id`) REFERENCES `matter_type` (`id`),
   CONSTRAINT `FKkpkhtvtuxvftpkiubog3dqx43` FOREIGN KEY (`person_title_id`) REFERENCES `matter_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of matter
@@ -151,3 +151,123 @@ INSERT INTO `matter` VALUES ('107', '0', '软件概论', 'cn.edu.cup.lims.Course
 INSERT INTO `matter` VALUES ('108', '0', '基金1', 'cn.edu.cup.lims.Project', null, '20', null, '国家', null, null, null, null, null);
 INSERT INTO `matter` VALUES ('109', '0', '横向1', 'cn.edu.cup.lims.Project', null, '21', null, '公司', null, null, null, null, null);
 INSERT INTO `matter` VALUES ('110', '0', '横向项目2', 'cn.edu.cup.lims.Project', null, '23', null, '公司2', null, null, null, null, null);
+INSERT INTO `matter` VALUES ('111', '0', '冯志强', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2014011043', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('112', '0', '沈倩', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010667', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('113', '0', '王铁淞', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010743', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('114', '0', '德吉曲珍', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010854', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('115', '0', '胡瑾', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010855', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('116', '0', '贾羽茜', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010856', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('117', '0', '康雅倩', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010857', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('118', '0', '兰敏', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010858', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('119', '0', '李露露', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010859', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('120', '0', '李玥洁', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010860', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('121', '0', '柳佳丽', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010861', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('122', '0', '史安丁', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010862', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('123', '0', '张怡铭', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010863', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('124', '0', '艾斯卡尔·坎买尔', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010864', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('125', '0', '白宗翰', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010865', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('126', '0', '董佳鑫', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010866', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('127', '0', '付顺康', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010867', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('128', '0', '高经华', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010868', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('129', '0', '顾鹏程', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010869', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('130', '0', '贺国晏', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010870', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('131', '0', '侯富恒', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010871', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('132', '0', '姜铖', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010872', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('133', '0', '李致远', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010873', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('134', '0', '刘禹良', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010875', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('135', '0', '骆新斗', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010876', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('136', '0', '马克', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010877', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('137', '0', '马有财', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010878', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('138', '0', '邵文宏', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010879', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('139', '0', '王饕', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010880', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('140', '0', '伍彦松', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010881', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('141', '0', '熊泽华', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010882', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('142', '0', '严腾飞', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010883', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('143', '0', '杨宏慧', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010884', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('144', '0', '殷雄', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010885', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('145', '0', '张猛', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010886', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('146', '0', '张雄凯', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010887', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('147', '0', '张悦', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015011149', '储运15-1班', '1', null);
+INSERT INTO `matter` VALUES ('148', '0', '李伟奇', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2013010935', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('149', '0', '柴兆杰', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2013011552', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('150', '0', '张扬', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010125', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('151', '0', '焦开拓', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010450', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('152', '0', '金晓琼', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010888', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('153', '0', '亢燕丽', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010889', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('154', '0', '刘学春', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010890', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('155', '0', '么娆', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010891', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('156', '0', '王玉婷', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010892', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('157', '0', '王智林', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010893', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('158', '0', '徐苗苗', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010894', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('159', '0', '徐则林', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010895', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('160', '0', '张昊月', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010897', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('161', '0', '戴材炜', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010898', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('162', '0', '何毅', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010900', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('163', '0', '贺禹铭', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010901', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('164', '0', '雷平', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010902', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('165', '0', '李彦博', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010903', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('166', '0', '李泽世', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010904', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('167', '0', '刘琪', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010905', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('168', '0', '刘万琪', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010906', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('169', '0', '刘志伟', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010907', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('170', '0', '石金波', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010908', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('171', '0', '宋燎东', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010909', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('172', '0', '隋金昊', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010910', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('173', '0', '邰昊', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010911', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('174', '0', '唐银宏', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010912', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('175', '0', '王怡博', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010913', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('176', '0', '徐帜', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010914', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('177', '0', '杨起', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010915', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('178', '0', '张兴强', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010917', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('179', '0', '赵鹏', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010918', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('180', '0', '赵伟', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010919', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('181', '0', '周小龙', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010920', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('182', '0', '李维嘉', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010954', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('183', '0', '吴紫月', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010956', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('184', '0', '肖帆', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015011166', '储运15-2班', '1', null);
+INSERT INTO `matter` VALUES ('185', '0', '宋少雄', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2013010971', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('186', '0', '张艺馨', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2014010805', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('187', '0', '封叶', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010921', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('188', '0', '高维蔚', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010922', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('189', '0', '李姗姗', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010923', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('190', '0', '潘瑞雪', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010924', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('191', '0', '索娜曲珍', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010925', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('192', '0', '席蔺璇', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010926', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('193', '0', '张琴', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010927', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('194', '0', '张婉', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010928', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('195', '0', '张鑫', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010929', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('196', '0', '郑衣珍', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010930', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('197', '0', '陈东宁', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010931', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('198', '0', '陈盼杰', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010932', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('199', '0', '陈枭', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010933', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('200', '0', '池弘睿', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010934', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('201', '0', '董高华', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010935', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('202', '0', '董兆豪', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010936', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('203', '0', '高毅飞', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010937', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('204', '0', '何习渊', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010938', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('205', '0', '李睿麟', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010939', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('206', '0', '李伟浩', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010940', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('207', '0', '苗泽宇', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010941', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('208', '0', '宁立秋', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010942', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('209', '0', '田志刚', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010943', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('210', '0', '汪常翔', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010944', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('211', '0', '杨浩帆', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010945', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('212', '0', '张博', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010946', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('213', '0', '张财铄', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010947', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('214', '0', '张左旻', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010948', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('215', '0', '赵凯歌', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010949', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('216', '0', '赵文博', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010950', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('217', '0', '郑文川', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010951', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('218', '0', '周俊炜', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010952', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('219', '0', '朱跃强', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015010953', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('220', '0', '姜源', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015011710', '储运15-3班', '1', null);
+INSERT INTO `matter` VALUES ('221', '0', '达意娜', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015030065', '储运15-4留学生班', '1', null);
+INSERT INTO `matter` VALUES ('222', '0', '康迪', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015030066', '储运15-4留学生班', '1', null);
+INSERT INTO `matter` VALUES ('223', '0', '梅尔兰', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015030067', '储运15-4留学生班', '1', null);
+INSERT INTO `matter` VALUES ('224', '0', '萨纳特', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015030068', '储运15-4留学生班', '1', null);
+INSERT INTO `matter` VALUES ('225', '0', '桑迪', 'cn.edu.cup.lims.Student', null, null, null, null, '16', '2015030069', '储运15-4留学生班', '1', null);
+INSERT INTO `matter` VALUES ('226', '0', '2018-软件实训，软件对比', 'cn.edu.cup.lims.Course', '2018-12-24 00:00:00', '18', '1', null, null, null, null, null, null);
+INSERT INTO `matter` VALUES ('227', '0', '2018-软件实训，软件综述', 'cn.edu.cup.lims.Course', '2018-12-24 00:00:00', '18', '1', null, null, null, null, null, null);
+INSERT INTO `matter` VALUES ('228', '0', '左丽丽', 'cn.edu.cup.lims.Teacher', null, null, null, null, '4', '2333', null, null, null);
+INSERT INTO `matter` VALUES ('229', '0', '史博会', 'cn.edu.cup.lims.Teacher', null, null, null, null, '4', '2013880073', null, null, null);
+INSERT INTO `matter` VALUES ('230', '0', '温凯', 'cn.edu.cup.lims.Teacher', null, null, null, null, '5', '2012880012', null, null, null);

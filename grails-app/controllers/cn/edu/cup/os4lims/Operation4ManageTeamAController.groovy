@@ -2,6 +2,7 @@ package cn.edu.cup.os4lims
 
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.RelatedPersonAndProject
+import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
@@ -12,6 +13,19 @@ class Operation4ManageTeamAController {
     def commonLimsService
     def relatedPersonAndProjectService
     def teamService
+
+    def enlistStudent() {
+        def team = Team.get(params.team)
+        def student = Student.get(params.student)
+        if (team && student) {
+            team.students.add(student)
+            teamService.save(team)
+            flash.message = "成功招聘${student}."
+        } else {
+            flash.message = "信息不全！团队${team}, 学生：${student}"
+        }
+        redirect(action: "index")
+    }
 
     def enlistTeacher() {
         def team = Team.get(params.team)
