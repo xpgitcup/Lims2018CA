@@ -30,6 +30,14 @@ class SystemCommonService {
 
     boolean addPersonToUser(person) {
         def role = SystemAttribute.findByName("系统操作权限")
+        switch (person.personTitle.name) {
+            case "教师":
+                role = SystemAttribute.findByName("教师权限")
+                break
+            case "本科":
+                role = SystemAttribute.findByName("学生权限")
+                break
+        }
         if (SystemUser.countByUserName(person.code) < 1) {
             def app = person.class.simpleName
             def u = new SystemUser(

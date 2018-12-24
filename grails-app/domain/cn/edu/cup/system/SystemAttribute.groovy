@@ -16,7 +16,7 @@ class SystemAttribute {
     }
 
     static constraints = {
-        name(nullable: false, unique: true)
+        name(nullable: false, unique: false)
         upAttribute(nullable: true)
     }
 

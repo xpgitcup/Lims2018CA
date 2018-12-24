@@ -7,6 +7,7 @@ import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
+import cn.edu.cup.lims.ThingType
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -23,6 +24,9 @@ class CommonLimsService {
             case "operation4ManageTeamA":
                 objectList = listObject4ManageTeamA(params)
                 break
+            case "operation4StudentTeamA":
+                objectList = listObject4ManageTeamA(params)
+                break;
         }
         return objectList
     }
@@ -39,6 +43,18 @@ class CommonLimsService {
                 } else {
                     params.sort = 'thingType'
                     objectList = Thing.list(params)
+                }
+                view = "listThing"
+                break
+            case "thing4ChoiceStudent":
+                def relatedThingNames = params.relatedThingNames
+                params.sort = 'thingType'
+                def studentThing = ThingType.findByName("教学任务")
+                if (relatedThingNames) {
+                    println("只统计 ${studentThing}")
+                    objectList = Thing.findAllByThingTypeAndNameNotInList(studentThing, relatedThingNames, params)
+                } else {
+                    objectList = Thing.findAllByThingType(studentThing, params)
                 }
                 view = "listThing"
                 break
@@ -92,6 +108,16 @@ class CommonLimsService {
                 }
                 view = "listCall4Student"
                 break
+            case "teamJoinStudent":
+                def student = params.myself
+                def thing = Thing.get(params.thing)
+                if (thing && student) {
+                    objectList = Team.findAllByThingAndLeaderNotEqual(thing, student, params)
+                } else {
+                    println("参数不全：${thing}, ${student}")
+                }
+                view = "listTeam"
+                break;
         }
         return [view, objectList]
     }
@@ -101,6 +127,9 @@ class CommonLimsService {
         def count = 0
         switch (controller) {
             case "operation4ManageTeamA":
+                count = countObject4ManageTeamA(params)
+                break
+            case "operation4StudentTeamA":
                 count = countObject4ManageTeamA(params)
                 break
         }
@@ -119,6 +148,15 @@ class CommonLimsService {
                     count = Thing.count()
                 }
                 break;
+            case "thing4ChoiceStudent":
+                def relatedThingNames = params.relatedThingNames
+                def studentThing = ThingType.findByName("教学任务")
+                if (relatedThingNames) {
+                    count = Thing.countByThingTypeAndNameNotInList(studentThing, relatedThingNames)
+                } else {
+                    count = Thing.countByThingType(studentThing)
+                }
+                break
             case "thingRelated":
                 if (params.myself) {
                     count = RelatedPersonAndProject.countByPerson(params.myself)
@@ -150,6 +188,15 @@ class CommonLimsService {
                     count = Student.count()
                 }
                 break
+            case "teamJoinStudent":
+                def student = params.myself
+                def thing = Thing.get(params.thing)
+                if (thing && student) {
+                    count = Team.countByThingAndLeaderNotEqual(thing, student)
+                } else {
+                    println("参数不全：${thing}, ${student}")
+                }
+                break;
         }
         return count
     }
