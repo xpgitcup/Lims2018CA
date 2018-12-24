@@ -1,7 +1,10 @@
 package cn.edu.cup.common
 
-
+import cn.edu.cup.lims.Person
+import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.RelatedPersonAndProject
+import cn.edu.cup.lims.Student
+import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
 import grails.gorm.transactions.Transactional
@@ -54,6 +57,39 @@ class CommonLimsService {
                     objectList = Team.list(params)
                 }
                 view = "listTeam"
+                break
+            case "call4Teacher":
+                //println("招聘教师...")
+                if (params.teamLeader) {
+                    def team = Team.get(params.teamLeader)
+                    //println("${team} 正在招聘")
+                    def members = []
+                    if (team) {
+                        members.add(team.leader.id)
+                        team.teachers.each { e -> members.add(e.id) }
+                    }
+                    objectList = Teacher.findAllByIdNotInList(members, params)
+                } else {
+                    objectList = Teacher.list(params)
+                }
+                view = "listCall4Teacher"
+                break
+            case "call4Student":
+                //println("招聘本科生...")
+                if (params.teamLeader) {
+                    def team = Team.get(params.teamLeader)
+                    //println("${team} 正在招聘")
+                    def members = []
+                    if (team) {
+                        members.add(team.leader.id)
+                        team.students.each { e -> members.add(e.id) }
+                    }
+                    def studentType = PersonTitle.get("本科")
+                    objectList = Student.findAllByPersonTitleAndIdNotInList(studentType, members, params)
+                } else {
+                    objectList = Student.list(params)
+                }
+                view = "listCall4Student"
                 break
         }
         return [view, objectList]

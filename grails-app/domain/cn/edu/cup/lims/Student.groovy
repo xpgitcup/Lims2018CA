@@ -42,15 +42,25 @@ class Student extends Person {
                 result += "${c} 重复了！"
             } else {
                 if (tt) {
-                    if (ds) {
-                        name = n
-                        code = c
-                        personTitle = tt
-                        supervisor = ds
-                        gradeName = g
-                        major = m
-                    } else {
-                        result += "${dataSheet[5]} 找不到这个导师！"
+                    switch (t) {
+                        case "本科":
+                            name = n
+                            code = c
+                            personTitle = tt
+                            gradeName = g
+                            major = m
+                            break
+                        default:
+                            if (ds) {
+                                name = n
+                                code = c
+                                personTitle = tt
+                                supervisor = ds
+                                gradeName = g
+                                major = m
+                            } else {
+                                result += "${dataSheet[5]} 找不到这个导师！"
+                            }
                     }
                 } else {
                     result += "${t} 没有这个类型的学生！"

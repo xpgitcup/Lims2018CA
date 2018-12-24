@@ -2,6 +2,7 @@ package cn.edu.cup.os4lims
 
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.RelatedPersonAndProject
+import cn.edu.cup.lims.Teacher
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
 import grails.converters.JSON
@@ -11,6 +12,19 @@ class Operation4ManageTeamAController {
     def commonLimsService
     def relatedPersonAndProjectService
     def teamService
+
+    def enlistTeacher() {
+        def team = Team.get(params.team)
+        def teacher = Teacher.get(params.teacher)
+        if (team && teacher) {
+            team.teachers.add(teacher)
+            teamService.save(team)
+            flash.message = "成功招聘${teacher}."
+        } else {
+            flash.message = "信息不全！团队${team}, 教师：${teacher}"
+        }
+        redirect(action: "index")
+    }
 
     def createTeam(RelatedPersonAndProject relatedPersonAndProject) {
         if (Team.countByThingAndLeader(relatedPersonAndProject.thing, relatedPersonAndProject.person) < 1) {
@@ -88,7 +102,7 @@ class Operation4ManageTeamAController {
             def related = RelatedPersonAndProject.findAllByPerson(myself)
             related.each { e -> relatedNames.add(e.thing.name) }
         }
-        println("相关的: ${relatedNames}")
+        //println("相关的: ${relatedNames}")
         return relatedNames
     }
 }

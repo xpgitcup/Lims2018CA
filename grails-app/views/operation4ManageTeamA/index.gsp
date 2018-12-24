@@ -33,8 +33,8 @@
     <ul>
         <li><a>当前分类：</a></li>
         <li><a id="currentThingTypeClassify"></a></li>
-        <li><a>当前任务：</a></li>
-        <li><a id="currentThingType"></a></li>
+        <li><a>我的团：</a></li>
+        <li><a id="currentTeamLeader"></a></li>
     </ul>
 </div>
 

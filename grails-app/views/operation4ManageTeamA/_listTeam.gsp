@@ -24,7 +24,10 @@
                 <g:each in="${objectList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>
-                            ${item.name}<a></a>
+                            ${item.name}
+                            <a href="javascript: call4Teacher(${item.id})">招聘教师</a>
+                            <a href="javascript: call4Master(${item.id})">招募研究生</a>
+                            <a href="javascript: call4Student(${item.id})">招募本科生</a>
                         </td>
                         <td>${item.leader}</td>
                         <td>
