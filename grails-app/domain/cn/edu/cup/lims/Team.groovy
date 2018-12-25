@@ -20,6 +20,25 @@ class Team {
         return name
     }
 
+    def isMember(Person person) {
+        switch (person.class.simpleName) {
+            case "Teacher":
+                if (teachers) {
+                    return teachers.contains(person)
+                } else {
+                    return false
+                }
+                break
+            case "Student":
+                if (students) {
+                    return students.contains(person)
+                } else {
+                    return false
+                }
+                break
+        }
+    }
+
     def beforeInsert() {
         createdDate = new Date()
     }
