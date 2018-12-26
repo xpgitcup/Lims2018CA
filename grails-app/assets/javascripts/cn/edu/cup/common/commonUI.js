@@ -55,6 +55,16 @@ function addNewListDiv(title, tab) {
 /*
 * 读取、调入所有页面指示标志
 * */
+function loadAllDisplayTitleIdA(idList) {
+    var currentId
+    var ids = new Array()
+    for (index in idList) {
+        currentId = readCookie("currentKey" + idList[index], 0)
+        ids[index] = currentId
+    }
+    return ids
+}
+
 function loadAllDisplayTitleId(idList) {
     var currentId
     var ids = new Array()
@@ -68,6 +78,24 @@ function loadAllDisplayTitleId(idList) {
 /*
 * 页面指示标志的更新
 * */
+function reflashDisplayTitleA(ulId, idList) {
+    var currentId
+    var ids = new Array()
+    var title
+    for (index in idList) {
+        title = idList[index];
+        currentId = readCookie("currentKey" + idList[index], 0)
+        ids[index] = currentId
+        if (currentId>0) {
+            console.info(title + ":" + currentId)
+            $("#currentKey" + idList[index]).html(currentId)
+        } else {
+            $("#currentKey" + idList[index]).html("请选择...")
+        }
+    }
+    return ids
+}
+
 function reflashDisplayTitle(idList) {
     var currentId
     var ids = new Array()
@@ -270,6 +298,22 @@ function setupTabPageParams(tabsName, aCountFunction, aLoadFunction) {
 
     // 打开缺省的标签
     tabsDiv.tabs("select", currentTab);
+}
+
+/*
+* 设置页面的指示信息
+* */
+function setupDisplayUl(ulId, tabsNameList) {
+    for (i in tabsNameList) {
+        var title = tabsNameList[i];
+        var lia = $("<li>当前[" + title + "]：</li>");
+        var lib = $("<li></li>");
+        var lic = $("<li>||</li>");
+        lib.attr("id", "currentKey" + title);
+        lia.appendTo(ulId);
+        lib.appendTo(ulId);
+        lic.appendTo(ulId);
+    }
 }
 
 /*

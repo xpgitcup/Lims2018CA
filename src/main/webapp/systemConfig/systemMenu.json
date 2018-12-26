@@ -121,7 +121,7 @@
     "menuItems": [
       {
         "menuContext": "课题任务",
-        "menuAction": "operation4StudentTeamA/index",
+        "menuAction": "operation4StudentTeamB/index",
         "menuDescription": "与系统中的用户对话",
         "upMenuItem": "学生服务",
         "menuOrder": 0
