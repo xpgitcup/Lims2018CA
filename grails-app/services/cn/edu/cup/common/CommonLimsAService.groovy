@@ -27,6 +27,7 @@ class CommonLimsAService {
     }
 
     def listObject4ManageTeamA(params) {
+        println("${params}")
         def view
         def objectList = []
         switch (params.key) {
@@ -39,8 +40,15 @@ class CommonLimsAService {
                 break
             case "relatedTeams":
                 def thing = Thing.get(params.thing)
+                println("相关${thing.id}的团队...")
                 objectList = Team.findAllByThing(thing, params)
                 view = "listTeam"
+                break;
+            case "teamMembersStudent":
+                def team = Team.get(params.team)
+                println("返回团队：${team}")
+                objectList.add(team)
+                view = "listMembersStudents"
                 break;
         }
         return [view, objectList]
@@ -71,6 +79,12 @@ class CommonLimsAService {
                     count = Thing.countByThingTypeAndNameNotInList(studentThing, relatedThingNames)
                 } else {
                     count = Thing.countByThingType(studentThing)
+                }
+                break
+            case "teamMembersStudent":
+                def team = Team.get(params.team)
+                if (team) {
+                    count = team?.students?.size()
                 }
                 break
         }

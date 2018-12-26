@@ -17,6 +17,7 @@
     </g:if>
     <table>
         <thead>
+        <th>id</th>
         <th>名称</th>
         <th>操作</th>
         <th>类型</th>
@@ -26,6 +27,7 @@
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                <td>${item.id}</td>
                 <td>
                     ${item.name}
                     <a href="">查看/加入团队</a>

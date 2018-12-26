@@ -180,3 +180,21 @@ function ajaxRunEx(url, id, divId, nextFunction) {
         });
     }
 }
+
+/*
+* 只是执行
+* */
+function ajaxExecute(url) {
+    //console.info("开始计算--" + url);
+    var result = 0;
+    $.ajax({
+        type: 'POST',
+        url: url,
+        async: false,
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.info(XMLHttpRequest);
+            console.info(textStatus);
+            console.info(errorThrown);
+        }
+    });
+}

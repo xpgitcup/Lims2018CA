@@ -7,9 +7,9 @@ $(function () {
 
     operation4StudentTeamUl = $("#operation4StudentTeamUl");
     operation4StudentTeamBDiv = $("#operation4StudentTeamBDiv");
+    setupDisplayUl(operation4StudentTeamUl, tabList4ManageTeamB)
     setupTabsWithDivAndPagination(operation4StudentTeamBDiv, tabList4ManageTeamB);
     setupTabPageParams("operation4StudentTeamBDiv", countManageTeamB, loadManageTeamB);
-    setupDisplayUl(operation4StudentTeamUl, tabList4ManageTeamB)
     //var ids = loadAllDisplayTitleIdA(tabList4ManageTeamB);
 });
 
@@ -41,12 +41,22 @@ function loadManageTeamB(title, page, pageSize) {
             ajaxRun("operation4StudentTeamB/list" + params + "&key=relatedTeams&thing=" + ids[0], 0, "list" + title + "Div");
             break;
         case "相关队员":
+            ajaxRun("operation4StudentTeamB/list" + params + "&key=teamMembersStudent&team=" + ids[1], 0, "list" + title + "Div");
             break;
     }
 }
 
+function checkMembers(id) {
+    $.cookie("currentKey" + "相关团队", id);
+    $("#churrentKey" + "相关团队").html(id);
+    operation4StudentTeamBDiv.tabs("select", "相关队员");
+}
+
 function selectAndCreateTeam(id) {
-    operation4StudentTeamBDiv.tabs("select", "相关团队");
     $.cookie("currentKey" + "可选题目", id);
-    ajaxRun("operation4StudentTeamB/selectAndCreateTeam", id, "");
+    $("#churrentKey" + "可选题目").html(id);
+    console.info("创建：" + id + "团队。")
+    operation4StudentTeamBDiv.tabs("select", "相关团队");
+    ajaxExecute("operation4StudentTeamB/selectAndCreateTeam/" + id);
+    location.reload();
 }

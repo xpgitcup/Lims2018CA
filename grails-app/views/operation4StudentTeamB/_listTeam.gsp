@@ -24,10 +24,13 @@
                 <g:each in="${objectList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>
-                            ${item.name}
-                            <a href="javascript: call4Student(${item.id})">招募本科生</a>
+                            ${item.name}--${item.thing.id}
+                            <a href="operation4StudentTeamB/disband/${item.id}">解散</a>
                         </td>
-                        <td>${item.leader}</td>
+                        <td>
+                            ${item.leader}
+                            <a href="javascript: checkMembers(${item.id})">查看队员</a>
+                        </td>
                         <td>
                             ${item.createdDate}
                         </td>

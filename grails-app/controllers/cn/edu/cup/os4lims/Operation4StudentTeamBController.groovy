@@ -2,6 +2,7 @@ package cn.edu.cup.os4lims
 
 import cn.edu.cup.lims.Person
 import cn.edu.cup.lims.RelatedPersonAndProject
+import cn.edu.cup.lims.Student
 import cn.edu.cup.lims.Team
 import cn.edu.cup.lims.Thing
 import grails.converters.JSON
@@ -13,11 +14,34 @@ class Operation4StudentTeamBController {
     def teamService
     def relatedPersonAndProjectService
 
+    def disband(Team team) {
+        teamService.delete(team.id)
+        redirect(action: "index")
+    }
+
+    def enlistStudent() {
+        println("${params} ....")
+        def team = Team.get(params.team)
+        if (team) {
+            def student = Student.findByName(params.name)
+            if (student && (!team.isMember(student))) {
+                team.students.add(student)
+                teamService.save(team)
+                flash.message = "招募${student}."
+            } else {
+                println("找不到人...")
+            }
+        } else {
+            println("找不到团队...")
+        }
+        redirect(action: "index")
+    }
+
     def selectAndCreateTeam(Thing thing) {
         def myself = Person.get(session.realId)
-        println("${myself}开始组队...")
+        println("${myself}开始组队...${thing} - ${thing.id}")
         if (myself) {
-            if (Team.countByLeader(myself) < 1) {
+            if (Team.countByLeaderAndThing(myself, thing) < 1) {
                 def team = new Team(
                         name: "${thing}.${myself}-小组",
                         thing: thing,
@@ -26,7 +50,9 @@ class Operation4StudentTeamBController {
                 )
                 teamService.save(team)
                 flash.message = "组队成功！"
+                println("${thing.id} -- 团队创建成功...")
             } else {
+                println("${thing.id} -- 团队重复...")
                 flash.message = "已经有了."
             }
         }
@@ -39,7 +65,7 @@ class Operation4StudentTeamBController {
         def myself = Person.get(session.realId)
         //println("当前用户: ${myself}")
         params.myself = myself
-        def (String view, List<? extends GroovyObject> objectList) = commonLimsAService.list(params)
+        def (view, objectList) = commonLimsAService.list(params)
         if (request.xhr) {
             render(template: view, model: [objectList: objectList])
         } else {
