@@ -23,6 +23,7 @@
         <th>类型</th>
         <th>起始日期</th>
         <th>期限(年)</th>
+        <th>相关团队数</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
@@ -40,6 +41,7 @@
                     ${item.startDate}
                 </td>
                 <td>${item.duration}</td>
+                <td>${cn.edu.cup.lims.Team.countByThing(item)}</td>
             </tr>
         </g:each>
         </tbody>

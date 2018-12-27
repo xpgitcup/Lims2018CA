@@ -112,7 +112,6 @@ class Operation4StudentTeamBController {
 
     def list() {
         //println("${params}")
-        params.relatedThingNames = relatedThingNames()
         def myself = Person.get(session.realId)
         //println("当前用户: ${myself}")
         params.myself = myself
@@ -128,7 +127,6 @@ class Operation4StudentTeamBController {
         def count = 0
         def myself = Person.get(session.realId)
         params.myself = myself
-        params.relatedThingNames = relatedThingNames()
         count = commonLimsAService.count(params)
         def result = [count: count]
         if (request.xhr) {
@@ -139,20 +137,5 @@ class Operation4StudentTeamBController {
     }
 
     def index() {}
-
-    /*
-    * 人员与任务的对应关系---与当前人员相关的事情的列表
-    * */
-
-    private def relatedThingNames() {
-        def relatedNames = []
-        def myself = Person.get(session.realId)
-        if (myself) {
-            def related = RelatedPersonAndProject.findAllByPerson(myself)
-            related.each { e -> relatedNames.add(e.thing.name) }
-        }
-        //println("相关的: ${relatedNames}")
-        return relatedNames
-    }
 
 }
