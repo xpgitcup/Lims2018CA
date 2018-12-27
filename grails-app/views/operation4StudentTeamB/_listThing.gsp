@@ -30,7 +30,7 @@
                 <td>${item.id}</td>
                 <td>
                     ${item.name}
-                    <a href="">查看/加入团队</a>
+                    <a href="javascript: selectAndJoinTeam(${item.id})">查看团队</a>
                 </td>
                 <td>
                     <a href="javascript: selectAndCreateTeam(${item.id})">选择并组建团队</a>

@@ -52,6 +52,13 @@ function checkMembers(id) {
     operation4StudentTeamBDiv.tabs("select", "相关队员");
 }
 
+function selectAndJoinTeam(id) {
+    $.cookie("currentKey" + "可选题目", id);
+    $("#churrentKey" + "可选题目").html(id);
+    console.info("查看：" + id + "团队。")
+    operation4StudentTeamBDiv.tabs("select", "相关团队");
+}
+
 function selectAndCreateTeam(id) {
     $.cookie("currentKey" + "可选题目", id);
     $("#churrentKey" + "可选题目").html(id);

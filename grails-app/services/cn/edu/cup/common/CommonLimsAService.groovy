@@ -40,7 +40,7 @@ class CommonLimsAService {
                 break
             case "relatedTeams":
                 def thing = Thing.get(params.thing)
-                println("相关${thing.id}的团队...")
+                println("相关${thing?.id}的团队...")
                 objectList = Team.findAllByThing(thing, params)
                 view = "listTeam"
                 break;

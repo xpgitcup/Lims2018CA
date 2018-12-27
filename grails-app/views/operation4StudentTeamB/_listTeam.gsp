@@ -25,7 +25,12 @@
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>
                             ${item.name}--${item.thing.id}
-                            <a href="operation4StudentTeamB/disband/${item.id}">解散</a>
+                            <g:if test="${cn.edu.cup.lims.Person.get(session.realId).equals(item.leader)}">
+                                <a href="operation4StudentTeamB/disband/${item.id}">解散</a>
+                            </g:if>
+                            <g:else>
+                                <a href="operation4StudentTeamB/joinTo?team=${item.id}&student=${session.realId}">加入</a>
+                            </g:else>
                         </td>
                         <td>
                             ${item.leader}

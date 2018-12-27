@@ -1,3 +1,4 @@
+<%@ page import="cn.edu.cup.lims.Student; cn.edu.cup.lims.Team" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,14 @@
                 <td>${item.name}</td>
                 <td>
                     ${item.code}
+                    <g:if test="${cn.edu.cup.lims.Person.get(session.realId).equals(objectList[0]?.leader)}">
+                        <a href="operation4StudentTeamB/dismiss?team=${objectList[0]?.id}&student=${item.id}">解聘</a>
+                    </g:if>
+                    <g:else>
+                        <g:if test="${cn.edu.cup.lims.Team.get(objectList[0]?.id).isMember(cn.edu.cup.lims.Student.get(session.realId))}">
+                            <a href="operation4StudentTeamB/dismiss?team=${objectList[0]?.id}&student=${item.id}">退出</a>
+                        </g:if>
+                    </g:else>
                 </td>
                 <td>
                     ${item.gradeName}
@@ -41,20 +50,27 @@
         </g:each>
         </tbody>
     </table>
+    <hr>
 
     <div class="nav">
-        <g:form controller="operation4StudentTeamB" action="enlistStudent" method="POST">
-            <g:hiddenField name="team" value="${objectList[0].id}"/>
-            <ul>
-                <li>学号(优先)</li>
-                <li><g:textField name="code"/></li>
-                <li>姓名</li>
-                <li><g:textField name="name"/></li>
-                <li>
-                    <input type="submit" value="招募"/>
-                </li>
-            </ul>
-        </g:form>
+        <g:if test="${objectList[0]}">
+            <g:form controller="operation4StudentTeamB" action="enlistStudent" method="POST">
+                <g:hiddenField name="team" value="${objectList[0]?.id}"/>
+                <ul>
+                    <li>&nbsp;&nbsp;&nbsp;&nbsp;输入学号或者姓名，招募队员...</li>
+                    <li>学号(优先)</li>
+                    <li><g:textField name="code"/></li>
+                    <li>姓名</li>
+                    <li><g:textField name="name"/></li>
+                    <li>
+                        <input type="submit" value="招募"/>
+                    </li>
+                </ul>
+            </g:form>
+        </g:if>
+        <g:else>
+            <h1>还没有建立团队！</h1>
+        </g:else>
     </div>
 </div>
 </body>

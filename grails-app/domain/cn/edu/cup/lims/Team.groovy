@@ -21,7 +21,7 @@ class Team {
     }
 
     def isMember(Person person) {
-        switch (person.class.simpleName) {
+        switch (person?.class?.simpleName) {
             case "Teacher":
                 if (teachers) {
                     return teachers.contains(person)

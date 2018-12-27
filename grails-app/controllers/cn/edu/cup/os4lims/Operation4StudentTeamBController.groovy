@@ -14,16 +14,67 @@ class Operation4StudentTeamBController {
     def teamService
     def relatedPersonAndProjectService
 
-    def disband(Team team) {
-        teamService.delete(team.id)
+    def joinTo() {
+        def team = Team.get(params.team)
+        def student = Student.get(params.student)
+        if (team && student) {
+            if (!team.isMember(student)) {
+                team.students.add(student)
+                teamService.save(team)
+                flash.message = "${student}加入."
+            }
+        } else {
+            flash.message = "找不到团队或者人员。"
+        }
         redirect(action: "index")
     }
+
+    /*
+    * 解聘队员
+    * */
+
+    def dismiss() {
+        def team = Team.get(params.team)
+        def student = Student.get(params.student)
+        if (team && student) {
+            if (team.isMember(student)) {
+                team.students.remove(student)
+                teamService.save(team)
+                flash.message = "${student} 退出。"
+            }
+        } else {
+            flash.message = "找不到团队或者人员。"
+        }
+        redirect(action: "index")
+    }
+
+    /*
+    * 解散团队
+    * */
+
+    def disband(Team team) {
+        if ((team.students.size() < 1) && (team.teachers.size() < 1)) {
+            teamService.delete(team.id)
+        } else {
+            flash.message = "请先解聘队员..."
+        }
+        redirect(action: "index")
+    }
+
+    /*
+    * 招募学生
+    * */
 
     def enlistStudent() {
         println("${params} ....")
         def team = Team.get(params.team)
         if (team) {
-            def student = Student.findByName(params.name)
+            def student
+            if (params.code) {
+                student = Student.findByCode(params.code)
+            } else {
+                student = Student.findByName(params.name)
+            }
             if (student && (!team.isMember(student))) {
                 team.students.add(student)
                 teamService.save(team)

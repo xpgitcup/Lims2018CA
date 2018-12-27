@@ -20,6 +20,10 @@ class Progress {
         upProgress(nullable: true)
     }
 
+    static mapping = {
+        sort recordDate: 'desc'
+    }
+
     String toString() {
         return "${thing}.${recordDate}"
     }
